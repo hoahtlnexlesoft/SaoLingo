@@ -36,3 +36,11 @@ Dùng Web Speech API của trình duyệt (Chrome, Edge, Safari). Điểm = tỉ
 ## Dữ liệu
 
 Tiến độ lưu trong trình duyệt của máy (localStorage). Xóa dữ liệu trình duyệt sẽ mất tiến độ; đồng bộ nhiều thiết bị cần thêm tài khoản và database.
+
+## Tài khoản & đồng bộ (Supabase)
+
+- Dự án Supabase: `saolingo` (ap-southeast-1), bảng `public.user_progress` có RLS: mỗi người chỉ đọc/ghi dòng của mình.
+- Đăng nhập: link qua email (không mật khẩu) và Google.
+- Sau khi có domain Vercel: Supabase → Authentication → URL Configuration → đặt **Site URL** = domain đó, thêm vào **Redirect URLs**.
+- Google: Supabase → Authentication → Providers → Google, dán Client ID/Secret từ Google Cloud.
+- Tiến độ lưu ở máy và tự đồng bộ lên tài khoản (bản mới hơn sẽ thắng).
