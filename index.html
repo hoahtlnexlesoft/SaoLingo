@@ -2386,7 +2386,8 @@ svg.ph.ln.sv .d2{transform:translate(12%,10%) scale(1)!important}
 :root[data-theme="dark"] .in-blob{background:radial-gradient(circle at 35% 30%,#3A3460,#1D1B2A)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .in-blob{background:radial-gradient(circle at 35% 30%,#3A3460,#1D1B2A)}:root:not([data-theme="light"]) .intro{background:linear-gradient(180deg,#1D1A2E 0%,var(--bg) 70%)}}
 :root[data-theme="dark"] .intro{background:linear-gradient(180deg,#1D1A2E 0%,var(--bg) 70%)}
-.screen .intro{inset:54px 0 0;padding-top:10px}
+.screen .intro{inset:0;padding-top:64px}
+.screen:has(.intro) .statusbar{position:relative;z-index:95}
 .in-login{font-size:13.5px;color:var(--muted);padding:4px 8px;margin-top:-6px}.in-login b{color:var(--gold)}
 img.acct-av{object-fit:cover;background:var(--surface-2)}
 </style>
