@@ -1,0 +1,6 @@
+{
+  "name": "elocu-english",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" }
+}

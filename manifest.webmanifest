@@ -1,0 +1,23 @@
+{
+  "name": "Sandra English",
+  "short_name": "Sandra",
+  "description": "Luyện nghe, nói và phát âm tiếng Anh mỗi ngày.",
+  "lang": "vi",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F2FC",
+  "theme_color": "#EAF5DF",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Luyện phát âm", "url": "/#speak", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Hội thoại AI", "url": "/#talk", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Ôn từ vựng", "url": "/#words", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
