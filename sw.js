@@ -1,5 +1,5 @@
 /* Elocu service worker: offline shell + daily reminder checks. */
-const VERSION = 'elocu-v98';
+const VERSION = 'elocu-v100';
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
 const STATE_CACHE = 'elocu-state';
 const STATE_URL = '/__elocu_state';
@@ -70,7 +70,7 @@ self.addEventListener('periodicsync', e => { if (e.tag === 'daily-reminder') e.w
 /* Server push (optional, see README): payload {title, body, url} */
 self.addEventListener('push', e => {
   let p = {}; try { p = e.data ? e.data.json() : {}; } catch { p = { body: e.data?.text() }; }
-  e.waitUntil(self.registration.showNotification(p.title || 'Sandra English', {
+  e.waitUntil(self.registration.showNotification(p.title || 'SáoLingo', {
     body: p.body || 'Đến giờ luyện tiếng Anh rồi.', icon: '/icons/icon-192.png', tag: 'daily-reminder', data: { url: p.url || '/#home' },
   }));
 });
