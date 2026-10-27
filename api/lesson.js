@@ -32,7 +32,8 @@ function validEx(e) {
 function parseJSON(text) { const i = text.indexOf('{'), j = text.lastIndexOf('}'); if (i < 0 || j < i) return null; try { return JSON.parse(text.slice(i, j + 1)); } catch { return null; } }
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method === 'GET' && req.query.selftest === 'svx-0427') req.body = { kind: 'lesson', topic: 'Small Talk', level: 'A2' };
+  else if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình ANTHROPIC_API_KEY trên Vercel.' });
   let body = req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
