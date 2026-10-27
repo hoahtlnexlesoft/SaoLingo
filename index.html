@@ -3020,6 +3020,26 @@ input[type="range"]{background:transparent!important;min-height:0;accent-color:v
 .tx-tg[aria-pressed="true"]{background:color-mix(in srgb,#7B5CFF 14%,transparent);color:#6A4BFF}
 .tx-hint{margin:0;font-size:13px;color:var(--muted);font-weight:600;cursor:pointer}
 .transcript.hide{cursor:pointer}
+/* mic: animated sound bars while listening */
+.wv{display:none;align-items:center;justify-content:center;gap:3px;height:22px}
+.wv i{display:block;width:3.5px;height:8px;border-radius:3px;background:currentColor;animation:wvB .9s ease-in-out infinite}
+.wv i:nth-child(2){animation-delay:.15s}.wv i:nth-child(3){animation-delay:.3s}.wv i:nth-child(4){animation-delay:.45s}
+@keyframes wvB{0%,100%{height:6px}50%{height:20px}}
+#t-mic.live,.mic-in-b.live{background:#F0506E!important;color:#fff!important;opacity:1!important;animation:micPulse 1.2s ease-in-out infinite}
+#t-mic.live>svg,.mic-in-b.live>svg{display:none!important}
+#t-mic.live .wv,.mic-in-b.live .wv{display:flex}
+/* tutor chat colours from the intro */
+.screen .msg.me .bub{background:linear-gradient(135deg,#B0306E,#D9437E)!important;color:#fff!important}
+.screen .msgs .fix:not(.okay){background:#FFF8E1!important;border:1px solid #FFE19A!important;color:#3A2A00!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .screen .msgs .fix:not(.okay){background:rgba(255,212,94,.12)!important;border-color:rgba(255,212,94,.35)!important;color:#FFE7A3!important}}
+:root[data-theme="dark"] .screen .msgs .fix:not(.okay){background:rgba(255,212,94,.12)!important;border-color:rgba(255,212,94,.35)!important;color:#FFE7A3!important}
+.screen .tabbar button.nv-speak[aria-current="page"] .nv-l rect{fill:#45AAF2!important;fill-opacity:1}
+.screen .tabbar button.nv-speak[aria-current="page"] .nv-f path{stroke:#fff!important}
+.screen .tabbar button.nv-speak[aria-current="page"] .nv-b{opacity:0!important}
+.screen .tabbar .nv-speak{--nvc:#45AAF2}
+.screen .tabbar button.nv[aria-current="page"]{color:var(--fg)!important;background:rgba(236,236,243,.92)!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .screen .tabbar button.nv[aria-current="page"]{color:#fff!important;background:rgba(72,72,86,.92)!important}}
+:root[data-theme="dark"] .screen .tabbar button.nv[aria-current="page"]{color:#fff!important;background:rgba(72,72,86,.92)!important}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -4433,7 +4453,7 @@ function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
 function attachMic(ta){
   if(!ta||ta.dataset.mic)return; ta.dataset.mic=1;
   const w=document.createElement('div'); w.className='mic-in'; ta.parentNode.insertBefore(w,ta); w.appendChild(ta);
-  const b=document.createElement('button'); b.type='button'; b.className='mic-in-b'; b.setAttribute('aria-label','Nói thay vì gõ'); b.innerHTML=I.mic; w.appendChild(b);
+  const b=document.createElement('button'); b.type='button'; b.className='mic-in-b'; b.setAttribute('aria-label','Nói thay vì gõ'); b.innerHTML=I.mic+'<span class="wv" aria-hidden="true"><i></i><i></i><i></i><i></i></span>'; w.appendChild(b);
   let tok=0;
   const fire=()=>{ta.dispatchEvent(new Event('input',{bubbles:true}))};
   b.onclick=async()=>{
@@ -5399,7 +5419,7 @@ function viewTalk(v){
         <button class="icon-btn" id="t-reset" aria-label="Bắt đầu lại hội thoại" title="Bắt đầu lại hội thoại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button></div></div>
       <div class="msgs" id="msgs"></div>
       <div class="composer">
-        <button class="icon-btn" id="t-mic" aria-label="Nói bằng micro">${I.mic}</button>
+        <button class="icon-btn" id="t-mic" aria-label="Nói bằng micro">${I.mic}<span class="wv" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button>
         <textarea class="field" id="t-in" rows="1" placeholder="Nhập tiếng Anh…"></textarea>
         <button class="icon-btn" id="t-send" aria-label="Gửi">${I.send}</button>
       </div>
@@ -5537,7 +5557,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v167';
+const APP_V='elocu-v168';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
