@@ -4709,7 +4709,7 @@ async function loadVOA(root){
   const box=$('[data-voa] .voa-body',root); if(!box)return;
   if(!VOA){try{const c=JSON.parse(localStorage.getItem('voa.cache')||'null'); if(c&&Date.now()-c.t<12*3600e3)VOA=c.d}catch(e){}}
   if(!VOA){
-    if(inClaude){box.innerHTML=`<p class="muted voa-note">Mở saovoxy.vercel.app để nghe các bài VOA.</p>`;return}
+    if(inClaude){box.closest('[data-voa]')?.remove();return}
     try{const r=await fetch('/api/voa'); const d=await r.json(); if(!r.ok||!d.shelves?.length)throw 0; VOA=d; try{localStorage.setItem('voa.cache',JSON.stringify({t:Date.now(),d}))}catch(e){}}
     catch(e){box.innerHTML=`<p class="muted voa-note">Chưa tải được bài VOA. Kiểm tra mạng rồi thử lại sau nhé.</p>`;return}
   }
