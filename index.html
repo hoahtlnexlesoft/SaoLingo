@@ -2942,6 +2942,25 @@ input[type="range"]{background:transparent!important;min-height:0;accent-color:v
 .screen .tabbar button.nv:not([aria-current="page"]){color:#2A2838!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .screen .tabbar button.nv:not([aria-current="page"]){color:#E6E4EE!important}}
 :root[data-theme="dark"] .screen .tabbar button.nv:not([aria-current="page"]){color:#E6E4EE!important}
+
+/* ===== Unified palette: violet brand + rose accent + one warm tone ===== */
+:root:not([data-palette="vivid"]){--lilac:#EEEAFF;--sky:#E7ECFF;--pink:#FCE8F0;--peach:#F6E9F7;--sun:#FFF2DC;--lime:#ECE8FB}
+:root{--amb1:rgba(160,140,255,.34)!important;--amb2:rgba(150,170,255,.24)!important;--amb3:rgba(255,170,205,.26)!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--amb1:rgba(124,92,255,.22)!important;--amb2:rgba(90,100,230,.12)!important;--amb3:rgba(200,80,150,.12)!important}}
+:root[data-theme="dark"]{--amb1:rgba(124,92,255,.22)!important;--amb2:rgba(90,100,230,.12)!important;--amb3:rgba(200,80,150,.12)!important}
+.sh-eye,.cx-eye2{color:#7B5CFF!important}
+[style*="--uc"]{--uc:#7B5CFF!important}
+.mt-go{background:#7B5CFF!important}
+.screen .tabbar button.center[aria-current="page"] .cc{background:#5B3FE0!important}
+.screen .trackcard{background:var(--lilac)!important}
+
+/* dark: one violet-slate tile family */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--lilac:#262040!important;--pink:#2C1F33!important;--sky:#1F2238!important;--peach:#29203A!important;--sun:#2B2534!important;--lime:#232036!important}}
+:root[data-theme="dark"]{--lilac:#262040!important;--pink:#2C1F33!important;--sky:#1F2238!important;--peach:#29203A!important;--sun:#2B2534!important;--lime:#232036!important}
+.task.t-sky{--tc:#7B8CFF!important;--icF:#B9C2FF!important}.task.t-sun{--tc:#9C7BFF!important;--icF:#CDBEFF!important}.task.t-peach{--tc:#E8679A!important;--icF:#F6B8D0!important}
+.sprint h2 em,.screen .sprint h2 em{color:#7B5CFF!important;-webkit-text-fill-color:#7B5CFF!important;background:none!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sprint h2 em{color:#A996FF!important;-webkit-text-fill-color:#A996FF!important}}
+:root[data-theme="dark"] .sprint h2 em{color:#A996FF!important;-webkit-text-fill-color:#A996FF!important}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -4668,37 +4687,37 @@ const SHORTS=[
    {k:'good',en:'I really like coffee.',vi:'Dùng “really” trước động từ.',hl:'really'},
    {k:'good',en:'I like coffee very much.',vi:'Hoặc đặt “very much” ở cuối câu.',hl:'very much'}],
   q:['Chọn câu đúng',['I very love music.','I really love music.','I love very music.'],1]},
- {id:'final-s',tag:'Phát âm',title:'Đừng nuốt âm cuối',g:['#1F6FD6','#3ED6C2'],mood:'listen',sc:[
+ {id:'final-s',tag:'Phát âm',title:'Đừng nuốt âm cuối',g:['#4F4BD8','#8FA2FF'],mood:'listen',sc:[
    {k:'title',vi:'Âm cuối quyết định nghĩa của từ. “book” khác “books”!'},
    {k:'say',en:'books',ipa:'/bʊks/',vi:'Nghe rõ âm /s/ ở cuối.'},
    {k:'say',en:'She likes cats.',ipa:'/laɪks/ · /kæts/',vi:'Hai âm /s/ cuối đều phải bật ra.'},
    {k:'say',en:'dogs and birds',ipa:'/dɒɡz/ · /bɜːdz/',vi:'Sau âm hữu thanh, “s” đọc thành /z/.'}],
   q:['Từ nào kết thúc bằng âm /z/?',['cats','dogs','books'],1]},
- {id:'look',tag:'Cụm động từ',title:'look for · look after · look up',g:['#FF8A3D','#FF4F8B'],mood:'happy',sc:[
+ {id:'look',tag:'Cụm động từ',title:'look for · look after · look up',g:['#8A3FD1','#E8457A'],mood:'happy',sc:[
    {k:'title',vi:'Cùng là “look”, đi với giới từ khác nhau thì nghĩa khác hẳn.'},
    {k:'say',en:"I'm looking for my keys.",vi:'look for = tìm kiếm',hl:'looking for'},
    {k:'say',en:'She looks after her little brother.',vi:'look after = chăm sóc',hl:'looks after'},
    {k:'say',en:'Look it up in the dictionary.',vi:'look up = tra cứu',hl:'Look it up'}],
   q:['Can you ___ my cat this weekend?',['look for','look after','look up'],1]},
- {id:'how-are-you',tag:'Giao tiếp',title:'Thôi trả lời “Fine, thank you, and you?”',g:['#16916B','#C8E85A'],mood:'wink',sc:[
+ {id:'how-are-you',tag:'Giao tiếp',title:'Thôi trả lời “Fine, thank you, and you?”',g:['#6A4BFF','#C78BFF'],mood:'wink',sc:[
    {k:'title',vi:'Người bản xứ hiếm khi nói như sách giáo khoa. Thử mấy câu này nhé!'},
    {k:'good',en:'Not bad, thanks. You?',vi:'Cũng ổn, cảm ơn. Còn bạn?'},
    {k:'good',en:'Pretty good! Busy week, though.',vi:'Khá tốt! Tuần này hơi bận.'},
    {k:'good',en:"Can't complain.",vi:'Ổn cả, chẳng có gì phàn nàn.'}],
   q:['Câu nào nghe tự nhiên nhất?',['I am fine, thank you, and you?','Not bad, thanks. You?','I am very fine.'],1]},
- {id:'ed',tag:'Phát âm',title:'3 cách đọc đuôi -ed',g:['#B0306E','#FF9A5C'],mood:'listen',sc:[
+ {id:'ed',tag:'Phát âm',title:'3 cách đọc đuôi -ed',g:['#9B2F7A','#E8457A'],mood:'listen',sc:[
    {k:'title',vi:'Đuôi -ed có 3 cách đọc: /t/, /d/ và /ɪd/.'},
    {k:'say',en:'worked, stopped, watched',ipa:'/t/',vi:'Sau âm vô thanh (k, p, s, ch, sh, f) → /t/'},
    {k:'say',en:'played, called, loved',ipa:'/d/',vi:'Sau âm hữu thanh và nguyên âm → /d/'},
    {k:'say',en:'wanted, needed, decided',ipa:'/ɪd/',vi:'Sau t hoặc d → /ɪd/, thêm một âm tiết.'}],
   q:['“needed” đọc đuôi -ed là?',['/t/','/d/','/ɪd/'],2]},
- {id:'idioms',tag:'Thành ngữ',title:'3 thành ngữ dùng hằng ngày',g:['#7B5CFF','#3FAEF0'],mood:'cheer',sc:[
+ {id:'idioms',tag:'Thành ngữ',title:'3 thành ngữ dùng hằng ngày',g:['#7B5CFF','#A38BFF'],mood:'cheer',sc:[
    {k:'title',vi:'Thành ngữ giúp bạn nói chuyện tự nhiên như người bản xứ.'},
    {k:'say',en:'The test was a piece of cake.',vi:'a piece of cake = dễ như ăn bánh',hl:'a piece of cake'},
    {k:'say',en:"Let's play a game to break the ice.",vi:'break the ice = phá vỡ sự ngại ngùng',hl:'break the ice'},
    {k:'say',en:"I'm feeling a bit under the weather.",vi:'under the weather = hơi mệt, không khỏe',hl:'under the weather'}],
   q:['“I’m under the weather” nghĩa là gì?',['Tôi đang ở ngoài trời mưa','Tôi hơi mệt','Tôi rất vui'],1]},
- {id:'make-do',tag:'Từ vựng',title:'make hay do?',g:['#FF4F8B','#FFBE0B'],mood:'think',sc:[
+ {id:'make-do',tag:'Từ vựng',title:'make hay do?',g:['#B23C8C','#F07AA6'],mood:'think',sc:[
    {k:'title',vi:'“make” là tạo ra cái mới, “do” là làm một việc, một nhiệm vụ.'},
    {k:'good',en:'make a decision, make a mistake',vi:'make: ra quyết định, mắc lỗi',hl:'make'},
    {k:'good',en:'do homework, do the dishes',vi:'do: làm bài tập, rửa bát',hl:'do'},
@@ -4710,13 +4729,13 @@ const SHORTS=[
    {k:'good',en:'Could you please send me the report today?',vi:'Bạn có thể gửi tôi báo cáo hôm nay không?',hl:'Could you please'},
    {k:'good',en:'Would you mind checking this file?',vi:'Bạn có phiền kiểm tra file này giúp tôi không?',hl:'Would you mind'}],
   q:['Câu nào lịch sự nhất?',['Send me the file.','I want the file.','Could you please send me the file?'],2]},
- {id:'th',tag:'Phát âm',title:'Âm “th” — think, không phải sink',g:['#0B2A5B','#1F6FD6'],mood:'listen',sc:[
+ {id:'th',tag:'Phát âm',title:'Âm “th” — think, không phải sink',g:['#3B2A9E','#6F7BFF'],mood:'listen',sc:[
    {k:'title',vi:'Đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi nhẹ ra.'},
    {k:'say',en:'think, three, thank you',ipa:'/θ/',vi:'Âm /θ/ vô thanh: chỉ có hơi, không rung cổ.'},
    {k:'say',en:'this, that, mother',ipa:'/ð/',vi:'Âm /ð/ hữu thanh: rung nhẹ cổ họng.'},
    {k:'bad',en:'I sink so.',vi:'Đọc nhầm thành /s/ sẽ thành “chìm”!'}],
   q:['Khi đọc /θ/, lưỡi đặt ở đâu?',['Chạm vòm miệng','Giữa hai hàm răng','Cuộn ra sau'],1]},
- {id:'in-on-at',tag:'Ngữ pháp',title:'in · on · at chỉ thời gian',g:['#16916B','#3ED6C2'],mood:'wink',sc:[
+ {id:'in-on-at',tag:'Ngữ pháp',title:'in · on · at chỉ thời gian',g:['#5B3FE0','#9C7BFF'],mood:'wink',sc:[
    {k:'title',vi:'Mẹo nhớ: at cho giờ, on cho ngày, in cho khoảng thời gian dài.'},
    {k:'good',en:'See you at 7 pm.',vi:'at + giờ',hl:'at'},
    {k:'good',en:"We're meeting on Monday.",vi:'on + thứ, ngày',hl:'on'},
@@ -4849,7 +4868,7 @@ async function aiLesson(v,u){
 
 /* ---------- VOA Learning English: real-voice listening shelf ---------- */
 let VOA=null, voaShelf=0;
-function voaBoxHTML(){return `<section class="voa" data-voa><div class="sh-head"><div><span class="sh-eye" style="color:var(--n-sky)">Nghe VOA</span><b>Giọng người thật, tiếng Anh chậm</b></div><span class="sh-cnt">VOA</span></div><div class="voa-body"><div class="voa-skel"><i></i><i></i><i></i></div></div></section>`}
+function voaBoxHTML(){return `<section class="voa" data-voa><div class="sh-head"><div><span class="sh-eye">Nghe VOA</span><b>Giọng người thật, tiếng Anh chậm</b></div><span class="sh-cnt">VOA</span></div><div class="voa-body"><div class="voa-skel"><i></i><i></i><i></i></div></div></section>`}
 async function loadVOA(root){
   const box=$('[data-voa] .voa-body',root); if(!box)return;
   if(!VOA){try{const c=JSON.parse(localStorage.getItem('voa.cache')||'null'); if(c&&Date.now()-c.t<12*3600e3)VOA=c.d}catch(e){}}
