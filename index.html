@@ -2683,7 +2683,7 @@ img.acct-av{object-fit:cover;background:var(--surface-2)}
 .shp-rail{position:absolute!important;right:10px;bottom:120px;display:flex;flex-direction:column;gap:14px}
 .shp-rail button{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;font-size:20px}
 .shp-rail button>svg,.shp-rail button>.pp{width:46px;height:46px;box-sizing:border-box;padding:12px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px)}
-.shp-rail button[data-a="next"]{font-size:26px;line-height:1}.shp-rail button[data-a="next"]::before{content:"";}
+
 .shp-rail small{font-size:10.5px;font-weight:700}
 .pp{position:relative;display:block}.pp::before,.pp::after{content:"";position:absolute;top:14px;width:5px;height:18px;border-radius:2px;background:#fff}.pp::before{left:15px}.pp::after{right:15px}
 .shp.paused .pp::before{left:17px;width:0;height:0;border-radius:0;background:none;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}.shp.paused .pp::after{display:none}
@@ -4602,7 +4602,7 @@ function playShort(idx){
       <div class="shp-top"><div class="shp-seg">${s.sc.map((_,i)=>`<i><b></b></i>`).join('')}<i><b></b></i></div>
         <div class="shp-row"><span class="shp-tag">${s.tag}</span><b class="shp-title">${s.title}</b><button class="shp-x" aria-label="Đóng">${I.close}</button></div></div>
       <div class="shp-stage" id="shp-stage"></div>
-      <div class="shp-rail"><button data-a="replay" aria-label="Nghe lại">${I.vol}<small>Nghe lại</small></button><button data-a="pause" aria-label="Tạm dừng"><span class="pp"></span><small>Dừng</small></button><button data-a="next" aria-label="Video tiếp">⌄<small>Tiếp</small></button></div>
+      <div class="shp-rail"><button data-a="replay" aria-label="Nghe lại">${I.vol}<small>Nghe lại</small></button><button data-a="pause" aria-label="Tạm dừng"><span class="pp"></span><small>Dừng</small></button><button data-a="next" aria-label="Video tiếp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg><small>Tiếp</small></button></div>
       <p class="shp-hint">Chạm hai bên để lùi/tới · Vuốt lên để xem video tiếp</p>`;
     el.querySelector('.shp-x').onclick=close;
     el.querySelector('[data-a="replay"]').onclick=e=>{e.stopPropagation(); const c=s.sc[si]; if(c&&c.en)say(c.en,.9)};
