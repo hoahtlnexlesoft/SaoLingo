@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     const per = Math.min(8, Math.max(2, +req.query.n || 5));
     const shelves = await Promise.all(SHELVES.map(async s => {
       const items = await feedItems(s.id, per + 3);
-      const eps = (await Promise.all(items.map(episode))).filter(Boolean).slice(0, per);
+      const seen = new Set(); const eps = (await Promise.all(items.map(episode))).filter(e => e && !seen.has(e.audio) && seen.add(e.audio)).slice(0, per);
       return { name: s.name, items: eps };
     }));
     return res.status(200).json({ shelves: shelves.filter(s => s.items.length), credit: 'VOA Learning English · learningenglish.voanews.com (public domain)' });
