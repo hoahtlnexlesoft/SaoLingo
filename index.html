@@ -3053,7 +3053,7 @@ const BIRD_PAL={
   mint:{acc:'#24B387',b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
   rose:{acc:'#D1376B',b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
 };
-let BIRD='violet'; try{const _s=JSON.parse(localStorage.getItem('elocu.v1')||'{}'); if(_s.bird)BIRD=_s.bird}catch(e){}
+let BIRD='violet'; try{const _s=JSON.parse(localStorage.getItem('elocu.v1')||'{}'); }catch(e){}
 function MASCOT(cls='',mood='idle',palKey){
   const P=BIRD_PAL[palKey||BIRD], uid='b'+(MASCOT._n=(MASCOT._n||0)+1);
   const ink='#2B1F5E', E1=[36,44], E2=[64,44], ES=1;
@@ -5455,7 +5455,7 @@ function regroupMe(v){
     ['learn','Học tập','Mục tiêu, chuyên ngành, xếp lớp','t-lime','lessons',[row('#goal-seg'),row('#track-choice'),row('#redo-place')]],
     ['remind','Nhắc học hằng ngày','Giờ nhắc, thông báo','t-sun','bell',[row('#sw-remind'),row('#remind-time'),row('#test-notif'),(()=>{const d=document.createElement('p'); d.className='note push-note'; d.innerHTML=sbUser?'<b>Nhắc từ máy chủ:</b> đang bật. Bạn vẫn nhận nhắc nhở cả khi app đóng (iPhone cần cài app ra màn hình chính).':'<b>Mẹo:</b> đăng nhập để nhận nhắc học cả khi app đang đóng, kể cả trên iPhone.'; return d})()]],
     ['sound','Âm thanh','Giọng đọc, tốc độ, hiệu ứng','t-sky','listen',[row('#voice-sel'),rateRow,sfxRow]],
-    ['look','Giao diện & ngôn ngữ','Chủ đề, màu, ngôn ngữ, tên','t-pink','palette',[row('#theme-seg'),palRow,birdRow,langRow,row('#name-in')]],
+    ['look','Giao diện & ngôn ngữ','Chủ đề, màu, ngôn ngữ, tên','t-pink','palette',[row('#theme-seg'),palRow,langRow,row('#name-in')]],
     ['app','Ứng dụng','Cài app, giới thiệu, xoá dữ liệu','t-lilac','phone',[...installBits,(()=>{const d=document.createElement('div'); d.className='setrow'; d.innerHTML='<div class="t"><b>Xem lại giới thiệu</b><span>4 trang giới thiệu SáoVoxy cùng Sáo</span></div><button class="btn" id="replay-intro">Xem</button>'; d.querySelector('button').onclick=()=>introSlides(()=>go('me',true)); return d})(),row('#reset'),$('#reset-confirm',v)]],
   ];
   const right={acct:sbUser?'Đã đăng nhập':'Chưa',remind:S.remind.on?S.remind.time:'Đang tắt',learn:S.goal+' XP',look:(S.lang==='en'?'EN':'VI')};
