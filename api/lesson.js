@@ -1,6 +1,6 @@
 // Vercel serverless function: AI-generated practice for SáoVoxy.
 // kind=lesson → fresh exercises for a topic/level; kind=reading → comprehension questions + glossary for a passage.
-const MODEL = process.env.ELOCU_MODEL || 'claude-haiku-5-5';
+import { aiText, aiProvider } from './_ai.js';
 const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1'];
 
 const LESSON_SYS = `You write English practice for Vietnamese learners. Output ONLY a JSON object, no prose, no code fences.
@@ -34,8 +34,7 @@ function parseJSON(text) { const i = text.indexOf('{'), j = text.lastIndexOf('}'
 export default async function handler(req, res) {
   const self = req.method === 'GET' && req.query.selftest === 'svx-0427';
   if (!self && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình ANTHROPIC_API_KEY trên Vercel.' });
+  if (!aiProvider()) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình khoá AI trên Vercel.' });
   let body = self ? { kind: 'lesson', topic: 'Small Talk', level: 'A2' } : req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   const kind = body?.kind === 'reading' ? 'reading' : 'lesson';
   let system, user;
@@ -51,14 +50,7 @@ export default async function handler(req, res) {
     system = READING_SYS; user = `Title: ${clean(body?.title, 160)}\n\n${text}`;
   }
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 2000, system, messages: [{ role: 'user', content: user }] }),
-    });
-    const data = await r.json();
-    if (!r.ok) return res.status(r.status === 429 ? 429 : 502).json({ error: r.status === 429 ? 'rate_limited' : 'upstream_error', message: data?.error?.message || 'AI lỗi.' });
-    const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+    const text = await aiText({ system, turns: [{ role: 'user', content: user }], maxTokens: 2500, json: true });
     const j = parseJSON(text);
     if (kind === 'lesson') {
       const ex = (j?.ex || []).map(validEx).filter(Boolean);
@@ -70,6 +62,7 @@ export default async function handler(req, res) {
     const vocab = (j?.vocab || []).filter(v => Array.isArray(v) && v[0] && v[1]).slice(0, 8).map(v => [clean(v[0], 40), clean(v[1], 80)]);
     return res.status(200).json({ summary: clean(j?.summary, 400), vocab, qs });
   } catch (err) {
-    return res.status(502).json({ error: 'upstream_error', message: 'Không kết nối được AI.', detail: self ? String(err && err.message) : undefined });
+    const status = err.status === 429 ? 429 : 502;
+    return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.', provider: self ? aiProvider() : undefined });
   }
 }

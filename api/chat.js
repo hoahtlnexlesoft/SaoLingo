@@ -1,11 +1,10 @@
 // Vercel serverless function: AI conversation tutor for Elocu.
-// Needs the environment variable ANTHROPIC_API_KEY (Vercel → Project → Settings → Environment Variables).
-const MODEL = process.env.ELOCU_MODEL || 'claude-haiku-5-5';
+// Needs GEMINI_API_KEY (free, aistudio.google.com) or ANTHROPIC_API_KEY in Vercel → Project → Settings → Environment Variables.
+import { aiText, aiProvider } from './_ai.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-  const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình ANTHROPIC_API_KEY trên Vercel.' });
+  if (!aiProvider()) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình khoá AI trên Vercel.' });
 
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = null; } }
@@ -20,19 +19,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 400, system, messages }),
-    });
-    const data = await r.json();
-    if (!r.ok) {
-      const status = r.status === 429 ? 429 : 502;
-      return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: data?.error?.message || 'AI lỗi.' });
-    }
-    const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('').trim();
+    const text = await aiText({ system, turns: messages, maxTokens: 400 });
     return res.status(200).json({ text });
   } catch (err) {
-    return res.status(502).json({ error: 'upstream_error', message: 'Không kết nối được AI.' });
+    const status = err.status === 429 ? 429 : 502;
+    return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.' });
   }
 }
