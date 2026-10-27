@@ -1,6 +1,6 @@
 // Vercel serverless function: AI subtitles (English transcript + Vietnamese translation) for a VOA Learning English MP3.
 // VOA audio is public domain. Uses the free Gemini key (GEMINI_API_KEY). Results are cached at the CDN for a year.
-export const config = { maxDuration: 120 };
+export const config = { maxDuration: 300 };
 const OK_HOST = /^https:\/\/voa-audio\.voanews\.eu\/[\w\/\-.]+\.mp3$/;
 const PROMPT = `Transcribe this English audio (VOA Learning English) for a Vietnamese learner.
 Return ONLY JSON: {"segs":[{"t":<start time in seconds, number>,"en":"<one sentence, exactly as spoken>","vi":"<natural Vietnamese translation>"}]}
@@ -16,18 +16,23 @@ export default async function handler(req, res) {
     if (!a.ok) return res.status(502).json({ error: 'audio_fetch' });
     const buf = Buffer.from(await a.arrayBuffer());
     if (buf.length > 18 * 1024 * 1024) return res.status(413).json({ error: 'too_long', message: 'Bài quá dài để tạo phụ đề.' });
-    const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.5-flash'].filter(Boolean))];
+    const models = [...new Set([process.env.GEMINI_CAPTION_MODEL, 'gemini-flash-lite-latest', 'gemini-flash-latest'].filter(Boolean))];
+    const t0 = Date.now();
     let last = 'AI lỗi.';
     for (const model of models) {
       for (let attempt = 0; attempt < 2; attempt++) {
-        const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+        if (Date.now() - t0 > 200000) break;
+        let r;
+        try { r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
           method: 'POST',
           headers: { 'content-type': 'application/json', 'x-goog-api-key': key.trim() },
           body: JSON.stringify({
             contents: [{ role: 'user', parts: [{ inline_data: { mime_type: 'audio/mp3', data: buf.toString('base64') } }, { text: PROMPT }] }],
             generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 32000, temperature: 0.2 },
           }),
-        });
+          signal: AbortSignal.timeout(150000),
+        }); } catch (e) { console.log('caption', model, 'timeout/err', e.name, Date.now() - t0); last = 'AI phản hồi quá lâu.'; break; }
+        console.log('caption', model, r.status, Date.now() - t0);
         const data = await r.json().catch(() => ({}));
         if (r.ok) {
           const text = (data.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
