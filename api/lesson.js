@@ -25,17 +25,16 @@ function validEx(e) {
     return { t: 'listen', s: clean(e.s, 160), p: 'Câu bạn vừa nghe có nghĩa là gì?', o: e.o.map(x => clean(x, 120)), a: e.a };
   if (e.t === 'build' && e.p && e.a && Array.isArray(e.d)) {
     const a = clean(e.a, 120).replace(/[.?!]+$/, ''); if (a.split(' ').length < 2 || a.split(' ').length > 12) return null;
-    return { t: 'build', p: clean(e.p), a, d: e.d.slice(0, 3).map(x => clean(x, 20)).filter(Boolean) };
+    return { t: 'build', p: clean(e.p), a, d: e.d.slice(0, 3).map(x => clean(x, 20).split(' ')[0]).filter(Boolean) };
   }
   return null;
 }
 function parseJSON(text) { const i = text.indexOf('{'), j = text.lastIndexOf('}'); if (i < 0 || j < i) return null; try { return JSON.parse(text.slice(i, j + 1)); } catch { return null; } }
 
 export default async function handler(req, res) {
-  const self = req.method === 'GET' && req.query.selftest === 'svx-0427';
-  if (!self && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!aiProvider()) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình khoá AI trên Vercel.' });
-  let body = self ? { kind: 'lesson', topic: 'Small Talk', level: 'A2' } : req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
+  let body = req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   const kind = body?.kind === 'reading' ? 'reading' : 'lesson';
   let system, user;
   if (kind === 'lesson') {
@@ -63,6 +62,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ summary: clean(j?.summary, 400), vocab, qs });
   } catch (err) {
     const status = err.status === 429 ? 429 : 502;
-    return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.', provider: self ? aiProvider() : undefined });
+    return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.' });
   }
 }
