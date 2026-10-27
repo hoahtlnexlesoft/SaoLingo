@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     if (!a.ok) return res.status(502).json({ error: 'audio_fetch' });
     const buf = Buffer.from(await a.arrayBuffer());
     if (buf.length > 18 * 1024 * 1024) return res.status(413).json({ error: 'too_long', message: 'Bài quá dài để tạo phụ đề.' });
-    const models = [...new Set([process.env.GEMINI_CAPTION_MODEL, 'gemini-flash-lite-latest', 'gemini-flash-latest'].filter(Boolean))];
+    const models = [...new Set([process.env.GEMINI_CAPTION_MODEL, 'gemini-flash-lite-latest', 'gemini-3.5-flash-lite', 'gemini-flash-latest', 'gemini-3.8-flash'].filter(Boolean))];
     const t0 = Date.now();
     let last = 'AI lỗi.';
     for (const model of models) {

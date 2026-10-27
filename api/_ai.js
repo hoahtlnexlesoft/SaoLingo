@@ -10,7 +10,7 @@ export async function aiText({ system, turns, maxTokens = 400, json = false }) {
   if (!p) { const e = new Error('Chưa cấu hình khoá AI trên Vercel.'); e.code = 'missing_key'; throw e; }
   if (p === 'gemini') {
     // try the configured model, then lighter fallbacks when Google reports overload or quota
-    const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-flash-lite-latest', 'gemini-2.5-flash-lite'].filter(Boolean))];
+    const models = [...new Set([process.env.GEMINI_MODEL, 'gemini-flash-latest', 'gemini-3.8-flash', 'gemini-flash-lite-latest', 'gemini-3.5-flash-lite'].filter(Boolean))];
     let last;
     for (const model of models) {
       for (let attempt = 0; attempt < 2; attempt++) {
