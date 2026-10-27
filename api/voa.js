@@ -1,0 +1,52 @@
+// Vercel serverless function: VOA Learning English reader.
+// VOA Learning English texts and MP3s are public domain (credit learningenglish.voanews.com);
+// stories credited to AP, Reuters or AFP are copyrighted and are filtered out here.
+const BASE = 'https://learningenglish.voanews.com/api/';
+const FEEDS = ['z-ptqml-vomx-tper-kqy','z-qvqvl-vomx-tperkuqt','zt-pq_l-vomx-tpekyyqv','zgptqil-vomx-tpe-jkqm','z-viqql-vomx-tpero_qq','zbptq_l-vomx-tpeq-kqv','zj-pqrl-vomx-tpebyyqo','z_yrool-vomx-tpevrioq'];
+const ID_RE = /^[a-z0-9_\-$]{6,40}$/i;
+
+const decode = s => String(s || '')
+  .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+  .replace(/&nbsp;/g, ' ').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, '&');
+const tag = (xml, name) => { const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, 'i')); return m ? decode(m[1]).trim() : ''; };
+const toParas = html => decode(html)
+  .replace(/<\s*(br|\/p|\/h\d|\/li)[^>]*>/gi, '\n')
+  .replace(/<[^>]+>/g, '')
+  .split(/\n+/).map(t => t.replace(/\s+/g, ' ').trim()).filter(Boolean);
+const WIRE = /\b(Associated Press|AP|Reuters|AFP|Agence France-Presse)\b/;
+
+async function getFeed(id) {
+  const r = await fetch(BASE + id, { headers: { 'user-agent': 'SaoVoxy/1.0 (+https://saovoxy.vercel.app)' } });
+  if (!r.ok) throw new Error('feed ' + r.status);
+  const xml = await r.text();
+  const channel = tag(xml.split('<item')[0], 'title');
+  const items = (xml.match(/<item[\s\S]*?<\/item>/gi) || []).map(it => {
+    const enc = (it.match(/<enclosure[^>]*url="([^"]+)"[^>]*type="audio[^"]*"/i) || it.match(/<enclosure[^>]*type="audio[^"]*"[^>]*url="([^"]+)"/i) || [])[1] || '';
+    const body = tag(it, 'content:encoded') || tag(it, 'description');
+    const paras = toParas(body);
+    return { title: tag(it, 'title'), link: tag(it, 'link'), date: tag(it, 'pubDate'), audio: enc, author: tag(it, 'author') || tag(it, 'dc:creator'), paras };
+  });
+  return { channel, items };
+}
+
+export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+  try {
+    if (req.query.list) {
+      const out = await Promise.all(FEEDS.map(async id => { try { const f = await getFeed(id); return { id, channel: f.channel, n: f.items.length, withText: f.items.filter(i => i.paras.length > 3).length, withAudio: f.items.filter(i => i.audio).length }; } catch (e) { return { id, error: String(e.message) }; } }));
+      return res.status(200).json({ feeds: out });
+    }
+    const id = String(req.query.feed || FEEDS[0]);
+    if (!ID_RE.test(id)) return res.status(400).json({ error: 'bad_feed' });
+    const f = await getFeed(id);
+    const items = f.items
+      .filter(i => i.title && i.paras.length >= 3)
+      .filter(i => !WIRE.test(i.author) && !i.paras.slice(-4).some(p => WIRE.test(p) && p.length < 160))
+      .slice(0, 20)
+      .map(i => ({ ...i, paras: i.paras.slice(0, 40) }));
+    return res.status(200).json({ channel: f.channel, items, credit: 'VOA Learning English (learningenglish.voanews.com), public domain' });
+  } catch (e) {
+    return res.status(502).json({ error: 'upstream_error', message: 'Không tải được bài VOA.' });
+  }
+}
