@@ -1,4 +1,4 @@
-# SáoLingo
+# SáoVoxy
 
 Ứng dụng luyện tiếng Anh cài được lên điện thoại (PWA): nghe & chép chính tả, phát âm có chấm điểm, bài học kiểu Duolingo, hội thoại với gia sư AI, thẻ từ vựng lặp lại ngắt quãng, cấp độ CEFR A1–C2, chuỗi ngày học và nhắc học hằng ngày.
 

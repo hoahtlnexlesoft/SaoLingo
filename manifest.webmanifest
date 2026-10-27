@@ -1,7 +1,7 @@
 {
-  "name": "SáoLingo",
-  "short_name": "SáoLingo",
-  "description": "SáoLingo – chú sáo học ngôn ngữ. Luyện nghe, nói, phát âm và từ vựng tiếng Anh mỗi ngày, gần gũi với người Việt.",
+  "name": "SáoVoxy",
+  "short_name": "SáoVoxy",
+  "description": "SáoVoxy – chú sáo học ngôn ngữ. Luyện nghe, nói, phát âm và từ vựng tiếng Anh mỗi ngày, gần gũi với người Việt.",
   "lang": "vi",
   "start_url": "/?source=pwa",
   "scope": "/",
