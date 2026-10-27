@@ -4382,7 +4382,7 @@ function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
   r.onend=()=>{clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
   try{r.start(); activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){micState='blocked'; rej('unavailable')}
 })}
-function stopRec(){try{activeRec?.stop()}catch(e){} activeRec=null}
+function stopRec(hard){const r=activeRec; activeRec=null; try{hard?r?.abort():r?.stop()}catch(e){}}
 
 /* A reusable speak-and-score block. onDone(score) */
 function micBlock(host,target,onDone){
@@ -5355,14 +5355,17 @@ function viewTalk(v){
   inp.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
   $('#t-send').onclick=send;
   const micB=$('#t-mic');
-  let recTok=0;
+  let recTok=0, lastSent='';
+  const stripSent=t=>{const a=lastSent.toLowerCase().replace(/[^a-z0-9' ]/g,'').trim(); if(!a)return t; const w=t.split(/\s+/); let k=0, acc='';
+    for(;k<w.length;k++){acc=(acc+' '+w[k].toLowerCase().replace(/[^a-z0-9']/g,'')).trim(); if(acc===a){return w.slice(k+1).join(' ')} if(!a.startsWith(acc))break}
+    return t};
   const micOff=()=>inClaude||micState==='none'||micState==='blocked'; if(micOff())micB.style.opacity=.45;
   micB.onclick=async()=>{ if(micOff()){showAlert('mic',micState==='none'?'none':'blocked');return} if(micB.classList.contains('live')){stopRec();return} micB.classList.add('live');
-    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; const my=++recTok; try{const alts=await recognize(t=>{if(my!==recTok)return; inp.value=base+t; inp.oninput()},2600); if(my===recTok){inp.value=base+alts[0]; inp.oninput()}}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micState==='none'?'none':'blocked')}}
+    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; const my=++recTok; try{const alts=await recognize(t=>{if(my!==recTok)return; inp.value=base+stripSent(t); inp.oninput()},2600); if(my===recTok){inp.value=base+stripSent(alts[0]); inp.oninput()}}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micState==='none'?'none':'blocked')}}
     finally{micB.classList.remove('live')}};
   async function send(){
-    recTok++; if(micB.classList.contains('live')){stopRec(); micB.classList.remove('live')}
-    const text=inp.value.trim(); if(!text)return;
+    recTok++; stopRec(true); micB.classList.remove('live')
+    const text=inp.value.trim(); if(!text)return; lastSent=text;
     if(aiMode==='none'||aiMode==='nokey'){toast('Gia sư AI chưa khả dụng');return}
     inp.value=''; inp.oninput();
     const me={role:'user',content:text}; list.push(me);
@@ -5464,7 +5467,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v154';
+const APP_V='elocu-v155';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -5519,7 +5522,7 @@ function regroupMe(v){
     ['remind','Nhắc học hằng ngày','Giờ nhắc, thông báo','t-sun','bell',[row('#sw-remind'),row('#remind-time'),row('#test-notif'),(()=>{const d=document.createElement('p'); d.className='note push-note'; d.innerHTML=sbUser?'<b>Nhắc từ máy chủ:</b> đang bật. Bạn vẫn nhận nhắc nhở cả khi app đóng (iPhone cần cài app ra màn hình chính).':'<b>Mẹo:</b> đăng nhập để nhận nhắc học cả khi app đang đóng, kể cả trên iPhone.'; return d})()]],
     ['sound','Âm thanh','Giọng đọc, tốc độ, hiệu ứng','t-sky','listen',[row('#voice-sel'),rateRow,sfxRow]],
     ['look','Giao diện & ngôn ngữ','Chủ đề, màu, ngôn ngữ, tên','t-pink','palette',[row('#theme-seg'),palRow,langRow,row('#name-in')]],
-    ['app','Ứng dụng','Cài app, giới thiệu, xoá dữ liệu','t-lilac','phone',[...installBits,(()=>{const d=document.createElement('div'); d.className='setrow'; d.innerHTML='<div class="t"><b>Xem lại giới thiệu</b><span>4 trang giới thiệu SáoVoxy cùng Sáo</span></div><button class="btn" id="replay-intro">Xem</button>'; d.querySelector('button').onclick=()=>introSlides(()=>go('me',true)); return d})(),row('#reset'),$('#reset-confirm',v)]],
+    ['app','Ứng dụng','Cài app, giới thiệu, xoá dữ liệu · '+APP_V.replace('elocu-',''),'t-lilac','phone',[...installBits,(()=>{const d=document.createElement('div'); d.className='setrow'; d.innerHTML='<div class="t"><b>Xem lại giới thiệu</b><span>4 trang giới thiệu SáoVoxy cùng Sáo</span></div><button class="btn" id="replay-intro">Xem</button>'; d.querySelector('button').onclick=()=>introSlides(()=>go('me',true)); return d})(),row('#reset'),$('#reset-confirm',v)]],
   ];
   const right={acct:sbUser?'Đã đăng nhập':'Chưa',remind:S.remind.on?S.remind.time:'Đang tắt',learn:S.goal+' XP',look:(S.lang==='en'?'EN':'VI')};
   const menu=document.createElement('section'); menu.className='set-menu';
