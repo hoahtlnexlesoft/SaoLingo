@@ -2975,6 +2975,13 @@ input[type="range"]{background:transparent!important;min-height:0;accent-color:v
 .screen .mt.bad{border-color:#F0506E!important;background:color-mix(in srgb,#F0506E 12%,var(--surface))!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .screen .mt.ok{color:#6EE3A0!important}}
 :root[data-theme="dark"] .screen .mt.ok{color:#6EE3A0!important}
+.mic-in{position:relative;width:100%}
+.mic-in textarea{padding-right:58px!important;width:100%;box-sizing:border-box}
+.mic-in-b{position:absolute;right:8px;bottom:8px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#7B5CFF;color:#fff;border:0;transition:transform .15s,background .2s}
+.mic-in-b svg{width:20px;height:20px}
+.mic-in-b:active{transform:scale(.92)}
+.mic-in-b.live{background:#F0506E;animation:micPulse 1.2s ease-in-out infinite}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(240,80,110,.45)}50%{box-shadow:0 0 0 10px rgba(240,80,110,0)}}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -3954,7 +3961,7 @@ const EN={
 "Dịch sang tiếng Anh":"Translate into English","Email, cuộc họp, hẹn deadline lịch sự.":"Emails, meetings and polite deadlines.",
 "Gia sư AI":"AI tutor","Gia sư AI theo 6 tình huống thực tế":"AI tutor across 6 real-life scenarios","Gia sư AI theo tình huống: công sở, phỏng vấn, du lịch, IELTS":"AI tutor by scenario: office, interviews, travel, IELTS",
 "Giao diện":"Appearance","Giao tiếp, công sở, du lịch":"Conversation, office, travel","Giám khảo · B2–C1":"Examiner · B2–C1","Giọng chuẩn":"Clear voice","Giọng đọc":"Voice","Giờ nhắc":"Reminder time",
-"Gõ lại chính xác những gì bạn nghe…":"Type exactly what you hear…","Gọi món & small talk · A2–B1":"Ordering & small talk · A2–B1","Gửi":"Send","Gửi một thông báo mẫu ngay bây giờ":"Send a sample notification now","Gửi thử":"Send test",
+"Gõ hoặc bấm micro để nói lại câu bạn nghe…":"Type, or tap the mic and say what you heard…","Gõ hoặc nói câu bạn nghe được…":"Type or say what you hear…","Nói thay vì gõ":"Speak instead of typing","Gọi món & small talk · A2–B1":"Ordering & small talk · A2–B1","Gửi":"Send","Gửi một thông báo mẫu ngay bây giờ":"Send a sample notification now","Gửi thử":"Send test",
 "Hiểu bài":"Comprehension","Hiện hoặc ẩn lời":"Show or hide transcript","Hoàn thành # vòng":"Finish # rounds","Hoàn thành cả 3 vòng":"Finish all 3 rounds","Huy hiệu":"Badges",
 "Hành trình tiếng Anh của bạn bắt đầu từ hôm nay.":"Your English journey starts today.","Học":"Learn","mỗi ngày.":"every day.","bạn":"there","Hôm nay":"Today",
 "Học # ngày liền":"Study # days in a row","Học buổi đầu tiên":"Finish your first session","Học tập":"Learning","Hồ sơ":"Profile","Hội thoại":"Talk","Hội thoại AI":"AI conversation","Hủy":"Cancel",
@@ -4382,6 +4389,22 @@ function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
   r.onend=()=>{clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
   try{r.start(); activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){micState='blocked'; rej('unavailable')}
 })}
+/* mic inside a text box: speak, see live text, then check */
+function attachMic(ta){
+  if(!ta||ta.dataset.mic)return; ta.dataset.mic=1;
+  const w=document.createElement('div'); w.className='mic-in'; ta.parentNode.insertBefore(w,ta); w.appendChild(ta);
+  const b=document.createElement('button'); b.type='button'; b.className='mic-in-b'; b.setAttribute('aria-label','Nói thay vì gõ'); b.innerHTML=I.mic; w.appendChild(b);
+  let tok=0;
+  const fire=()=>{ta.dispatchEvent(new Event('input',{bubbles:true}))};
+  b.onclick=async()=>{
+    if(typeof inClaude!=='undefined'&&inClaude||micState==='none'||micState==='blocked'){showAlert('mic',micState==='none'?'none':'blocked');return}
+    if(b.classList.contains('live')){stopRec();return}
+    hush(); b.classList.add('live'); const my=++tok; const base=ta.value.trim()?ta.value.replace(/\s+$/,'')+' ':'';
+    try{const alts=await recognize(t=>{if(my!==tok)return; ta.value=base+t; fire()},2000); if(my===tok){ta.value=base+alts[0]; fire()}}
+    catch(err){if(err==='unavailable')showAlert('mic',micState==='none'?'none':'blocked')}
+    finally{b.classList.remove('live')}
+  };
+}
 function stopRec(hard){const r=activeRec; activeRec=null; try{hard?r?.abort():r?.stop()}catch(e){}}
 
 /* A reusable speak-and-score block. onDone(score) */
@@ -4574,9 +4597,10 @@ function dictation(host,sents){
     host.innerHTML=`<div class="sec-head"><h2>Chép chính tả</h2><span class="muted num">Câu ${i+1}/${sents.length}</span></div>
       <div class="dots">${sents.map((_,k)=>`<i class="${done[k]?'done':k===i?'on':''}"></i>`).join('')}</div>
       <div class="row"><button class="btn primary" id="d-play">${I.play} Nghe câu</button><button class="btn" id="d-slow">${I.slow} Chậm</button></div>
-      <textarea class="field" id="d-in" rows="3" placeholder="Gõ lại chính xác những gì bạn nghe…"></textarea>
+      <textarea class="field" id="d-in" rows="3" placeholder="Gõ hoặc bấm micro để nói lại câu bạn nghe…"></textarea>
       <div class="row"><button class="btn primary" id="d-check">Kiểm tra</button><button class="btn" id="d-next">Câu tiếp ${I.arrow}</button></div>
       <div id="d-out"></div>`;
+    attachMic($('#d-in'));
     $('#d-play').onclick=()=>say(sents[i]); $('#d-slow').onclick=()=>say(sents[i],0.65);
     $('#d-check').onclick=()=>{const val=$('#d-in').value; if(!val.trim()){$('#d-in').focus();return}
       const r=compare(sents[i],val);
@@ -5189,9 +5213,9 @@ function runLesson(v,u,round=0){
     } else if(e.t==='dict'){
       body.innerHTML=`<button class="listen-big" id="ls-say" aria-label="Nghe lại">${I.vol}</button><div class="prompt" style="text-align:center"><small>Nghe và gõ lại câu</small></div>
         <div class="dict-row"><button class="btn" id="ls-slow">🐢 Nghe chậm</button></div>
-        <textarea class="dict-in" id="dict-in" rows="2" placeholder="Gõ câu bạn nghe được…" autocapitalize="off" autocomplete="off" spellcheck="false"></textarea>`;
+        <textarea class="dict-in" id="dict-in" rows="2" placeholder="Gõ hoặc nói câu bạn nghe được…" autocapitalize="off" autocomplete="off" spellcheck="false"></textarea>`;
       $('#ls-say').onclick=()=>say(e.s); $('#ls-slow').onclick=()=>say(e.s,.6); say(e.s);
-      const inp=$('#dict-in'); inp.oninput=refresh;
+      const inp=$('#dict-in'); inp.oninput=refresh; attachMic(inp);
       checkReady=()=>inp.value.trim().length>0;
       const score=()=>{const a=norm(inp.value).split(' '), t=norm(e.s).split(' '); let hit=0; const pool=[...a]; t.forEach(w=>{const k=pool.indexOf(w); if(k>=0){hit++;pool.splice(k,1)}}); return {hit,t}};
       isRight=()=>{const {hit,t}=score(); return hit/t.length>=.85}; answerText=e.s;
@@ -5467,7 +5491,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v155';
+const APP_V='elocu-v156';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
