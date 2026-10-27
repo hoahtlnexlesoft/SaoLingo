@@ -1,70 +1,52 @@
-// Vercel serverless function: VOA Learning English reader.
+// Vercel serverless function: VOA Learning English listening shelf.
 // VOA Learning English texts and MP3s are public domain (credit learningenglish.voanews.com);
-// stories credited to AP, Reuters or AFP are copyrighted and are filtered out here.
-const BASE = 'https://learningenglish.voanews.com/api/';
-const FEEDS = ['z-ptqml-vomx-tper-kqy','z-qvqvl-vomx-tperkuqt','zt-pq_l-vomx-tpekyyqv','zgptqil-vomx-tpe-jkqm','z-viqql-vomx-tpero_qq','zbptq_l-vomx-tpeq-kqv','zj-pqrl-vomx-tpebyyqo','z_yrool-vomx-tpevrioq'];
-const ID_RE = /^[a-z0-9_\-$]{6,40}$/i;
+// material credited to AP, Reuters or AFP is copyrighted, so any episode whose page mentions them is skipped.
+const BASE = 'https://learningenglish.voanews.com';
+const SHELVES = [
+  { id: 'zmmpql-vomx-tpey-_q', name: 'Sức khỏe & đời sống' },
+  { id: 'zmg_pl-vomx-tpeymtm', name: 'Khoa học & công nghệ' },
+  { id: 'z_gjqyl-vomx-tpevmrov', name: 'Mẹo học tập' },
+  { id: 'zmypyl-vomx-tpeyry_', name: 'Từ ngữ & thành ngữ' },
+  { id: 'zoroqql-vomx-tpeptpqq', name: 'Ngữ pháp hằng ngày' },
+  { id: 'zyg__l-vomx-tpetmty', name: 'Truyện Mỹ' },
+];
+const UA = { 'user-agent': 'Mozilla/5.0 (compatible; SaoVoxy/1.0; +https://saovoxy.vercel.app)' };
+const WIRE = /Associated Press|\bAP\b photo|Reuters|AFP|Agence France-Presse/;
+const dec = s => String(s || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).trim();
+const meta = (html, p) => dec((html.match(new RegExp(`<meta[^>]+(?:property|name)="${p}"[^>]+content="([^"]*)"`, 'i')) || [])[1]);
 
-const decode = s => String(s || '')
-  .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
-  .replace(/&nbsp;/g, ' ').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, '&');
-const tag = (xml, name) => { const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, 'i')); return m ? decode(m[1]).trim() : ''; };
-const toParas = html => decode(html)
-  .replace(/<\s*(br|\/p|\/h\d|\/li)[^>]*>/gi, '\n')
-  .replace(/<[^>]+>/g, '')
-  .split(/\n+/).map(t => t.replace(/\s+/g, ' ').trim()).filter(Boolean);
-const WIRE = /\b(Associated Press|AP|Reuters|AFP|Agence France-Presse)\b/;
-
-async function getFeed(id) {
-  const r = await fetch(BASE + id, { headers: { 'user-agent': 'SaoVoxy/1.0 (+https://saovoxy.vercel.app)' } });
-  if (!r.ok) throw new Error('feed ' + r.status);
+async function feedItems(id, n) {
+  const r = await fetch(`${BASE}/api/${id}`, { headers: UA }); if (!r.ok) return [];
   const xml = await r.text();
-  const channel = tag(xml.split('<item')[0], 'title');
-  const items = (xml.match(/<item[\s\S]*?<\/item>/gi) || []).map(it => {
-    const enc = (it.match(/<enclosure[^>]*url="([^"]+)"[^>]*type="audio[^"]*"/i) || it.match(/<enclosure[^>]*type="audio[^"]*"[^>]*url="([^"]+)"/i) || [])[1] || '';
-    const body = tag(it, 'content:encoded') || tag(it, 'description');
-    const paras = toParas(body);
-    return { title: tag(it, 'title'), link: tag(it, 'link'), date: tag(it, 'pubDate'), audio: enc, author: tag(it, 'author') || tag(it, 'dc:creator'), paras };
-  });
-  return { channel, items };
+  return (xml.match(/<item[\s\S]*?<\/item>/gi) || []).slice(0, n).map(it => ({
+    title: dec((it.match(/<title>([\s\S]*?)<\/title>/i) || [])[1]),
+    link: dec((it.match(/<link>([\s\S]*?)<\/link>/i) || [])[1]),
+    date: dec((it.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || [])[1]),
+    image: (it.match(/<enclosure[^>]*url="([^"]+)"[^>]*type="image/i) || [])[1] || '',
+  })).filter(i => /^https:\/\/learningenglish\.voanews\.com\/a\//.test(i.link));
+}
+async function episode(it) {
+  try {
+    const r = await fetch(it.link, { headers: UA }); if (!r.ok) return null;
+    const html = await r.text();
+    if (WIRE.test(html.replace(/<script[\s\S]*?<\/script>/gi, ''))) return null;
+    const audio = (html.match(/https:\/\/voa-audio\.voanews\.eu\/[^"'&\s]+?(?<!_hq)\.mp3/) || [])[0];
+    if (!audio) return null;
+    const dur = +((html.match(/"duration"\s*:\s*"?(\d+)/i) || [])[1] || 0);
+    return { title: it.title, link: it.link, date: it.date, image: it.image.replace(/_w\d+_h\d+/, '_w400_h225'), audio, desc: meta(html, 'og:description').slice(0, 300), dur };
+  } catch { return null; }
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+  res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=604800');
   try {
-    if (req.query.raw) {
-      const id = String(req.query.raw); if (!ID_RE.test(id)) return res.status(400).end();
-      const r = await fetch(BASE + id, { headers: { 'user-agent': 'SaoVoxy/1.0' } }); const xml = await r.text();
-      const it = (xml.match(/<item[\s\S]*?<\/item>/i) || [''])[0];
-      return res.status(200).json({ item: it.slice(0, 3000) });
-    }
-    if (req.query.page) {
-      const u = String(req.query.page); if (!/^https:\/\/learningenglish\.voanews\.com\/a\//.test(u)) return res.status(400).end();
-      const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 SaoVoxy/1.0' } }); const html = await r.text();
-      const ps = [...html.matchAll(/<p[^>]*>([^<]{80,})/g)]; const i = html.indexOf('class="body-container"'); const markers = [...new Set((html.match(/(id|class)="[^"]*(article|content|body|wsw)[^"]*"/g) || []))].slice(0, 30); const mp3 = [...new Set((html.match(/https:[^"' ]+\.mp3/g) || []))].slice(0, 5);
-      return res.status(200).json({ status: r.status, len: html.length, mp3, np: ps.length, markers, snippet: i>=0 ? html.slice(i, i + 6000).replace(/\s+/g,' ') : '', tail: ps.length ? html.slice(ps[ps.length-1].index, ps[ps.length-1].index + 1500) : '' });
-    }
-    if (req.query.discover) {
-      const r = await fetch('https://learningenglish.voanews.com/rssfeeds', { headers: { 'user-agent': 'SaoVoxy/1.0' } });
-      const html = await r.text();
-      const links = [...html.matchAll(/href="(\/api\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map(m => ({ id: m[1].replace('/api/', ''), name: m[2].replace(/<[^>]+>/g, '').trim() }));
-      return res.status(200).json({ status: r.status, n: links.length, links: links.slice(0, 80) });
-    }
-    if (req.query.list) {
-      const ids = String(req.query.ids || '').split(',').filter(x => ID_RE.test(x)); const use = ids.length ? ids.slice(0, 50) : FEEDS;
-      const out = await Promise.all(use.map(async id => { try { const f = await getFeed(id); return { id, channel: f.channel, n: f.items.length, withText: f.items.filter(i => i.paras.length > 3).length, withAudio: f.items.filter(i => i.audio).length }; } catch (e) { return { id, error: String(e.message) }; } }));
-      return res.status(200).json({ feeds: out });
-    }
-    const id = String(req.query.feed || FEEDS[0]);
-    if (!ID_RE.test(id)) return res.status(400).json({ error: 'bad_feed' });
-    const f = await getFeed(id);
-    const items = f.items
-      .filter(i => i.title && i.paras.length >= 3)
-      .filter(i => !WIRE.test(i.author) && !i.paras.slice(-4).some(p => WIRE.test(p) && p.length < 160))
-      .slice(0, 20)
-      .map(i => ({ ...i, paras: i.paras.slice(0, 40) }));
-    return res.status(200).json({ channel: f.channel, items, credit: 'VOA Learning English (learningenglish.voanews.com), public domain' });
+    const per = Math.min(8, Math.max(2, +req.query.n || 5));
+    const shelves = await Promise.all(SHELVES.map(async s => {
+      const items = await feedItems(s.id, per + 3);
+      const eps = (await Promise.all(items.map(episode))).filter(Boolean).slice(0, per);
+      return { name: s.name, items: eps };
+    }));
+    return res.status(200).json({ shelves: shelves.filter(s => s.items.length), credit: 'VOA Learning English · learningenglish.voanews.com (public domain)' });
   } catch (e) {
     return res.status(502).json({ error: 'upstream_error', message: 'Không tải được bài VOA.' });
   }
