@@ -4356,20 +4356,23 @@ function hush(){if(hasTTS)try{speechSynthesis.cancel()}catch(e){}}
 /* ---------- Speech in ---------- */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let micState=SR?'unknown':'none'; let activeRec=null;
-function recognize(onPartial){return new Promise((res,rej)=>{
+function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
   if(!SR||micState==='blocked')return rej('unavailable');
   let r; try{r=new SR()}catch(e){micState='blocked';return rej('unavailable')}
-  r.lang=S.accent==='uk'?'en-GB':'en-US'; r.interimResults=!!onPartial; r.maxAlternatives=4; let done=false, last='';
+  r.lang=S.accent==='uk'?'en-GB':'en-US'; r.interimResults=!!onPartial; r.continuous=!!silenceMs; r.maxAlternatives=4; let done=false, last='', lastRes=null, sil=null;
+  const arm=()=>{if(!silenceMs)return; clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs)};
   r.onresult=e=>{micState='ok';
     let fin=null, txt='';
     for(let k=0;k<e.results.length;k++){const R=e.results[k]; txt+=R[0].transcript; if(R.isFinal)fin=R}
     last=txt.trim();
     if(onPartial&&last)try{onPartial(last)}catch(_){}
+    lastRes=e.results;
+    if(silenceMs){arm();return}
     if(!onPartial||(fin&&e.results.length===1)){done=true; res([...(fin||e.results[0])].map(a=>a.transcript))}
     else if(fin&&[...e.results].every(R=>R.isFinal)){done=true; res([last])}};
   r.onerror=e=>{if(['not-allowed','service-not-allowed','audio-capture'].includes(e.error))micState='blocked'; if(!done){done=true; if(last&&micState!=='blocked')res([last]); else rej(micState==='blocked'?'unavailable':e.error)}};
-  r.onend=()=>{if(!done){done=true; last?res([last]):rej('no-speech')}};
-  try{r.start(); activeRec=r}catch(e){micState='blocked'; rej('unavailable')}
+  r.onend=()=>{clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
+  try{r.start(); activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){micState='blocked'; rej('unavailable')}
 })}
 function stopRec(){try{activeRec?.stop()}catch(e){} activeRec=null}
 
@@ -4402,7 +4405,7 @@ function micBlock(host,target,onDone){
     if(mic.classList.contains('live')){stopRec();return}
     hush(); mic.classList.add('live'); host.classList.add('live-vu'); st.textContent='Đang nghe… nói rõ ràng, tự nhiên'; out.innerHTML='';
     try{
-      const alts=await recognize(t=>{st.innerHTML='<span class="live-tx">“'+esc(t)+'”</span>'});
+      const alts=await recognize(t=>{st.innerHTML='<span class="live-tx">“'+esc(t)+'”</span>'},1800);
       const best=alts.map(a=>({a,...compare(target,a)})).sort((x,y)=>y.score-x.score)[0];
       const cls=best.score>=85?'hi':best.score>=60?'mid':'lo';
       const msg=best.score>=85?'Xuất sắc! Rất rõ và chuẩn.':best.score>=60?'Khá tốt — luyện lại các từ màu đỏ.':'Thử lại chậm hơn, nhấn rõ âm cuối.';
@@ -5298,8 +5301,10 @@ samplePromise.then(s=>{if(inClaude){aiMode=s?'claude':'none'; if(route==='talk')
 async function askAI(rules,turns,onText,signal){
   if(aiMode==='claude'){const sample=await samplePromise; const {text}=await sample([{role:'user',content:rules},...turns],{cache:false,modelTier:'quick',signal,onText:({text})=>onText(text)}); return text}
   if(aiMode==='server'){let r;
-    try{r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({system:rules,turns}),signal})}
-    catch(e){throw {code:e.name==='AbortError'?'cancelled':'offline'}}
+    const to=new AbortController(); const tm=setTimeout(()=>to.abort(),32000); if(signal)signal.addEventListener('abort',()=>to.abort(),{once:true});
+    try{r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({system:rules,turns}),signal:to.signal})}
+    catch(e){clearTimeout(tm); throw {code:signal&&signal.aborted?'cancelled':e.name==='AbortError'?'slow':'offline'}}
+    clearTimeout(tm);
     const j=await r.json().catch(()=>({})); if(!r.ok)throw {code:j.error||'upstream_error',message:j.message}; onText(j.text); return j.text}
   throw {code:'not_granted'};
 }
@@ -5342,16 +5347,18 @@ function viewTalk(v){
   inp.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}};
   $('#t-send').onclick=send;
   const micB=$('#t-mic');
+  let recTok=0;
   const micOff=()=>inClaude||micState==='none'||micState==='blocked'; if(micOff())micB.style.opacity=.45;
   micB.onclick=async()=>{ if(micOff()){showAlert('mic',micState==='none'?'none':'blocked');return} if(micB.classList.contains('live')){stopRec();return} micB.classList.add('live');
-    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; try{const alts=await recognize(t=>{inp.value=base+t; inp.oninput()}); inp.value=base+alts[0]; inp.oninput()}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micState==='none'?'none':'blocked')}}
+    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; const my=++recTok; try{const alts=await recognize(t=>{if(my!==recTok)return; inp.value=base+t; inp.oninput()},2600); if(my===recTok){inp.value=base+alts[0]; inp.oninput()}}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micState==='none'?'none':'blocked')}}
     finally{micB.classList.remove('live')}};
   async function send(){
+    recTok++; if(micB.classList.contains('live')){stopRec(); micB.classList.remove('live')}
     const text=inp.value.trim(); if(!text)return;
     if(aiMode==='none'||aiMode==='nokey'){toast('Gia sư AI chưa khả dụng');return}
     inp.value=''; inp.oninput();
     const me={role:'user',content:text}; list.push(me);
-    const ai={role:'assistant',content:'…'}; list.push(ai); render();
+    const ai={role:'assistant',content:''}; list.push(ai); render();
     const bubble=$$('.msg.ai .bub',box).pop();
     const rules=`You are an English conversation partner inside a premium English-learning app for Vietnamese speakers. Your role: ${sc.role}. The learner's level is ${level} (CEFR); match your vocabulary and sentence length to that level. Stay in character and keep the conversation moving.
 Format your answer exactly like this, with no markdown:
@@ -5370,7 +5377,7 @@ Final line: starts with "FEEDBACK:" and reviews ONLY the learner's most recent m
       if(e&&(e.code==='not_granted'||e.code==='sampling_disabled'))aiMode='none';
       if(e&&e.code==='missing_key')aiMode='nokey';
       inp.value=text; render();
-      toast(e?.code==='rate_limited'?'Đang quá tải, thử lại sau ít phút':e?.code==='offline'?'Mất kết nối mạng':e?.code==='missing_key'?'Chưa cấu hình khóa AI':'Không gửi được, thử lại nhé');
+      toast(e?.code==='slow'?'Gia sư phản hồi chậm, bấm gửi lại nhé':e?.code==='rate_limited'?'Đang quá tải, thử lại sau ít phút':e?.code==='offline'?'Mất kết nối mạng':e?.code==='missing_key'?'Chưa cấu hình khóa AI':'Không gửi được, thử lại nhé');
     }finally{const b=$('#t-send'); if(b)b.disabled=false}
   }
 }
@@ -5449,7 +5456,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v152';
+const APP_V='elocu-v153';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;

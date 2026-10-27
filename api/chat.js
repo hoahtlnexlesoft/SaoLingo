@@ -19,10 +19,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const text = await aiText({ system, turns: messages, maxTokens: 400 });
+    const text = await aiText({ system, turns: messages, maxTokens: 400, fast: true, budgetMs: 24000 });
     return res.status(200).json({ text });
   } catch (err) {
-    const status = err.status === 429 ? 429 : 502;
-    return res.status(status).json({ error: status === 429 ? 'rate_limited' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.' });
+    const status = err.status === 429 ? 429 : err.status === 504 ? 504 : 502;
+    return res.status(status).json({ error: status === 429 ? 'rate_limited' : status === 504 ? 'slow' : 'upstream_error', message: err.status ? err.message : 'Không kết nối được AI.' });
   }
 }
