@@ -36,9 +36,11 @@ export default async function handler(req, res) {
         const data = await r.json().catch(() => ({}));
         if (r.ok) {
           const text = (data.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('');
-          let j = null; try { j = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)); } catch {}
-          const segs = (j?.segs || []).filter(x => x && typeof x.en === 'string' && x.en.trim())
-            .map(x => ({ t: Math.max(0, +x.t || 0), en: x.en.trim().slice(0, 400), vi: String(x.vi || '').trim().slice(0, 400) }))
+          let j = null; try { j = JSON.parse(text); } catch { try { j = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)); } catch {} }
+          const arr = Array.isArray(j) ? j : (j?.segs || j?.segments || j?.subtitles || Object.values(j || {}).find(Array.isArray) || []);
+          console.log('caption out', model, text.length, arr.length, text.slice(0, 160).replace(/\s+/g, ' '));
+          const segs = arr.map(x => x && ({ t: x.t ?? x.start ?? x.time ?? x.startTime, en: x.en ?? x.text ?? x.english, vi: x.vi ?? x.vietnamese ?? x.translation })).filter(x => x && typeof x.en === 'string' && x.en.trim())
+            .map(x => ({ t: Math.max(0, typeof x.t === 'string' && x.t.includes(':') ? x.t.split(':').reduce((a, b) => a * 60 + +b, 0) : +x.t || 0), en: x.en.trim().slice(0, 400), vi: String(x.vi || '').trim().slice(0, 400) }))
             .sort((p, q) => p.t - q.t);
           if (segs.length >= 3) {
             res.setHeader('Cache-Control', 'public, s-maxage=31536000, immutable');
