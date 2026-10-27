@@ -2915,24 +2915,25 @@ const I = {
 /* ---------- Illustrations (flat sticker style) ---------- */
 const K='#1B1140';
 const BIRD_PAL={
-  violet:{b1:'#C7B8FF',b2:'#8B72F2',b3:'#6A50D8',belly1:'#FFFFFF',belly2:'#ECE6FF',wing:'#7A60E6',patch:'#F4F0FF',crest:'#7A60E6',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#6D55E8',iris2:'#5B3FD9'},
-  myna:{dark:1,b1:'#5A5F7A',b2:'#2E3247',b3:'#1C1F2E',belly1:'#F6F4FF',belly2:'#DCD8EC',wing:'#23263A',patch:'#FFFFFF',crest:'#23263A',ring:'#FFD23F',beak1:'#FFD23F',beak2:'#FFAA1F',feet:'#FFC23D',blush:'#FF8FB8',iris1:'#7A5A3A',iris2:'#8A5A2E'},
-  mint:{b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
-  rose:{b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
+  violet:{acc:'#3DCB9C',b1:'#C7B8FF',b2:'#8B72F2',b3:'#6A50D8',belly1:'#FFFFFF',belly2:'#ECE6FF',wing:'#7A60E6',patch:'#F4F0FF',crest:'#7A60E6',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#6D55E8',iris2:'#5B3FD9'},
+  myna:{acc:'#3DCB9C',b1:'#5A5F7A',b2:'#2E3247',b3:'#1C1F2E',belly1:'#F6F4FF',belly2:'#DCD8EC',wing:'#23263A',patch:'#FFFFFF',crest:'#23263A',ring:'#FFD95E',beak1:'#FFD23F',beak2:'#FFAA1F',feet:'#FFC23D',blush:'#FF8FB8',iris1:'#7A5A3A',iris2:'#8A5A2E'},
+  mint:{acc:'#8B72F2',b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
+  rose:{acc:'#3DCB9C',b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
 };
 let BIRD='violet'; try{const _s=JSON.parse(localStorage.getItem('elocu.v1')||'{}'); if(_s.bird)BIRD=_s.bird}catch(e){}
 function MASCOT(cls='',mood='idle',palKey){
   const P=BIRD_PAL[palKey||BIRD], uid='b'+(MASCOT._n=(MASCOT._n||0)+1);
-  const ink='#241A4F', E1=[37.5,52], E2=[62.5,52], ES=1;
-  const line=P.dark?'#FFFFFF':ink;
+  const ink='#2B1F5E', E1=[36,44], E2=[64,44], ES=1;
+  const line=ink;
   const star=(cx,cy,R,r=R*.45)=>'M'+Array.from({length:10},(_,i)=>{const a=-Math.PI/2+i*Math.PI/5, rr=i%2?r:R; return (cx+rr*Math.cos(a)).toFixed(2)+' '+(cy+rr*Math.sin(a)).toFixed(2)}).join('L')+'Z';
-  /* big, glossy kawaii eyes: white sclera, large dark iris, two catch-lights */
-  const sclera=([x,y],s=1)=>`${P.dark?`<circle cx="${x}" cy="${y}" r="${11.4*s}" fill="${P.ring}"/>`:''}<circle cx="${x}" cy="${y}" r="${9.8*s}" fill="#fff"/>`;
-  const iris=([x,y],dx=0,dy=0,s=1,tear=false)=>{const cx=x+dx*.6, cy=y+dy*.6+.6; return `<circle cx="${cx}" cy="${cy}" r="${7.2*s}" fill="${P.iris2}"/><circle cx="${cx}" cy="${cy}" r="${4.9*s}" fill="${ink}"/><circle cx="${cx-2.5*s}" cy="${cy-2.7*s}" r="${2.6*s}" fill="#fff"/><circle cx="${cx+2.3*s}" cy="${cy+2.3*s}" r="${1*s}" fill="#fff"/>${tear?`<path d="M${x+5} ${y+7}c0 0-2 2.6-2 4a2 2 0 0 0 4 0c0-1.4-2-4-2-4z" fill="#8FD3F7"/>`:''}`};
+  /* logo-style eyes: sunny yellow eye patch, tall white eye, glossy pupil */
+  const patch=([x,y],s=1)=>`<ellipse cx="${x+(x<50?-1:1)}" cy="${y-1}" rx="${12*s}" ry="${11*s}" fill="${P.ring}"/>`;
+  const sclera=([x,y],s=1)=>patch([x,y],s)+`<ellipse cx="${x+(x<50?1:-1)}" cy="${y}" rx="${9.5*s}" ry="${10.5*s}" fill="#fff"/>`;
+  const iris=([x,y],dx=0,dy=0,s=1,tear=false)=>{const cx=x+(x<50?-1.5:-1.5)+dx, cy=y-2+dy; return `<ellipse cx="${cx}" cy="${cy}" rx="${5.2*s}" ry="${6.2*s}" fill="${ink}"/><circle cx="${cx-1.8*s}" cy="${cy-2.6*s}" r="${2*s}" fill="#fff"/><circle cx="${cx+1.7*s}" cy="${cy+2.4*s}" r="${.9*s}" fill="#fff" opacity=".9"/>${tear?`<path d="M${x+5} ${y+9}c0 0-2 2.6-2 4a2 2 0 0 0 4 0c0-1.4-2-4-2-4z" fill="#8FD3F7"/>`:''}`};
   const openEye=(e,dx=0,dy=0,s=1,t)=>sclera(e,s)+iris(e,dx,dy,s,t);
-  const smile=([x,y])=>`<path d="M${x-6.5} ${y+2}q6.5-8 13 0" fill="none" stroke="${line}" stroke-width="3.4" stroke-linecap="round"/>`;
-  const shut=([x,y])=>`<path d="M${x-6.5} ${y-1}q6.5 6 13 0" fill="none" stroke="${line}" stroke-width="3" stroke-linecap="round"/>`;
-  const starEye=([x,y])=>`<path d="${star(x,y,8.6)}" fill="#FFC93C" stroke="${P.dark?'#fff':'#E8A21A'}" stroke-width=".8" stroke-linejoin="round"/><circle cx="${x-2}" cy="${y-2.4}" r="1.6" fill="#fff"/>`;
+  const smile=([x,y])=>patch([x,y])+`<path d="M${x-6.5} ${y+2}q6.5-8.5 13 0" fill="none" stroke="${ink}" stroke-width="3.4" stroke-linecap="round"/>`;
+  const shut=([x,y])=>patch([x,y])+`<path d="M${x-6.5} ${y-1}q6.5 6.5 13 0" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`;
+  const starEye=([x,y])=>sclera([x,y])+`<path d="${star(x+(x<50?1:-1),y,8.2)}" fill="${P.acc}"/><circle cx="${x-1.6}" cy="${y-2.6}" r="1.5" fill="#fff"/>`;
   const brow=d=>`<path d="${d}" fill="none" stroke="${line}" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>`;
   const L=E1[0],R=E2[0],Y=E1[1];
   const M={
@@ -2943,11 +2944,11 @@ function MASCOT(cls='',mood='idle',palKey){
     oops:{eyes:openEye(E1,0,1.4,1.05,1)+openEye(E2,0,1.4,1.05,1),brows:brow(`M${L-8} ${Y-15}l11-4.5`)+brow(`M${R+8} ${Y-15}l-11-4.5`),beak:'wob',w:'cheeks',pose:'rotate(-4 50 90)'},
     sleepy:{eyes:shut(E1)+shut(E2),brows:'',beak:'s',w:'down',pose:'rotate(8 50 92)',cap:1},
     listen:{eyes:smile(E1)+smile(E2),brows:'',beak:'smile',w:'phone',pose:'rotate(-5 50 90)',phones:1,blush:1},
-    wow:{eyes:sclera(E1,1.12)+`<circle cx="${E1[0]}" cy="${E1[1]}" r="3.6" fill="${ink}"/><circle cx="${E1[0]-1.2}" cy="${E1[1]-1.4}" r="1.2" fill="#fff"/>`+sclera(E2,1.12)+`<circle cx="${E2[0]}" cy="${E2[1]}" r="3.6" fill="${ink}"/><circle cx="${E2[0]-1.2}" cy="${E2[1]-1.4}" r="1.2" fill="#fff"/>`,brows:brow(`M${L-8} ${Y-21}q8-5 15-2`)+brow(`M${R+8} ${Y-21}q-8-5-15-2`),beak:'o',w:'spread',pose:'translate(0 -3)'},
+    wow:{eyes:sclera(E1,1.08)+`<circle cx="${E1[0]+1}" cy="${E1[1]}" r="3.4" fill="${ink}"/><circle cx="${E1[0]}" cy="${E1[1]-1.3}" r="1.1" fill="#fff"/>`+sclera(E2,1.08)+`<circle cx="${E2[0]-1}" cy="${E2[1]}" r="3.4" fill="${ink}"/><circle cx="${E2[0]-2}" cy="${E2[1]-1.3}" r="1.1" fill="#fff"/>`,brows:brow(`M${L-8} ${Y-21}q8-5 15-2`)+brow(`M${R+8} ${Y-21}q-8-5-15-2`),beak:'o',w:'spread',pose:'translate(0 -3)'},
     wink:{eyes:openEye(E1)+smile(E2),brows:brow(`M${L-7} ${Y-19}q7-4 13-1`),beak:'tongue',w:'wave',pose:'rotate(4 50 90)',blush:1}
   };
   const m=M[mood]||M.idle;
-  const by=62;
+  const by=55;
   const BK={
     c:`<path d="M44.6 ${by-2}c2.4-3 8.4-3 10.8 0 .9 1.2.6 2.6-.4 3.6l-3.6 3.4c-.8.8-2 .8-2.8 0l-3.6-3.4c-1-1-1.3-2.4-.4-3.6z" fill="${P.beak1}"/><path d="M45.6 ${by+.2}q4.4 1.6 8.8 0" stroke="${P.beak2}" stroke-width="1.1" fill="none" stroke-linecap="round" opacity=".8"/>`,
     open:`<path d="M43.6 ${by-2.6}c2.8-3.4 10-3.4 12.8 0l-.8 2H44.4z" fill="${P.beak1}"/><path d="M44.6 ${by}h10.8l-2.8 5.8c-1.3 2.6-3.9 2.6-5.2 0z" fill="#D94A3E"/><path d="M47 ${by+4.4}c1.6-1.4 4.4-1.4 6 0l-.9 1.6c-1.2 1.8-3 1.8-4.2 0z" fill="#FF8E8E"/>`,
@@ -2958,7 +2959,7 @@ function MASCOT(cls='',mood='idle',palKey){
     o:`<path d="M45 ${by-3.4}c2-2.6 8-2.6 10 0l-.9 1.6h-8.2z" fill="${P.beak1}"/><ellipse cx="50" cy="${by+2.4}" rx="4" ry="4.8" fill="#D94A3E"/><ellipse cx="50" cy="${by+4.4}" rx="2.3" ry="1.9" fill="#FF8E8E"/>`,
     tongue:`<path d="M43.8 ${by-2.4}c2.6-3.2 9.8-3.2 12.4 0l-.8 1.6H44.6z" fill="${P.beak1}"/><path d="M45 ${by-.6}h10q-1.2 4.2-5 4.2t-5-4.2z" fill="#D94A3E"/><path d="M50.6 ${by+1.8}h4v3a2 2 0 0 1-4 0z" fill="#FF8CA8"/>`
   }[m.beak];
-  const wing=(side,rot)=>{const g=`<path d="M21 55c-6.5 3.5-9 11.5-6.5 19.5 5.5-1.2 10-6.5 11-13 .4-3.4-1.4-5.8-4.5-6.5z" fill="${P.wing}"/><path d="M17.6 63.5c-1.2 2.4-1.4 5-.6 7.4" stroke="${P.patch}" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".95"/>`; return side<0?`<g transform="rotate(${rot} 21 58)">${g}</g>`:`<g transform="translate(100 0) scale(-1 1)"><g transform="rotate(${-rot} 21 58)">${g}</g></g>`};
+  const wing=(side,rot)=>{const g=`<path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="${P.acc}"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/>`; return side<0?`<g transform="rotate(${rot} 21 58)">${g}</g>`:`<g transform="translate(100 0) scale(-1 1)"><g transform="rotate(${-rot} 21 58)">${g}</g></g>`};
   const W={down:wing(-1,0)+wing(1,0),up:wing(-1,58)+wing(1,-58),spread:wing(-1,32)+wing(1,-32),chin:wing(-1,0)+`<g transform="rotate(-120 80 66) translate(-2 4)">${wing(1,0)}</g>`,cheeks:wing(-1,38)+wing(1,-38),phone:wing(-1,70)+wing(1,0),wave:wing(-1,0)+`<g class="ms-wave">${wing(1,-62)}</g>`}[m.w];
   const fx={
     cheer:`<g class="fx-tw"><path d="${star(11,26,5)}" fill="#FFC93C"/><path d="${star(89,18,4)}" fill="#FF7AAE" style="animation-delay:.4s"/><path d="${star(92,42,2.6)}" fill="#7CCBEA" style="animation-delay:.8s"/><circle cx="7" cy="46" r="1.8" fill="#5EDB8C"/></g>`,
@@ -2980,14 +2981,13 @@ function MASCOT(cls='',mood='idle',palKey){
 <linearGradient id="${uid}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.beak1}"/><stop offset="1" stop-color="${P.beak2}"/></linearGradient></defs>${sh}
 <g class="ms-body"><g transform="${m.pose||''}">
 <path d="M72 80c8 0 14-4 17-10-6 1-10 0-13-2z" fill="${P.b3}"/>
-<path d="M50 15c4-6 11-8 16-6-3 2-4 5-3 8 3-2 7-2 9 0-4 1-6 4-6 7" fill="${P.crest}"/>
-<path d="M45 19c-1-6 2-11 7-12-1 3 0 6 2 8" fill="${P.crest}"/>
-<path d="M50 19C72 19 87 35 87 57c0 20-16 33-37 33S13 77 13 57C13 35 28 19 50 19z" fill="${P.b2}"/>
-<path d="M50 58c14 0 24 9 24 18.5 0 8.5-10 13.5-24 13.5S26 85 26 76.5C26 67 36 58 50 58z" fill="${P.belly1}"/>
+<path d="M44 24c-3-7 0-12 6-14-1 4 1 7 4 9 1-5 5-8 10-8-3 3-3 7-1 11" fill="${P.crest}"/><path d="M58 13.2c2.2-1.4 4.4-1.6 6-1.2-1.6 1.2-2.4 2.8-2.4 4.6" fill="${P.acc}"/>
+<path d="M50 20c18 0 32 14 32 34 0 21-14 35-32 35S18 75 18 54c0-20 14-34 32-34z" fill="${P.b2}"/>
+<path d="M50 51c11.5 0 19.5 8 19.5 18 0 11-8 18-19.5 18s-19.5-7-19.5-18c0-10 8-18 19.5-18z" fill="${P.belly1}"/>
 ${W}
-<ellipse cx="27" cy="62.5" rx="5.2" ry="3.4" fill="${P.blush}" opacity="${m.blush?.95:.8}"/><ellipse cx="73" cy="62.5" rx="5.2" ry="3.4" fill="${P.blush}" opacity="${m.blush?.95:.8}"/>
+<ellipse cx="25.5" cy="55" rx="4.4" ry="2.7" fill="${P.blush}" opacity="${m.blush?.95:.8}"/><ellipse cx="74.5" cy="55" rx="4.4" ry="2.7" fill="${P.blush}" opacity="${m.blush?.95:.8}"/>
 ${m.eyes}${m.brows}${BK}${cap}${phones}
-<path d="M42.5 89.5c-1.6 2-1.8 3.4-.6 3.8 1.2.4 2.4-.4 3.2-1.8M57.5 89.5c1.6 2 1.8 3.4.6 3.8-1.2.4-2.4-.4-3.2-1.8" stroke="${P.feet}" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+<path d="M43 88.5c-1.6 2-1.8 3.4-.6 3.8 1.2.4 2.4-.4 3.2-1.8M57 88.5c1.6 2 1.8 3.4.6 3.8-1.2.4-2.4-.4-3.2-1.8" stroke="${P.feet}" stroke-width="2.8" stroke-linecap="round" fill="none"/>
 </g></g>${fx}</svg>`;
 }
 const MOODS=['idle','happy','cheer','think','oops','sleepy','listen','wow','wink'];
