@@ -1,5 +1,5 @@
 /* Elocu service worker: offline shell + daily reminder checks. */
-const VERSION = 'elocu-v150';
+const VERSION = 'elocu-v151';
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
 const STATE_CACHE = 'elocu-state';
 const STATE_URL = '/__elocu_state';
@@ -27,7 +27,7 @@ self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET' || url.origin !== location.origin || url.pathname.startsWith('/api/')) return;
   if (e.request.mode === 'navigate') {
-    e.respondWith(fetch(e.request).then(r => { const copy = r.clone(); caches.open(VERSION).then(c => c.put('/index.html', copy)); return r; })
+    e.respondWith(fetch(e.request.url, { cache: 'no-store', credentials: 'same-origin' }).then(r => { const copy = r.clone(); caches.open(VERSION).then(c => c.put('/index.html', copy)); return r; })
       .catch(() => caches.match('/index.html')));
     return;
   }
