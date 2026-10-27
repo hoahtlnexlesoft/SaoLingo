@@ -36,10 +36,9 @@ function validEx(e) {
 function parseJSON(text) { const i = text.indexOf('{'), j = text.lastIndexOf('}'); if (i < 0 || j < i) return null; try { return JSON.parse(text.slice(i, j + 1)); } catch { return null; } }
 
 export default async function handler(req, res) {
-  const probe = req.method === 'GET' && req.query.probe === 'outline-svx';
-  if (!probe && req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!aiProvider()) return res.status(503).json({ error: 'missing_key', message: 'Chưa cấu hình khoá AI trên Vercel.' });
-  let body = probe ? { kind: 'outline', level: 'C1', no: 1, done: ['Small Talk', 'At Work', 'Travel', 'Job Interview', 'Opinions'] } : req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
+  let body = req.body; if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   const kind = ['reading', 'outline'].includes(body?.kind) ? body.kind : 'lesson';
   let system, user;
   if (kind === 'lesson') {
