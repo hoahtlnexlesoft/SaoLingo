@@ -40,7 +40,8 @@ export default async function handler(req, res) {
       return res.status(200).json({ status: r.status, n: links.length, links: links.slice(0, 80) });
     }
     if (req.query.list) {
-      const out = await Promise.all(FEEDS.map(async id => { try { const f = await getFeed(id); return { id, channel: f.channel, n: f.items.length, withText: f.items.filter(i => i.paras.length > 3).length, withAudio: f.items.filter(i => i.audio).length }; } catch (e) { return { id, error: String(e.message) }; } }));
+      const ids = String(req.query.ids || '').split(',').filter(x => ID_RE.test(x)); const use = ids.length ? ids.slice(0, 50) : FEEDS;
+      const out = await Promise.all(use.map(async id => { try { const f = await getFeed(id); return { id, channel: f.channel, n: f.items.length, withText: f.items.filter(i => i.paras.length > 3).length, withAudio: f.items.filter(i => i.audio).length }; } catch (e) { return { id, error: String(e.message) }; } }));
       return res.status(200).json({ feeds: out });
     }
     const id = String(req.query.feed || FEEDS[0]);
