@@ -4378,7 +4378,8 @@ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let micState=SR?'unknown':'none'; let activeRec=null;
 function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
   if(!SR||micState==='blocked')return rej('unavailable');
-  let r; try{r=new SR()}catch(e){micState='blocked';return rej('unavailable')}
+  let r; try{r=recognize._r||(recognize._r=new SR())}catch(e){micState='blocked';return rej('unavailable')}
+  if(recognize._busy){r.onresult=r.onerror=null; r.onend=()=>{recognize._busy=false; recognize(onPartial,silenceMs).then(res,rej)}; try{r.abort()}catch(_){} setTimeout(()=>{if(recognize._busy){recognize._busy=false; r.onend&&r.onend()}},600); return}
   r.lang=S.accent==='uk'?'en-GB':'en-US'; r.interimResults=!!onPartial; r.continuous=!!silenceMs; r.maxAlternatives=4; let done=false, last='', lastRes=null, sil=null;
   const arm=()=>{if(!silenceMs)return; clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs)};
   r.onresult=e=>{micState='ok';
@@ -4391,8 +4392,8 @@ function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
     if(!onPartial||(fin&&e.results.length===1)){done=true; res([...(fin||e.results[0])].map(a=>a.transcript))}
     else if(fin&&[...e.results].every(R=>R.isFinal)){done=true; res([last])}};
   r.onerror=e=>{if(['not-allowed','service-not-allowed','audio-capture'].includes(e.error))micState='blocked'; if(!done){done=true; if(last&&micState!=='blocked')res([last]); else rej(micState==='blocked'?'unavailable':e.error)}};
-  r.onend=()=>{clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
-  try{r.start(); activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){micState='blocked'; rej('unavailable')}
+  r.onend=()=>{recognize._busy=false; clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
+  let tries=0; const go=()=>{try{r.start(); recognize._busy=true; activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){if(e&&e.name==='InvalidStateError'&&tries++<3){try{r.abort()}catch(_){} setTimeout(go,300);return} micState='blocked'; rej('unavailable')}}; go();
 })}
 /* mic inside a text box: speak, see live text, then check */
 function attachMic(ta){
@@ -5496,7 +5497,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v157';
+const APP_V='elocu-v158';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
