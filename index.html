@@ -5228,7 +5228,7 @@ function runLesson(v,u,round=0){
         <div class="mt-grid"><div class="mt-col">${L.map(x=>`<button class="mt" data-side="L" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div><div class="mt-col">${R.map(x=>`<button class="mt vi" data-side="R" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div></div>`;
       let selL=null, selR=null, done=0, miss=0;
       const tryPair=()=>{if(!selL||!selR)return; const a=selL,b=selR; selL=selR=null;
-        if(a.dataset.i===b.dataset.i){[a,b].forEach(x=>{x.classList.remove('sel');x.classList.add('ok');x.disabled=true}); done++; sfx('tap'); if(done===e.pairs.length){refresh(); btn.click()}}
+        if(a.dataset.i===b.dataset.i){[a,b].forEach(x=>{x.classList.remove('sel');x.classList.add('ok');x.disabled=true}); done++; sfx('right'); const wEn=e.pairs[+a.dataset.i][0]; setTimeout(()=>say(wEn,0.9),180); if(done===e.pairs.length){refresh(); setTimeout(()=>btn.click(),900)}}
         else{miss++; [a,b].forEach(x=>{x.classList.remove('sel');x.classList.add('bad')}); sfx('wrong'); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('bad')),450)}};
       $$('.mt',body).forEach(b=>b.onclick=()=>{if(b.disabled)return; const side=b.dataset.side;
         $$(`.mt[data-side="${side}"]`,body).forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
@@ -5525,7 +5525,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v164';
+const APP_V='elocu-v165';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
