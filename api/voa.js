@@ -33,6 +33,18 @@ async function getFeed(id) {
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
   try {
+    if (req.query.raw) {
+      const id = String(req.query.raw); if (!ID_RE.test(id)) return res.status(400).end();
+      const r = await fetch(BASE + id, { headers: { 'user-agent': 'SaoVoxy/1.0' } }); const xml = await r.text();
+      const it = (xml.match(/<item[\s\S]*?<\/item>/i) || [''])[0];
+      return res.status(200).json({ item: it.slice(0, 3000) });
+    }
+    if (req.query.page) {
+      const u = String(req.query.page); if (!/^https:\/\/learningenglish\.voanews\.com\/a\//.test(u)) return res.status(400).end();
+      const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 SaoVoxy/1.0' } }); const html = await r.text();
+      const i = html.indexOf('class="wsw'); const mp3 = [...new Set((html.match(/https:[^"' ]+\.mp3/g) || []))].slice(0, 5);
+      return res.status(200).json({ status: r.status, len: html.length, mp3, wsw: i, snippet: html.slice(i, i + 2500) });
+    }
     if (req.query.discover) {
       const r = await fetch('https://learningenglish.voanews.com/rssfeeds', { headers: { 'user-agent': 'SaoVoxy/1.0' } });
       const html = await r.text();
