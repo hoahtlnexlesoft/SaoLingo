@@ -2614,6 +2614,95 @@ img.acct-av{object-fit:cover;background:var(--surface-2)}
 .pfb-t{display:flex;flex-direction:column}.pfb-t b{font-size:15.5px}.pfb-t small{font-size:13px;color:var(--fg);opacity:.8}.pfb-t u{text-decoration:none;font-weight:800}
 .pfb-next{background:var(--fg)!important;color:var(--surface)!important;border-color:transparent!important}
 @keyframes pfbIn{from{opacity:0;transform:translateY(10px) scale(.98)}}
+/* ===== new exercise types ===== */
+.tf-card{position:relative;padding:18px 18px 16px;border-radius:22px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.tf-say{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--n-lilac) 12%,var(--surface));color:var(--n-lilac)}.tf-say svg{width:20px;height:20px}
+.tf-card .tf-say{position:absolute;right:12px;top:12px}
+.tf-en{margin:0;font-size:20px;font-weight:800;color:var(--fg);padding-right:46px}.tf-vi{margin:0;font-size:15px;color:var(--muted)}
+.tf-opts{display:grid!important;grid-template-columns:1fr 1fr;gap:10px}.tf-opts .opt{text-align:center;font-size:16px;font-weight:800}
+.mt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mt-col{display:flex;flex-direction:column;gap:10px}
+.mt{min-height:54px;padding:10px 12px;border-radius:16px;border:2px solid var(--line-2);border-bottom-width:4px;background:var(--surface);font-weight:700;font-size:15px;color:var(--fg);transition:all .18s}
+.mt.vi{font-weight:600;font-size:14px}
+.mt.sel{border-color:var(--n-lilac);background:color-mix(in srgb,var(--n-lilac) 10%,var(--surface));transform:translateY(-2px)}
+.mt.ok{border-color:#2DBE6C;background:color-mix(in srgb,#2DBE6C 12%,var(--surface));color:#178A4C;opacity:.75;animation:optPop .4s}
+.mt.bad{border-color:#F0506E;background:color-mix(in srgb,#F0506E 10%,var(--surface));animation:optShake .4s}
+.sp-top{display:flex;align-items:center;gap:12px}.sp-ipa{font-size:15px;color:var(--muted)}
+.sp-slots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:56px}
+.sp-s{width:42px;height:50px;border-radius:12px;border:2px dashed var(--line-2);display:grid;place-items:center;font-size:22px;font-weight:800;color:var(--fg);background:transparent}
+.sp-s.on{border:2px solid var(--n-lilac);background:color-mix(in srgb,var(--n-lilac) 10%,var(--surface));animation:optPop .3s}
+.sp-bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.sp-l{width:46px;height:52px;border-radius:14px;border:2px solid var(--line-2);border-bottom-width:4px;background:var(--surface);font-size:22px;font-weight:800;color:var(--fg)}
+.sp-l.used{opacity:.25;pointer-events:none}
+.dict-row{display:flex;justify-content:center}
+.dict-in{width:100%;box-sizing:border-box;padding:14px 16px;border-radius:18px;border:2px solid var(--line-2);background:var(--surface);color:var(--fg);font:600 17px/1.45 var(--f-body);resize:none;outline:none}
+.dict-in:focus{border-color:var(--n-lilac)}
+/* ===== shorts strip ===== */
+.sh-strip{display:flex;flex-direction:column;gap:10px}
+.sh-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.sh-head>div{display:flex;flex-direction:column}.sh-eye{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--n-pink)}.sh-head b{font-size:17px;color:var(--fg)}
+.sh-cnt{font-size:12px;font-weight:700;color:var(--muted)}
+.sh-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px 6px;scroll-snap-type:x mandatory}.sh-row::-webkit-scrollbar{display:none}
+.sh-card{position:relative;flex:none;width:132px;height:208px;border-radius:20px;overflow:hidden;scroll-snap-align:start;text-align:left;color:#fff;background:linear-gradient(160deg,var(--g1),var(--g2));padding:10px;display:flex;flex-direction:column;box-shadow:0 12px 22px -16px var(--g1)}
+.sh-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,6,30,.55));pointer-events:none}
+.sh-tag{position:relative;z-index:1;align-self:flex-start;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px)}
+.sh-card .sh-bird{position:absolute;width:96px;height:96px;left:50%;top:30px;transform:translateX(-50%)}
+.sh-play{position:absolute;z-index:1;right:10px;top:10px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.9);color:var(--g1)}.sh-play svg{width:13px;height:13px;margin-left:2px}
+.sh-t{position:relative;z-index:1;margin-top:auto;font-size:13.5px;font-weight:800;line-height:1.25}
+.sh-meta{position:relative;z-index:1;font-size:11px;opacity:.85;margin-top:3px}
+.sh-card.seen .sh-meta{color:#C8FFD9;opacity:1;font-weight:700}
+.sh-yt{background:linear-gradient(160deg,#FF3B3B,#B3125A)}
+.sh-ytic{position:absolute;left:50%;top:58px;transform:translateX(-50%);width:62px;height:62px;color:#fff}.sh-ytic svg{width:100%;height:100%}
+.yt-row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:var(--surface-2);color:var(--fg);text-decoration:none}
+.yt-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#FF0033;color:#fff}.yt-ic svg{width:18px;height:18px}.yt-row b{flex:1;font-size:14px}.yt-go{font-size:22px;color:var(--muted)}
+/* ===== shorts player ===== */
+.shp{position:absolute;inset:0;z-index:120;color:#fff;display:flex;flex-direction:column;overflow:hidden;animation:shpIn .35s cubic-bezier(.2,.9,.3,1) both;touch-action:none;user-select:none;-webkit-user-select:none}
+.shp.out{animation:shpOut .25s ease both}
+@keyframes shpIn{from{opacity:0;transform:translateY(30px) scale(.98)}}@keyframes shpOut{to{opacity:0;transform:translateY(30px)}}
+.shp.swap-up .shp-stage{animation:swUp .4s cubic-bezier(.2,.9,.3,1)}.shp.swap-down .shp-stage{animation:swDn .4s cubic-bezier(.2,.9,.3,1)}
+@keyframes swUp{from{opacity:0;transform:translateY(60px)}}@keyframes swDn{from{opacity:0;transform:translateY(-60px)}}
+.shp-bg{position:absolute;inset:0;background:radial-gradient(90% 50% at 50% 35%,rgba(255,255,255,.22),transparent 70%),linear-gradient(165deg,var(--g1),var(--g2) 70%,#120B2E);transition:background .4s}
+.shp>*:not(.shp-bg){position:relative;z-index:1}
+.shp-top{padding:calc(env(safe-area-inset-top,0px) + 54px) 16px 0;display:flex;flex-direction:column;gap:12px}
+@media (max-width:600px){.shp-top{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}}
+.shp-seg{display:flex;gap:4px}.shp-seg i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}.shp-seg i b{display:block;height:100%;width:0;background:#fff;border-radius:inherit}
+.shp-row{display:flex;align-items:center;gap:8px}
+.shp-tag{font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.2)}
+.shp-title{flex:1;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shp-x{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.18);color:#fff}.shp-x svg{width:18px;height:18px}
+.shp-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:10px 22px 90px}
+.shp-sc{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;animation:copyIn .45s cubic-bezier(.2,.85,.25,1) both}
+.shp-bird{width:150px;height:150px;filter:drop-shadow(0 18px 28px rgba(0,0,0,.3));animation:birdIn .6s cubic-bezier(.3,1.5,.5,1) both}
+.shp-big{margin:0;font-size:30px;line-height:1.15;letter-spacing:-.02em}
+.shp-card{position:relative;width:100%;box-sizing:border-box;padding:22px 18px 18px;border-radius:24px;background:rgba(255,255,255,.95);color:#1B1140;box-shadow:0 24px 40px -22px rgba(0,0,0,.5)}
+.shp-en{margin:0;font-size:24px;font-weight:800;line-height:1.3}.shp-en mark{background:linear-gradient(transparent 55%,#FFD45E 55%);color:inherit;padding:0 2px}
+.shp-ipa{display:block;margin-top:6px;font-size:15px;color:#6B6585}
+.shp-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:800;padding:5px 12px;border-radius:999px;color:#fff;white-space:nowrap}
+.shp-badge.good{background:#2DBE6C}.shp-badge.bad{background:#F0506E}
+.k-bad .shp-en{text-decoration:line-through;text-decoration-color:#F0506E;text-decoration-thickness:3px;color:#6B6585}
+.shp-vi{margin:0;font-size:16px;font-weight:600;line-height:1.45;max-width:30ch;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.shp-rail{position:absolute!important;right:10px;bottom:120px;display:flex;flex-direction:column;gap:14px}
+.shp-rail button{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;font-size:20px}
+.shp-rail button>svg,.shp-rail button>.pp{width:46px;height:46px;box-sizing:border-box;padding:12px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px)}
+.shp-rail button[data-a="next"]{font-size:26px;line-height:1}.shp-rail button[data-a="next"]::before{content:"";}
+.shp-rail small{font-size:10.5px;font-weight:700}
+.pp{position:relative;display:block}.pp::before,.pp::after{content:"";position:absolute;top:14px;width:5px;height:18px;border-radius:2px;background:#fff}.pp::before{left:15px}.pp::after{right:15px}
+.shp.paused .pp::before{left:17px;width:0;height:0;border-radius:0;background:none;border-left:15px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}.shp.paused .pp::after{display:none}
+.shp.paused .shp-stage::after{content:"Đang tạm dừng";position:absolute;left:50%;bottom:150px;transform:translateX(-50%);font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.35)}
+.shp-hint{position:absolute!important;left:0;right:0;bottom:calc(18px + env(safe-area-inset-bottom,0px));margin:0;text-align:center;font-size:11.5px;opacity:.7}
+.shp-quiz{width:100%;box-sizing:border-box;padding:20px 16px;border-radius:26px;background:var(--surface);color:var(--fg);display:flex;flex-direction:column;gap:12px;animation:copyIn .45s both;text-align:left}
+.shp-qeye{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--n-lilac)}
+.shp-quiz h3{margin:0;font-size:20px;line-height:1.3}.shp-quiz u{text-decoration:none;color:var(--n-lilac)}
+.shp-quiz .opts{display:flex;flex-direction:column;gap:8px}
+.shp-end{display:grid;grid-template-columns:1fr 1.5fr;gap:8px}.shp-end[hidden]{display:none}
+.shp-end .btn{justify-content:center}
+.pfb-ic{font-weight:900}
+/* ===== bigger nav icons ===== */
+.screen .tabbar .nv svg.nvi{width:30px!important;height:30px!important}
+.screen .tabbar .center svg.fab-ic{width:34px!important;height:34px!important}
+.shp.quiz-on .shp-rail,.shp.quiz-on .shp-hint{display:none}
+.shp.quiz-on .shp-stage{padding-bottom:30px}
+.sp-slots{flex-wrap:nowrap!important;gap:6px!important}
+.sp-s{flex:0 1 42px;min-width:26px;width:auto!important}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -3642,7 +3731,7 @@ const EN={
 "Chọn câu bạn nghe được":"Choose what you heard","Câu bạn vừa nghe có nghĩa là gì?":"What does the sentence you heard mean?",
 "Ngôn ngữ":"Language","Ngôn ngữ ứng dụng":"App language","Hiển thị menu, hướng dẫn và thông báo":"Menus, instructions and notifications","Màu sắc":"Colour style","Pastel":"Pastel","Đậm đà":"Vivid","Dịu nhẹ hay rực rỡ, đậm màu":"Soft pastel or rich, saturated colours",
 "Quay lại":"Back","Âm thanh":"Sound","Giao diện & ngôn ngữ":"Appearance & language","Mục tiêu, chuyên ngành, xếp lớp":"Goal, field, placement","Giờ nhắc, thông báo":"Time, notifications","Giọng đọc, tốc độ":"Voice, speed","Chủ đề, màu, ngôn ngữ, tên":"Theme, colours, language, name","Cài app, xoá dữ liệu":"Install, reset data",
-"Đang bật":"On","Chính xác!":"Correct!","Tuyệt vời!":"Awesome!","Giỏi quá!":"Great job!","Chưa đúng rồi":"Not quite","Không sao, đây là đáp án:":"No worries, here is the answer:","Đáp án đúng:":"Correct answer:","Xem kết quả":"See result","Tiếp theo":"Up next","hoàn thành":"complete","chủ đề":"topics","Lộ trình của bạn":"Your path","Tiếp tục học":"Continue","Tiếp theo:":"Next:","Ôn lại":"Review","Cúp chủ đề":"Topic trophy","Đã mở cúp chủ đề":"Trophy unlocked","Xong 3 vòng để mở":"Finish 3 rounds to unlock","Hoàn thành vòng trước để mở":"Finish the previous round first","Hoàn thành":"Completed","Bắt đầu lại hội thoại?":"Restart conversation?","Đoạn hội thoại hiện tại sẽ bị xoá để bắt đầu lại từ đầu với tình huống này.":"The current conversation will be cleared so you can start this scenario over.","Bắt đầu lại":"Restart","Đã bắt đầu hội thoại mới":"Started a new conversation","Học tiếng Anh gần gũi với người Việt. Mười phút mỗi ngày là đủ.":"English made for Vietnamese learners. Ten minutes a day is enough.","Chấm phát âm từng từ, tập trung đúng các âm người Việt hay sai.":"Word-by-word pronunciation scores, focused on sounds Vietnamese speakers miss.","Tình huống thật, sửa lỗi ngay, giải thích bằng tiếng Việt.":"Real situations, instant fixes, explained in Vietnamese.","Ôn từ đúng lúc sắp quên, mở khoá gói từ theo cấp độ, Sáo nhắc học mỗi tối.":"Review right before you forget, unlock packs by level, and get evening nudges from Sáo.","chuỗi học":"day streak","+15 XP hôm nay":"+15 XP today","Gợi ý sửa":"Suggested fix","Đến giờ học rồi!":"Time to learn!","kiên cường":"resilient","Xem lại giới thiệu":"Replay intro","4 trang giới thiệu SáoVoxy cùng Sáo":"The 4-page SáoVoxy tour with Sáo","Xem":"View","Đã có tài khoản?":"Have an account?","Bỏ qua":"Skip","Bắt đầu học":"Start learning","Chú sáo học ngôn ngữ":"The language-learning myna","Nghe & nói":"Listen & speak","Nhớ lâu, học đều":"Remember for longer","Miễn phí":"Free","Chấm phát âm":"Pronunciation scoring","Cặp âm khó":"Tricky sounds","9 tình huống":"9 scenarios","Sửa lỗi tức thì":"Instant corrections","Theo cấp độ":"By level","Gói từ vựng":"Word packs","Chuỗi ngày":"Streaks","SáoVoxy gần gũi với người Việt, chuẩn phong cách app học tập. Mỗi ngày 10 phút là đủ.":"SáoVoxy is made for Vietnamese learners, in true learning-app style. Ten minutes a day is enough.","Nghe giọng bản xứ, đọc to và được chấm phát âm từng từ, tập trung đúng những âm người Việt hay sai.":"Hear native voices, read aloud and get word-by-word pronunciation scores focused on sounds Vietnamese speakers miss.","Trò chuyện theo tình huống thật: quán cà phê, phỏng vấn, đi khám… Viết sai là được sửa ngay, giải thích bằng tiếng Việt.":"Chat in real situations: cafés, interviews, the doctor… Mistakes get fixed instantly, explained in Vietnamese.","Ôn từ đúng lúc sắp quên, mở khoá gói từ mới theo cấp độ, giữ chuỗi ngày và được Sáo nhắc học mỗi tối.":"Review words right before you forget, unlock new packs by level, keep your streak and get evening reminders from Sáo.","Học tiếng Anh cùng Sáo":"Learn English with Sáo","Đã gửi thông báo từ máy chủ":"Sent a notification from the server","Tài khoản":"Account","Đăng nhập, đồng bộ tiến độ":"Sign in, sync progress","Đã đăng nhập":"Signed in","Chưa":"No","Đăng nhập để lưu tiến độ":"Sign in to save progress","Tiến độ đang được đồng bộ trên mọi thiết bị":"Progress syncs across your devices","Chưa đăng nhập":"Not signed in","Tiến độ chỉ lưu trên máy này. Đăng nhập để không mất dữ liệu khi đổi máy.":"Progress lives on this device only. Sign in so you never lose it.","Đăng nhập":"Sign in","Đăng xuất":"Sign out","Đăng xuất?":"Sign out?","Tiến độ đã lưu trên tài khoản. Máy này vẫn giữ bản sao để bạn học tiếp.":"Your progress is saved to your account. This device keeps a copy.","Đã đăng xuất":"Signed out","Lưu tiến độ của bạn":"Save your progress","Đăng nhập để học trên nhiều thiết bị và không bao giờ mất chuỗi ngày.":"Sign in to learn on any device and never lose your streak.","Tiếp tục với Google":"Continue with Google","hoặc dùng email":"or use email","Gửi link đăng nhập":"Send sign-in link","Không cần mật khẩu: mở link trong email là đăng nhập xong.":"No password: just open the link in your email.","Đã tải tiến độ từ tài khoản":"Progress loaded from your account","Trình độ hội thoại":"Conversation level","Gói từ":"Word packs","Mở khoá gói từ mới!":"New word pack unlocked!","Học gói mới":"Start new pack","Tạo gói bằng AI":"Make a pack with AI","20 từ theo cấp độ của bạn":"20 words for your level","Hoàn thành":"Done","Cần bật gia sư AI để tạo gói từ":"Turn on the AI tutor to make packs","Sáo đang soạn gói từ cho bạn…":"Sáo is writing your pack…","Chưa tạo được gói từ, thử lại sau nhé":"Couldn't make the pack, try again later","Đời sống hằng ngày":"Everyday life","Công việc & email":"Work & email","Du lịch & dịch vụ":"Travel & services","Diễn đạt tinh tế":"Nuanced expression","Cảm xúc & tính cách":"Feelings & personality","Lập luận & học thuật":"Academic & argument","Cụm động từ & thành ngữ":"Phrasal verbs & idioms","Từ bạn chọn":"Your pick","danh từ":"noun","động từ":"verb","tính từ":"adjective","trạng từ":"adverb","Nghe câu ví dụ":"Hear example","Bạn nhớ từ này đến đâu?":"How well do you know it?","Bạn đã cố gắng rồi!":"Nice effort!","Làm lại vòng này một lần nữa sẽ giúp bạn nhớ lâu hơn 💪":"Redo this round once more to make it stick 💪","SáoVoxy cần micro để chấm phát âm. Làm theo vài bước dưới đây để bật lại nhé.":"SáoVoxy needs the mic to score pronunciation. Follow these steps to turn it back on.","Thử bật micro":"Try the mic again","Đã bật micro":"Microphone on","Micro vẫn bị chặn, hãy làm theo các bước hướng dẫn":"Mic still blocked — follow the steps","Máy tính":"Computer","Bấm “aA” ở thanh địa chỉ Safari":"Tap “aA” in Safari's address bar","Hoặc biểu tượng ổ khoá bên trái đường link":"Or the lock icon left of the link","Chọn “Cài đặt trang web”":"Choose “Website Settings”","Tìm dòng Micro":"Find Microphone","Đổi Micro sang “Cho phép”":"Set Microphone to “Allow”","Rồi tải lại trang":"Then reload the page","Đã cài app ra màn hình chính?":"Installed on your home screen?","Vào Cài đặt iPhone → Safari → Micro → Cho phép":"iPhone Settings → Safari → Microphone → Allow","Bấm biểu tượng ổ khoá cạnh địa chỉ":"Tap the lock icon by the address","Trong trình duyệt Chrome":"In Chrome","Chọn “Quyền” → “Micro”":"Choose “Permissions” → “Microphone”","Đổi sang “Cho phép”":"Set to “Allow”","Vẫn bị chặn?":"Still blocked?","Cài đặt điện thoại → Ứng dụng → Chrome → Quyền → Micro":"Phone Settings → Apps → Chrome → Permissions → Microphone","Tải lại trang":"Reload the page","Rồi bấm micro một lần nữa":"Then tap the mic again","Góc trái thanh địa chỉ":"Left end of the address bar","Micro → “Cho phép”":"Microphone → “Allow”","Chọn đúng micro nếu có nhiều thiết bị":"Pick the right mic if you have several","Hiệu ứng âm thanh":"Sound effects","Tiếng chuông khi trả lời đúng, sai và hoàn thành bài":"Chimes for right and wrong answers and finished lessons","Bật":"On","Tắt":"Off","Màu của Sáo":"Mascot colour","Chọn màu linh vật bạn thích":"Pick your favourite mascot colour","Tím":"Violet","Sáo đen":"Black myna","Mint":"Mint","Bạn đã ở cấp cao nhất":"You're at the top level","Vừa":"Medium","Chuẩn":"Normal","Đều":"Steady","Nhẹ":"Light","Bạn sẽ mất":"You will lose","Lộ trình bài học":"Lesson path","Từ vựng đã thuộc":"Words learned","ngày đã học":"days studied","lần đọc to":"read-alouds","Hoàn thành":"Done","Mở bằng Safari":"Open in Safari","Dán link app vào Safari":"Paste the app link into Safari","Bấm nút Chia sẻ":"Tap Share","Biểu tượng ô vuông có mũi tên ở thanh dưới":"The square-with-arrow icon in the bottom bar","Thêm vào MH chính":"Add to Home Screen","Chọn “Thêm vào MH chính” rồi bấm Thêm":"Choose “Add to Home Screen”, then Add","Mở bằng Chrome":"Open in Chrome","Dán link app vào Chrome":"Paste the app link into Chrome","Bấm menu ⋮":"Tap the ⋮ menu","Ở góc trên bên phải":"Top-right corner","Cài đặt ứng dụng":"Install app","Chọn “Cài đặt ứng dụng” hoặc “Thêm vào màn hình chính”":"Choose “Install app” or “Add to Home screen”","Bước":"Step","Xóa toàn bộ tiến độ?":"Delete all progress?","XP, chuỗi ngày, huy hiệu và từ vựng đã học trên máy này sẽ bị xóa. Không thể hoàn tác.":"XP, streaks, badges and learned words on this device will be deleted. This can't be undone.","Đồng ý":"OK","Đang tắt":"Off","Giờ nhắc học":"Reminder time","Sáo nhắc nếu hôm đó bạn chưa học":"Sáo reminds you only if you haven't studied that day","Sáng sớm":"Early","Giờ trưa":"Lunch","Buổi tối":"Evening","Trước ngủ":"Bedtime","Chọn giờ nhắc":"Choose reminder time"
+"Đang bật":"On","Video ngắn":"Short videos","Học nhanh 1 phút cùng Sáo":"1-minute lessons with Sáo","đã xem":"watched","Đúng hay sai?":"True or false?","Câu này có nghĩa là…":"This sentence means…","Đúng":"True","Sai":"False","Nối từ với nghĩa":"Match the words","Chạm một từ, rồi chạm nghĩa của nó":"Tap a word, then its meaning","Ghép chữ thành từ":"Spell the word","Nghe và gõ lại câu":"Listen and type","Gõ câu bạn nghe được…":"Type what you hear…","Kiểm tra nhanh":"Quick check","Xem lại":"Replay","Video tiếp theo":"Next video","Nghe lại":"Replay","Dừng":"Pause","Tiếp":"Next","Xem thêm trên YouTube":"More on YouTube","Đóng":"Close","Chính xác!":"Correct!","Tuyệt vời!":"Awesome!","Giỏi quá!":"Great job!","Chưa đúng rồi":"Not quite","Không sao, đây là đáp án:":"No worries, here is the answer:","Đáp án đúng:":"Correct answer:","Xem kết quả":"See result","Tiếp theo":"Up next","hoàn thành":"complete","chủ đề":"topics","Lộ trình của bạn":"Your path","Tiếp tục học":"Continue","Tiếp theo:":"Next:","Ôn lại":"Review","Cúp chủ đề":"Topic trophy","Đã mở cúp chủ đề":"Trophy unlocked","Xong 3 vòng để mở":"Finish 3 rounds to unlock","Hoàn thành vòng trước để mở":"Finish the previous round first","Hoàn thành":"Completed","Bắt đầu lại hội thoại?":"Restart conversation?","Đoạn hội thoại hiện tại sẽ bị xoá để bắt đầu lại từ đầu với tình huống này.":"The current conversation will be cleared so you can start this scenario over.","Bắt đầu lại":"Restart","Đã bắt đầu hội thoại mới":"Started a new conversation","Học tiếng Anh gần gũi với người Việt. Mười phút mỗi ngày là đủ.":"English made for Vietnamese learners. Ten minutes a day is enough.","Chấm phát âm từng từ, tập trung đúng các âm người Việt hay sai.":"Word-by-word pronunciation scores, focused on sounds Vietnamese speakers miss.","Tình huống thật, sửa lỗi ngay, giải thích bằng tiếng Việt.":"Real situations, instant fixes, explained in Vietnamese.","Ôn từ đúng lúc sắp quên, mở khoá gói từ theo cấp độ, Sáo nhắc học mỗi tối.":"Review right before you forget, unlock packs by level, and get evening nudges from Sáo.","chuỗi học":"day streak","+15 XP hôm nay":"+15 XP today","Gợi ý sửa":"Suggested fix","Đến giờ học rồi!":"Time to learn!","kiên cường":"resilient","Xem lại giới thiệu":"Replay intro","4 trang giới thiệu SáoVoxy cùng Sáo":"The 4-page SáoVoxy tour with Sáo","Xem":"View","Đã có tài khoản?":"Have an account?","Bỏ qua":"Skip","Bắt đầu học":"Start learning","Chú sáo học ngôn ngữ":"The language-learning myna","Nghe & nói":"Listen & speak","Nhớ lâu, học đều":"Remember for longer","Miễn phí":"Free","Chấm phát âm":"Pronunciation scoring","Cặp âm khó":"Tricky sounds","9 tình huống":"9 scenarios","Sửa lỗi tức thì":"Instant corrections","Theo cấp độ":"By level","Gói từ vựng":"Word packs","Chuỗi ngày":"Streaks","SáoVoxy gần gũi với người Việt, chuẩn phong cách app học tập. Mỗi ngày 10 phút là đủ.":"SáoVoxy is made for Vietnamese learners, in true learning-app style. Ten minutes a day is enough.","Nghe giọng bản xứ, đọc to và được chấm phát âm từng từ, tập trung đúng những âm người Việt hay sai.":"Hear native voices, read aloud and get word-by-word pronunciation scores focused on sounds Vietnamese speakers miss.","Trò chuyện theo tình huống thật: quán cà phê, phỏng vấn, đi khám… Viết sai là được sửa ngay, giải thích bằng tiếng Việt.":"Chat in real situations: cafés, interviews, the doctor… Mistakes get fixed instantly, explained in Vietnamese.","Ôn từ đúng lúc sắp quên, mở khoá gói từ mới theo cấp độ, giữ chuỗi ngày và được Sáo nhắc học mỗi tối.":"Review words right before you forget, unlock new packs by level, keep your streak and get evening reminders from Sáo.","Học tiếng Anh cùng Sáo":"Learn English with Sáo","Đã gửi thông báo từ máy chủ":"Sent a notification from the server","Tài khoản":"Account","Đăng nhập, đồng bộ tiến độ":"Sign in, sync progress","Đã đăng nhập":"Signed in","Chưa":"No","Đăng nhập để lưu tiến độ":"Sign in to save progress","Tiến độ đang được đồng bộ trên mọi thiết bị":"Progress syncs across your devices","Chưa đăng nhập":"Not signed in","Tiến độ chỉ lưu trên máy này. Đăng nhập để không mất dữ liệu khi đổi máy.":"Progress lives on this device only. Sign in so you never lose it.","Đăng nhập":"Sign in","Đăng xuất":"Sign out","Đăng xuất?":"Sign out?","Tiến độ đã lưu trên tài khoản. Máy này vẫn giữ bản sao để bạn học tiếp.":"Your progress is saved to your account. This device keeps a copy.","Đã đăng xuất":"Signed out","Lưu tiến độ của bạn":"Save your progress","Đăng nhập để học trên nhiều thiết bị và không bao giờ mất chuỗi ngày.":"Sign in to learn on any device and never lose your streak.","Tiếp tục với Google":"Continue with Google","hoặc dùng email":"or use email","Gửi link đăng nhập":"Send sign-in link","Không cần mật khẩu: mở link trong email là đăng nhập xong.":"No password: just open the link in your email.","Đã tải tiến độ từ tài khoản":"Progress loaded from your account","Trình độ hội thoại":"Conversation level","Gói từ":"Word packs","Mở khoá gói từ mới!":"New word pack unlocked!","Học gói mới":"Start new pack","Tạo gói bằng AI":"Make a pack with AI","20 từ theo cấp độ của bạn":"20 words for your level","Hoàn thành":"Done","Cần bật gia sư AI để tạo gói từ":"Turn on the AI tutor to make packs","Sáo đang soạn gói từ cho bạn…":"Sáo is writing your pack…","Chưa tạo được gói từ, thử lại sau nhé":"Couldn't make the pack, try again later","Đời sống hằng ngày":"Everyday life","Công việc & email":"Work & email","Du lịch & dịch vụ":"Travel & services","Diễn đạt tinh tế":"Nuanced expression","Cảm xúc & tính cách":"Feelings & personality","Lập luận & học thuật":"Academic & argument","Cụm động từ & thành ngữ":"Phrasal verbs & idioms","Từ bạn chọn":"Your pick","danh từ":"noun","động từ":"verb","tính từ":"adjective","trạng từ":"adverb","Nghe câu ví dụ":"Hear example","Bạn nhớ từ này đến đâu?":"How well do you know it?","Bạn đã cố gắng rồi!":"Nice effort!","Làm lại vòng này một lần nữa sẽ giúp bạn nhớ lâu hơn 💪":"Redo this round once more to make it stick 💪","SáoVoxy cần micro để chấm phát âm. Làm theo vài bước dưới đây để bật lại nhé.":"SáoVoxy needs the mic to score pronunciation. Follow these steps to turn it back on.","Thử bật micro":"Try the mic again","Đã bật micro":"Microphone on","Micro vẫn bị chặn, hãy làm theo các bước hướng dẫn":"Mic still blocked — follow the steps","Máy tính":"Computer","Bấm “aA” ở thanh địa chỉ Safari":"Tap “aA” in Safari's address bar","Hoặc biểu tượng ổ khoá bên trái đường link":"Or the lock icon left of the link","Chọn “Cài đặt trang web”":"Choose “Website Settings”","Tìm dòng Micro":"Find Microphone","Đổi Micro sang “Cho phép”":"Set Microphone to “Allow”","Rồi tải lại trang":"Then reload the page","Đã cài app ra màn hình chính?":"Installed on your home screen?","Vào Cài đặt iPhone → Safari → Micro → Cho phép":"iPhone Settings → Safari → Microphone → Allow","Bấm biểu tượng ổ khoá cạnh địa chỉ":"Tap the lock icon by the address","Trong trình duyệt Chrome":"In Chrome","Chọn “Quyền” → “Micro”":"Choose “Permissions” → “Microphone”","Đổi sang “Cho phép”":"Set to “Allow”","Vẫn bị chặn?":"Still blocked?","Cài đặt điện thoại → Ứng dụng → Chrome → Quyền → Micro":"Phone Settings → Apps → Chrome → Permissions → Microphone","Tải lại trang":"Reload the page","Rồi bấm micro một lần nữa":"Then tap the mic again","Góc trái thanh địa chỉ":"Left end of the address bar","Micro → “Cho phép”":"Microphone → “Allow”","Chọn đúng micro nếu có nhiều thiết bị":"Pick the right mic if you have several","Hiệu ứng âm thanh":"Sound effects","Tiếng chuông khi trả lời đúng, sai và hoàn thành bài":"Chimes for right and wrong answers and finished lessons","Bật":"On","Tắt":"Off","Màu của Sáo":"Mascot colour","Chọn màu linh vật bạn thích":"Pick your favourite mascot colour","Tím":"Violet","Sáo đen":"Black myna","Mint":"Mint","Bạn đã ở cấp cao nhất":"You're at the top level","Vừa":"Medium","Chuẩn":"Normal","Đều":"Steady","Nhẹ":"Light","Bạn sẽ mất":"You will lose","Lộ trình bài học":"Lesson path","Từ vựng đã thuộc":"Words learned","ngày đã học":"days studied","lần đọc to":"read-alouds","Hoàn thành":"Done","Mở bằng Safari":"Open in Safari","Dán link app vào Safari":"Paste the app link into Safari","Bấm nút Chia sẻ":"Tap Share","Biểu tượng ô vuông có mũi tên ở thanh dưới":"The square-with-arrow icon in the bottom bar","Thêm vào MH chính":"Add to Home Screen","Chọn “Thêm vào MH chính” rồi bấm Thêm":"Choose “Add to Home Screen”, then Add","Mở bằng Chrome":"Open in Chrome","Dán link app vào Chrome":"Paste the app link into Chrome","Bấm menu ⋮":"Tap the ⋮ menu","Ở góc trên bên phải":"Top-right corner","Cài đặt ứng dụng":"Install app","Chọn “Cài đặt ứng dụng” hoặc “Thêm vào màn hình chính”":"Choose “Install app” or “Add to Home screen”","Bước":"Step","Xóa toàn bộ tiến độ?":"Delete all progress?","XP, chuỗi ngày, huy hiệu và từ vựng đã học trên máy này sẽ bị xóa. Không thể hoàn tác.":"XP, streaks, badges and learned words on this device will be deleted. This can't be undone.","Đồng ý":"OK","Đang tắt":"Off","Giờ nhắc học":"Reminder time","Sáo nhắc nếu hôm đó bạn chưa học":"Sáo reminds you only if you haven't studied that day","Sáng sớm":"Early","Giờ trưa":"Lunch","Buổi tối":"Evening","Trước ngủ":"Bedtime","Chọn giờ nhắc":"Choose reminder time"
 };
 const EN_RULES=[
  [/^(.+) vòng (\d)$/,(m,a,b)=>`${a} · round ${b}`],
@@ -4291,6 +4380,7 @@ function viewHome(v){
     </div>
   </section>
 
+  ${shortsStripHTML()}
   <section class="panel weekcard">
     <div class="wk-top"><div><span class="eyebrow">Tuần này</span><br><b class="num">${wkTotal} XP</b></div><span>${wk.filter(x=>x.xp>0).length}/7 ngày học · mục tiêu ${GOAL}/ngày</span></div>
     <div class="bars2">${wk.map(x=>`<div class="b2 ${x.xp>=GOAL?'hit':x.xp>0?'on':''} ${x.today?'today':''} ${x.future?'fut':''}"><span class="tr"><i style="height:${x.xp?Math.min(100,Math.max(12,x.xp/GOAL*100)):0}%"></i>${x.xp>=GOAL?'<em class="wk-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 12.5l3.6 3.6L17.5 8.5"/></svg></em>':''}</span><span class="dl">${x.n}</span></div>`).join('')}</div>
@@ -4303,9 +4393,177 @@ function viewHome(v){
     <p class="ex">“${esc(w.ex)}”</p>
     <span class="wart">${ART.words}</span>
   </section>`;
-  $('#wotd-say').onclick=()=>say(w.w+'. '+w.ex);
+  $('#wotd-say').onclick=()=>say(w.w+'. '+w.ex); bindShorts(v);
   $$('[data-to]',v).forEach(b=>b.onclick=()=>go(b.dataset.to));
   $$('[data-unit]',v).forEach(b=>b.onclick=()=>{const u=UNITS.find(u=>u.id===b.dataset.unit); go('lessons'); runLesson($('#view'),u,nextRound(u))});
+}
+
+/* ---------- Video ngắn (Sáo Shorts): narrated micro-lessons ---------- */
+const SHORTS=[
+ {id:'very-like',tag:'Lỗi hay gặp',title:'Đừng nói “I very like”',g:['#6A4BFF','#B06BFF'],mood:'think',sc:[
+   {k:'title',vi:'Người Việt rất hay nói “I very like…”. Sai ở đâu nhỉ?'},
+   {k:'bad',en:'I very like coffee.',vi:'“very” không đứng trước động từ.'},
+   {k:'good',en:'I really like coffee.',vi:'Dùng “really” trước động từ.',hl:'really'},
+   {k:'good',en:'I like coffee very much.',vi:'Hoặc đặt “very much” ở cuối câu.',hl:'very much'}],
+  q:['Chọn câu đúng',['I very love music.','I really love music.','I love very music.'],1]},
+ {id:'final-s',tag:'Phát âm',title:'Đừng nuốt âm cuối',g:['#1F6FD6','#3ED6C2'],mood:'listen',sc:[
+   {k:'title',vi:'Âm cuối quyết định nghĩa của từ. “book” khác “books”!'},
+   {k:'say',en:'books',ipa:'/bʊks/',vi:'Nghe rõ âm /s/ ở cuối.'},
+   {k:'say',en:'She likes cats.',ipa:'/laɪks/ · /kæts/',vi:'Hai âm /s/ cuối đều phải bật ra.'},
+   {k:'say',en:'dogs and birds',ipa:'/dɒɡz/ · /bɜːdz/',vi:'Sau âm hữu thanh, “s” đọc thành /z/.'}],
+  q:['Từ nào kết thúc bằng âm /z/?',['cats','dogs','books'],1]},
+ {id:'look',tag:'Cụm động từ',title:'look for · look after · look up',g:['#FF8A3D','#FF4F8B'],mood:'happy',sc:[
+   {k:'title',vi:'Cùng là “look”, đi với giới từ khác nhau thì nghĩa khác hẳn.'},
+   {k:'say',en:"I'm looking for my keys.",vi:'look for = tìm kiếm',hl:'looking for'},
+   {k:'say',en:'She looks after her little brother.',vi:'look after = chăm sóc',hl:'looks after'},
+   {k:'say',en:'Look it up in the dictionary.',vi:'look up = tra cứu',hl:'Look it up'}],
+  q:['Can you ___ my cat this weekend?',['look for','look after','look up'],1]},
+ {id:'how-are-you',tag:'Giao tiếp',title:'Thôi trả lời “Fine, thank you, and you?”',g:['#16916B','#C8E85A'],mood:'wink',sc:[
+   {k:'title',vi:'Người bản xứ hiếm khi nói như sách giáo khoa. Thử mấy câu này nhé!'},
+   {k:'good',en:'Not bad, thanks. You?',vi:'Cũng ổn, cảm ơn. Còn bạn?'},
+   {k:'good',en:'Pretty good! Busy week, though.',vi:'Khá tốt! Tuần này hơi bận.'},
+   {k:'good',en:"Can't complain.",vi:'Ổn cả, chẳng có gì phàn nàn.'}],
+  q:['Câu nào nghe tự nhiên nhất?',['I am fine, thank you, and you?','Not bad, thanks. You?','I am very fine.'],1]},
+ {id:'ed',tag:'Phát âm',title:'3 cách đọc đuôi -ed',g:['#B0306E','#FF9A5C'],mood:'listen',sc:[
+   {k:'title',vi:'Đuôi -ed có 3 cách đọc: /t/, /d/ và /ɪd/.'},
+   {k:'say',en:'worked, stopped, watched',ipa:'/t/',vi:'Sau âm vô thanh (k, p, s, ch, sh, f) → /t/'},
+   {k:'say',en:'played, called, loved',ipa:'/d/',vi:'Sau âm hữu thanh và nguyên âm → /d/'},
+   {k:'say',en:'wanted, needed, decided',ipa:'/ɪd/',vi:'Sau t hoặc d → /ɪd/, thêm một âm tiết.'}],
+  q:['“needed” đọc đuôi -ed là?',['/t/','/d/','/ɪd/'],2]},
+ {id:'idioms',tag:'Thành ngữ',title:'3 thành ngữ dùng hằng ngày',g:['#7B5CFF','#3FAEF0'],mood:'cheer',sc:[
+   {k:'title',vi:'Thành ngữ giúp bạn nói chuyện tự nhiên như người bản xứ.'},
+   {k:'say',en:'The test was a piece of cake.',vi:'a piece of cake = dễ như ăn bánh',hl:'a piece of cake'},
+   {k:'say',en:"Let's play a game to break the ice.",vi:'break the ice = phá vỡ sự ngại ngùng',hl:'break the ice'},
+   {k:'say',en:"I'm feeling a bit under the weather.",vi:'under the weather = hơi mệt, không khỏe',hl:'under the weather'}],
+  q:['“I’m under the weather” nghĩa là gì?',['Tôi đang ở ngoài trời mưa','Tôi hơi mệt','Tôi rất vui'],1]},
+ {id:'make-do',tag:'Từ vựng',title:'make hay do?',g:['#FF4F8B','#FFBE0B'],mood:'think',sc:[
+   {k:'title',vi:'“make” là tạo ra cái mới, “do” là làm một việc, một nhiệm vụ.'},
+   {k:'good',en:'make a decision, make a mistake',vi:'make: ra quyết định, mắc lỗi',hl:'make'},
+   {k:'good',en:'do homework, do the dishes',vi:'do: làm bài tập, rửa bát',hl:'do'},
+   {k:'bad',en:'I did a mistake.',vi:'Sai! Phải nói: I made a mistake.'}],
+  q:['I ___ a mistake in my email.',['did','made','done'],1]},
+ {id:'polite',tag:'Công sở',title:'Nhờ vả lịch sự trong email',g:['#2C1690','#7B5CFF'],mood:'happy',sc:[
+   {k:'title',vi:'“I want…” nghe hơi cộc. Thử các mẫu câu lịch sự hơn nhé.'},
+   {k:'bad',en:'I want the report today.',vi:'Nghe như ra lệnh.'},
+   {k:'good',en:'Could you please send me the report today?',vi:'Bạn có thể gửi tôi báo cáo hôm nay không?',hl:'Could you please'},
+   {k:'good',en:'Would you mind checking this file?',vi:'Bạn có phiền kiểm tra file này giúp tôi không?',hl:'Would you mind'}],
+  q:['Câu nào lịch sự nhất?',['Send me the file.','I want the file.','Could you please send me the file?'],2]},
+ {id:'th',tag:'Phát âm',title:'Âm “th” — think, không phải sink',g:['#0B2A5B','#1F6FD6'],mood:'listen',sc:[
+   {k:'title',vi:'Đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi nhẹ ra.'},
+   {k:'say',en:'think, three, thank you',ipa:'/θ/',vi:'Âm /θ/ vô thanh: chỉ có hơi, không rung cổ.'},
+   {k:'say',en:'this, that, mother',ipa:'/ð/',vi:'Âm /ð/ hữu thanh: rung nhẹ cổ họng.'},
+   {k:'bad',en:'I sink so.',vi:'Đọc nhầm thành /s/ sẽ thành “chìm”!'}],
+  q:['Khi đọc /θ/, lưỡi đặt ở đâu?',['Chạm vòm miệng','Giữa hai hàm răng','Cuộn ra sau'],1]},
+ {id:'in-on-at',tag:'Ngữ pháp',title:'in · on · at chỉ thời gian',g:['#16916B','#3ED6C2'],mood:'wink',sc:[
+   {k:'title',vi:'Mẹo nhớ: at cho giờ, on cho ngày, in cho khoảng thời gian dài.'},
+   {k:'good',en:'See you at 7 pm.',vi:'at + giờ',hl:'at'},
+   {k:'good',en:"We're meeting on Monday.",vi:'on + thứ, ngày',hl:'on'},
+   {k:'good',en:'I was born in July.',vi:'in + tháng, năm, mùa',hl:'in'}],
+  q:['See you ___ Monday!',['in','on','at'],1]},
+];
+const YT_LINKS=[
+ ['BBC Learning English · English in a Minute','English in a Minute BBC Learning English'],
+ ['Phát âm tiếng Anh cho người Việt','phát âm tiếng anh cho người việt'],
+ ['Giao tiếp tiếng Anh công sở','business english conversation for beginners'],
+ ['VOA Learning English','VOA Learning English']];
+function shortsStripHTML(){
+  S.shortsSeen=S.shortsSeen||{};
+  const seen=SHORTS.filter(s=>S.shortsSeen[s.id]).length;
+  return `<section class="sh-strip"><div class="sh-head"><div><span class="sh-eye">Video ngắn</span><b>Học nhanh 1 phút cùng Sáo</b></div><span class="sh-cnt">${seen}/${SHORTS.length} đã xem</span></div>
+    <div class="sh-row">${SHORTS.map((s,i)=>`<button class="sh-card ${S.shortsSeen[s.id]?'seen':''}" data-short="${i}" style="--g1:${s.g[0]};--g2:${s.g[1]}">
+      <span class="sh-tag">${s.tag}</span>${MASCOT('sh-bird',s.mood)}<span class="sh-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
+      <span class="sh-t">${s.title}</span><span class="sh-meta">${S.shortsSeen[s.id]?'✓ Đã xem':'≈ 1 phút'}</span></button>`).join('')}
+      <button class="sh-card sh-yt" data-yt><span class="sh-tag">YouTube</span><span class="sh-ytic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg></span><span class="sh-t">Xem thêm video trên YouTube</span><span class="sh-meta">Kênh học miễn phí</span></button>
+    </div></section>`;
+}
+function bindShorts(root){
+  $$('[data-short]',root).forEach(b=>b.onclick=()=>playShort(+b.dataset.short));
+  $$('[data-yt]',root).forEach(b=>b.onclick=ytSheet);
+}
+function ytSheet(){
+  const el=document.createElement('div'); el.className='tsheet';
+  el.innerHTML=`<div class="ts-back"></div><div class="ts-card"><div class="ts-grab"></div><div><b style="font-size:18px">Xem thêm trên YouTube</b><p class="muted" style="margin:4px 0 0;font-size:13px">Mở ứng dụng YouTube với các kênh học tiếng Anh miễn phí.</p></div>
+    <div class="stack" style="gap:8px">${YT_LINKS.map(([t,q])=>`<a class="yt-row" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}" target="_blank" rel="noopener"><span class="yt-ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 15V9l5.2 3z"/></svg></span><b>${t}</b><span class="yt-go">›</span></a>`).join('')}</div>
+    <button class="btn" id="yt-close" style="width:100%">Đóng</button></div>`;
+  ($('#screen')||document.body).appendChild(el);
+  const close=()=>el.remove(); el.querySelector('.ts-back').onclick=close; el.querySelector('#yt-close').onclick=close;
+}
+function playShort(idx){
+  let s=SHORTS[idx], si=0, paused=false, tok=0, timer=null, startAt=0, dur=0, left=0;
+  const el=document.createElement('div'); el.className='shp';
+  ($('#screen')||document.body).appendChild(el);
+  const stop=()=>{tok++; clearTimeout(timer); try{speechSynthesis.cancel()}catch(e){}};
+  const close=()=>{stop(); el.classList.add('out'); setTimeout(()=>el.remove(),250); const v=$('#view'); if(v&&$('.sh-strip',v)){$$('.sh-strip',v).forEach(x=>x.outerHTML=shortsStripHTML()); bindShorts(v)}};
+  const hlText=(t,h)=>{let x=esc(t); if(h){const i=t.toLowerCase().indexOf(h.toLowerCase()); if(i>=0)x=esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+h.length))+'</mark>'+esc(t.slice(i+h.length))} return x};
+  const frame=()=>{
+    el.style.setProperty('--g1',s.g[0]); el.style.setProperty('--g2',s.g[1]);
+    el.innerHTML=`<div class="shp-bg"></div>
+      <div class="shp-top"><div class="shp-seg">${s.sc.map((_,i)=>`<i><b></b></i>`).join('')}<i><b></b></i></div>
+        <div class="shp-row"><span class="shp-tag">${s.tag}</span><b class="shp-title">${s.title}</b><button class="shp-x" aria-label="Đóng">${I.close}</button></div></div>
+      <div class="shp-stage" id="shp-stage"></div>
+      <div class="shp-rail"><button data-a="replay" aria-label="Nghe lại">${I.vol}<small>Nghe lại</small></button><button data-a="pause" aria-label="Tạm dừng"><span class="pp"></span><small>Dừng</small></button><button data-a="next" aria-label="Video tiếp">⌄<small>Tiếp</small></button></div>
+      <p class="shp-hint">Chạm hai bên để lùi/tới · Vuốt lên để xem video tiếp</p>`;
+    el.querySelector('.shp-x').onclick=close;
+    el.querySelector('[data-a="replay"]').onclick=e=>{e.stopPropagation(); const c=s.sc[si]; if(c&&c.en)say(c.en,.9)};
+    el.querySelector('[data-a="pause"]').onclick=e=>{e.stopPropagation(); togglePause()};
+    el.querySelector('[data-a="next"]').onclick=e=>{e.stopPropagation(); nextShort(1)};
+    scene();
+  };
+  const segs=()=>$$('.shp-seg i',el);
+  const setSeg=()=>segs().forEach((g,i)=>{g.className=i<si?'done':i===si?'on':''; const b=g.firstChild; b.style.transition='none'; b.style.width=i<si?'100%':'0%'});
+  const runBar=ms=>{const b=segs()[si]?.firstChild; if(!b)return; requestAnimationFrame(()=>{b.style.transition=`width ${ms}ms linear`; b.style.width='100%'})};
+  const scene=()=>{
+    stop(); const my=tok; setSeg(); el.classList.remove('quiz-on');
+    const st=$('#shp-stage',el);
+    if(si>=s.sc.length)return quiz();
+    const c=s.sc[si];
+    const badge=c.k==='bad'?'<span class="shp-badge bad">✕ Sai</span>':c.k==='good'?'<span class="shp-badge good">✓ Đúng</span>':'';
+    st.innerHTML=`<div class="shp-sc k-${c.k}">${MASCOT('shp-bird',c.k==='bad'?'oops':c.k==='good'?'cheer':c.k==='title'?s.mood:'listen')}
+      ${c.k==='title'?`<h2 class="shp-big">${esc(s.title)}</h2>`:`<div class="shp-card">${badge}<p class="shp-en">${hlText(c.en,c.hl)}</p>${c.ipa?`<span class="shp-ipa">${esc(c.ipa)}</span>`:''}</div>`}
+      <p class="shp-vi">${esc(c.vi)}</p></div>`;
+    dur=c.en?Math.max(3200,c.en.length*85+2200):Math.max(3000,c.vi.length*55); startAt=Date.now(); left=dur;
+    runBar(dur);
+    if(c.en)setTimeout(()=>{if(my===tok&&!paused)say(c.en,.9)},450);
+    timer=setTimeout(()=>{if(my===tok){si++;scene()}},dur);
+  };
+  const togglePause=()=>{
+    const b=segs()[si]?.firstChild;
+    if(!paused){paused=true; tok++; clearTimeout(timer); try{speechSynthesis.cancel()}catch(e){} left=Math.max(600,left-(Date.now()-startAt)); if(b){const w=getComputedStyle(b).width; b.style.transition='none'; b.style.width=w} el.classList.add('paused')}
+    else{paused=false; el.classList.remove('paused'); const my=++tok; startAt=Date.now(); if(b){requestAnimationFrame(()=>{b.style.transition=`width ${left}ms linear`; b.style.width='100%'})} timer=setTimeout(()=>{if(my===tok){si++;scene()}},left)}
+  };
+  const quiz=()=>{
+    el.classList.add('quiz-on'); const [q,o,a]=s.q; const st=$('#shp-stage',el); segs().forEach((g,i)=>{g.className=i<s.sc.length?'done':'on'; g.firstChild.style.width=i<s.sc.length?'100%':'0%'});
+    st.innerHTML=`<div class="shp-quiz"><span class="shp-qeye">Kiểm tra nhanh</span><h3>${esc(q).replace('___','<u>_____</u>')}</h3>
+      <div class="opts">${o.map((x,i)=>`<button class="opt" data-i="${i}">${esc(x)}</button>`).join('')}</div><div class="pfb" id="shp-fb" hidden></div>
+      <div class="shp-end" hidden><button class="btn" id="shp-again">Xem lại</button><button class="btn primary" id="shp-next">Video tiếp theo ${I.arrow}</button></div></div>`;
+    let done=false;
+    $$('.opt',st).forEach(b=>b.onclick=ev=>{ev.stopPropagation(); if(done)return; done=true; const ok=+b.dataset.i===a;
+      $$('.opt',st).forEach(x=>{x.disabled=true; if(+x.dataset.i===a)x.classList.add('right')}); if(!ok)b.classList.add('wrong');
+      sfx(ok?'right':'wrong');
+      const first=!S.shortsSeen[s.id]; S.shortsSeen[s.id]=true; save(); addXP((first?5:0)+(ok?5:0));
+      const fb=$('#shp-fb',st); fb.hidden=false; fb.className='pfb '+(ok?'ok':'no');
+      fb.innerHTML=`<span class="pfb-ic">${ok?'✓':'✕'}</span><span class="pfb-t"><b>${ok?'Chính xác!':'Chưa đúng rồi'}</b><small>${ok?'Bạn nắm bài rồi đó.':'Đáp án đúng: <u>'+esc(o[a])+'</u>'}</small></span>`;
+      $('.shp-end',st).hidden=false;
+      $('#shp-again',st).onclick=e=>{e.stopPropagation(); si=0; frame()};
+      $('#shp-next',st).onclick=e=>{e.stopPropagation(); nextShort(1)};
+    });
+  };
+  const nextShort=d=>{const n=idx+d; if(n<0||n>=SHORTS.length){if(n>=SHORTS.length)close(); return} stop(); idx=n; s=SHORTS[idx]; si=0; paused=false; el.classList.remove('paused'); el.classList.add(d>0?'swap-up':'swap-down'); setTimeout(()=>el.classList.remove('swap-up','swap-down'),400); frame()};
+  /* gestures: tap left/right third = prev/next scene, tap middle = pause, swipe up/down = next/prev short */
+  let sx=0,sy=0,st0=0;
+  el.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;st0=Date.now()});
+  el.addEventListener('pointerup',e=>{
+    if(e.target.closest('button,a,.opt'))return;
+    const dx=e.clientX-sx, dy=e.clientY-sy;
+    if(Math.abs(dy)>60&&Math.abs(dy)>Math.abs(dx)){nextShort(dy<0?1:-1);return}
+    if(Date.now()-st0>500||Math.hypot(dx,dy)>12)return;
+    if(si>=s.sc.length)return;
+    const r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width;
+    if(x<.3){si=Math.max(0,si-1); paused=false; el.classList.remove('paused'); scene()}
+    else if(x>.7){si++; paused=false; el.classList.remove('paused'); scene()}
+    else togglePause();
+  });
+  frame();
 }
 
 /* ---------- Lessons: path map ---------- */
@@ -4327,7 +4585,7 @@ function viewLessons(v){
     </div>
     ${cu?`<button class="cx-next" id="cx-go"><span class="cx-nx-art">${ART[cu.art]}</span><span class="cx-nx-t"><small>Tiếp theo</small><b>${cu.title} · ${ROUNDS[cr].name}</b></span><span class="cx-nx-go">${ARW}</span></button>`:`<p class="cx-donep">Bạn đã hoàn thành tất cả chủ đề. Tuyệt vời!</p>`}
   </section>`;
-  v.innerHTML=hero+`<div class="cx-list">`+UNITS.map((u,k)=>{const n=Math.min(S.units[u.id]||0,3); const t=u.tile.slice(2);
+  v.innerHTML=hero+shortsStripHTML()+`<div class="cx-list">`+UNITS.map((u,k)=>{const n=Math.min(S.units[u.id]||0,3); const t=u.tile.slice(2);
     const rd=roundsOf(u), nx=rd.indexOf(false), all=rd.every(Boolean);
     const steps=[0,1,2].map(i=>{const st=rd[i]?'done':(i===nx&&k===curUnit)?'cur':(i===nx?'open':'lock');
       return `<button class="cx-step ${st}" data-u="${u.id}" data-r="${i}" ${st==='lock'?'data-lk="1"':''}>
@@ -4345,6 +4603,7 @@ function viewLessons(v){
         <div class="cx-steps">${steps}</div>
         <button class="cx-reward ${all?'got':''}" data-chest="${u.id}"><span>${NI.trophy}</span><b>${all?'Đã mở cúp chủ đề':'Cúp chủ đề'}</b><small>${all?'+ huy hiệu':'Xong 3 vòng để mở'}</small></button>
       </div></div></section>${k<UNITS.length-1?`<div class="cx-link ${all?'on':''}" style="--uc:var(--n-${t})"><i></i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 12l6 6 6-6"/></svg></div>`:''}`}).join('')+`</div><p class="note">Mỗi lần học lại, câu hỏi được đổi mới. Mỗi chủ đề có 3 vòng: <b>Đọc & viết</b>, <b>Luyện nói</b>, <b>Luyện nghe</b>.</p>`;
+  bindShorts(v);
   $$('[data-tog]',v).forEach(h=>h.onclick=()=>{const sec=h.parentElement; const o=sec.classList.toggle('open'); h.setAttribute('aria-expanded',o)});
   $('#cx-go',v)&&($('#cx-go',v).onclick=()=>runLesson(v,cu,cr));
   $$('[data-lk]',v).forEach(b=>b.onclick=e=>{e.stopImmediatePropagation();toast('Hoàn thành vòng trước để mở')});
@@ -4374,10 +4633,20 @@ function roundExercises(u,r){
   if(r===1){const lines=[...new Set([...all.filter(e=>e.t==='speak').map(e=>e.s),...all.filter(e=>e.t==='build').map(e=>e.a+'.'),...all.filter(e=>e.t==='lbuild'||e.t==='listen').map(e=>e.s)])];
     return freshPick(u,1,lines.map(s=>({t:'speak',s})),5)}
   if(r===2){const pool=[...all.filter(e=>e.t==='listen'||e.t==='lbuild'),...all.filter(e=>e.t==='build').map(e=>({t:'lbuild',s:e.a,d:e.d}))];
-    return freshPick(u,2,pool,5)}
+    const base=freshPick(u,2,pool,4);
+    const lines=shuffle([...new Set([...all.filter(e=>e.t==='build').map(e=>e.a),...all.filter(e=>e.t==='lbuild').map(e=>e.s)])]).filter(x=>x.split(' ').length<=9);
+    const dict=lines.slice(0,2).map(x=>({t:'dict',s:x}));
+    return shuffle([...base,...dict])}
   const pool=all.filter(e=>e.t==='mc'||e.t==='fill'||e.t==='build');
   const mc=pool.filter(e=>e.t!=='build'), bd=pool.filter(e=>e.t==='build');
-  const pick=[...freshPick(u,'0a',mc,3),...freshPick(u,'0b',bd,3)];
+  const pick=[...freshPick(u,'0a',mc,2),...freshPick(u,'0b',bd,2)];
+  /* richer practice: true/false meaning, word matching, spelling */
+  if(bd.length>1){const b=shuffle(bd)[0], other=shuffle(bd.filter(x=>x!==b))[0], yes=Math.random()<.5;
+    pick.push({t:'tf',en:b.a,vi:yes?b.p:other.p,real:b.p,a:yes?0:1,o:['Đúng','Sai']})}
+  const ws=shuffle(allActiveWords().filter(w=>w.w&&w.vi&&/^[a-zA-Z]+$/.test(w.w)));
+  const seenW=new Set(); const uniq=ws.filter(w=>!seenW.has(w.w)&&seenW.add(w.w));
+  if(uniq.length>=4)pick.push({t:'match',pairs:uniq.slice(0,4).map(w=>[w.w,w.vi])});
+  const sp=uniq.find(w=>w.w.length>=4&&w.w.length<=9); if(sp)pick.push({t:'spell',w:sp.w.toLowerCase(),vi:sp.vi,ipa:sp.ipa||''});
   return shuffle(pick);
 }
 function logMistake(u,e,ok){
@@ -4403,7 +4672,46 @@ function runLesson(v,u,round=0){
     </div>`;
     $('#ls-x').onclick=()=>go('lessons');
     const body=$('#ls-body'), btn=$('#ls-check'); const refresh=()=>btn.disabled=!checkReady();
-    if(e.t==='mc'||e.t==='fill'||e.t==='listen'){
+    if(e.t==='tf'){
+      body.innerHTML=`<div class="prompt"><small>Đúng hay sai?</small>Câu này có nghĩa là…</div>
+        <div class="tf-card"><button class="tf-say" id="ls-say" aria-label="Nghe">${I.vol}</button><p class="tf-en">${esc(e.en)}</p><p class="tf-vi">= ${esc(e.vi)}</p></div>
+        <div class="opts tf-opts">${e.o.map((x,i)=>`<button class="opt tf-${i?'no':'yes'}" data-i="${i}">${i?'✕ ':'✓ '}${x}</button>`).join('')}</div>`;
+      $('#ls-say').onclick=()=>say(e.en); say(e.en);
+      $$('.opt',body).forEach(b=>b.onclick=()=>{chosen=+b.dataset.i;$$('.opt',body).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));refresh()});
+      checkReady=()=>chosen!==null; isRight=()=>chosen===e.a; answerText=e.a?'Sai. Nghĩa đúng: '+e.real:'Đúng';
+    } else if(e.t==='match'){
+      const L=shuffle(e.pairs.map((p,i)=>({i,t:p[0]}))), R=shuffle(e.pairs.map((p,i)=>({i,t:p[1]})));
+      body.innerHTML=`<div class="prompt"><small>Nối từ với nghĩa</small>Chạm một từ, rồi chạm nghĩa của nó</div>
+        <div class="mt-grid"><div class="mt-col">${L.map(x=>`<button class="mt" data-side="L" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div><div class="mt-col">${R.map(x=>`<button class="mt vi" data-side="R" data-i="${x.i}">${esc(x.t)}</button>`).join('')}</div></div>`;
+      let selL=null, selR=null, done=0, miss=0;
+      const tryPair=()=>{if(!selL||!selR)return; const a=selL,b=selR; selL=selR=null;
+        if(a.dataset.i===b.dataset.i){[a,b].forEach(x=>{x.classList.remove('sel');x.classList.add('ok');x.disabled=true}); done++; sfx('tap'); if(done===e.pairs.length){refresh(); btn.click()}}
+        else{miss++; [a,b].forEach(x=>{x.classList.remove('sel');x.classList.add('bad')}); sfx('wrong'); setTimeout(()=>[a,b].forEach(x=>x.classList.remove('bad')),450)}};
+      $$('.mt',body).forEach(b=>b.onclick=()=>{if(b.disabled)return; const side=b.dataset.side;
+        $$(`.mt[data-side="${side}"]`,body).forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+        if(side==='L'){selL=b; say(b.textContent,1)} else selR=b; tryPair()});
+      checkReady=()=>done===e.pairs.length; isRight=()=>miss<=1; answerText=e.pairs.map(p=>p[0]+' = '+p[1]).join(' · ');
+    } else if(e.t==='spell'){
+      const letters=shuffle(e.w.split('')); let got=[];
+      body.innerHTML=`<div class="prompt"><small>Ghép chữ thành từ</small>${esc(e.vi)}</div>
+        <div class="sp-top"><button class="tf-say" id="ls-say" aria-label="Nghe">${I.vol}</button>${e.ipa?`<span class="sp-ipa">${esc(e.ipa)}</span>`:''}</div>
+        <div class="sp-slots" id="sp-slots"></div><div class="sp-bank">${letters.map((c,i)=>`<button class="sp-l" data-i="${i}">${c}</button>`).join('')}</div>`;
+      $('#ls-say').onclick=()=>say(e.w,.85);
+      const draw=()=>{$('#sp-slots').innerHTML=e.w.split('').map((_,p)=>got[p]!=null?`<button class="sp-s on" data-p="${p}">${letters[got[p]]}</button>`:`<span class="sp-s"></span>`).join('');
+        $$('#sp-slots .sp-s.on').forEach(b=>b.onclick=()=>{const i=got.splice(+b.dataset.p,1)[0]; $(`.sp-l[data-i="${i}"]`).classList.remove('used'); draw()}); refresh()};
+      $$('.sp-l',body).forEach(b=>b.onclick=()=>{if(b.classList.contains('used')||got.length>=e.w.length)return; b.classList.add('used'); got.push(+b.dataset.i); draw(); if(got.length===e.w.length)say(got.map(i=>letters[i]).join(''),.9)});
+      draw(); checkReady=()=>got.length===e.w.length; isRight=()=>got.map(i=>letters[i]).join('')===e.w; answerText=e.w;
+    } else if(e.t==='dict'){
+      body.innerHTML=`<button class="listen-big" id="ls-say" aria-label="Nghe lại">${I.vol}</button><div class="prompt" style="text-align:center"><small>Nghe và gõ lại câu</small></div>
+        <div class="dict-row"><button class="btn" id="ls-slow">🐢 Nghe chậm</button></div>
+        <textarea class="dict-in" id="dict-in" rows="2" placeholder="Gõ câu bạn nghe được…" autocapitalize="off" autocomplete="off" spellcheck="false"></textarea>`;
+      $('#ls-say').onclick=()=>say(e.s); $('#ls-slow').onclick=()=>say(e.s,.6); say(e.s);
+      const inp=$('#dict-in'); inp.oninput=refresh;
+      checkReady=()=>inp.value.trim().length>0;
+      const score=()=>{const a=norm(inp.value).split(' '), t=norm(e.s).split(' '); let hit=0; const pool=[...a]; t.forEach(w=>{const k=pool.indexOf(w); if(k>=0){hit++;pool.splice(k,1)}}); return {hit,t}};
+      isRight=()=>{const {hit,t}=score(); return hit/t.length>=.85}; answerText=e.s;
+      afterCheck=ok=>{inp.disabled=true; const a=new Set(norm(inp.value).split(' ')); answerHTML=e.s.split(' ').map(w=>a.has(norm(w))?esc(w):`<b class="miss">${esc(w)}</b>`).join(' ')};
+    } else if(e.t==='mc'||e.t==='fill'||e.t==='listen'){
       const label=e.t==='mc'?'Chọn đáp án đúng':e.t==='fill'?'Điền vào chỗ trống':'Nghe và chọn';
       body.innerHTML=(e.t==='listen'?`<button class="listen-big" id="ls-say" aria-label="Nghe lại">${I.vol}</button>`:'')+
         `<div class="prompt"><small>${label}</small>${esc(e.p).replace('___','<span style="color:var(--gold)">_____</span>')}</div>
@@ -4468,7 +4776,7 @@ function runLesson(v,u,round=0){
       const ok=isRight(); if(ok)correct++; afterCheck&&afterCheck(ok); sfx(ok?'right':'wrong');
       logMistake(u,e,ok);
       body.querySelectorAll('button').forEach(b=>{if(!b.closest('.mic-wrap'))b.disabled=true});
-      if(e.t==='mc'||e.t==='fill'||e.t==='listen'){$$('.opt',body).forEach(b=>{if(+b.dataset.i===e.a)b.classList.add('right');else if(+b.dataset.i===chosen)b.classList.add('wrong')})}
+      if(e.t==='mc'||e.t==='fill'||e.t==='listen'||e.t==='tf'){$$('.opt',body).forEach(b=>{if(+b.dataset.i===e.a)b.classList.add('right');else if(+b.dataset.i===chosen)b.classList.add('wrong')})}
       $('#ls-foot').innerHTML=`<div class="feedback ${ok?'good':'bad'}"><span class="fb-bird">${MASCOT('',ok?(Math.random()<.4?'cheer':'happy'):'oops')}</span><div class="stack" style="gap:4px"><b>${ok?'Chính xác!':'Chưa đúng'}</b>${e.t==='listen'?`<button class="fb-en" data-say-en><span class="fb-ic">${I.vol}</span><span><span class="fb-l">Bạn vừa nghe</span><span class="fb-s">${esc(e.s)}</span>${ok?'':`<span class="fb-v">Nghĩa: ${esc(e.o[e.a])}</span>`}</span></button>`:(ok&&e.t!=='speak'?'':`<p>${ok?'':'Đáp án: '}${answerHTML||esc(answerText)}</p>`)}</div><button class="btn primary" id="ls-next">Tiếp tục ${I.arrow}</button></div>`;
       if(ok)addXP(10); if(!ok||e.s)say(e.s||answerText);
       $('#ls-next').onclick=()=>{k++;step()}; $('#ls-next').focus({focusVisible:false}); $('[data-say-en]')&&($('[data-say-en]').onclick=()=>say(e.s));
