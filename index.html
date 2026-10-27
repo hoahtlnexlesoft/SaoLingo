@@ -4586,7 +4586,7 @@ function viewListen(v){
   <div class="minis">${PASSAGES.map(p=>`<button class="mini ${p.tile}" data-p="${p.id}" aria-pressed="${p.id===curP}"><span class="ma ${p.tile}">${ART[p.art]}</span><span><b>${p.title}</b><span>${p.level} · ${p.topic}</span></span></button>`).join('')}</div>
   <section class="np" id="np">
     <div class="np-art ${P.tile}"><span class="chip">${P.level} · ${P.topic}</span>${ART[P.art]}<span class="np-bird">${MASCOT('','listen')}</span></div>
-    <div class="np-meta"><div style="min-width:0"><b>${P.title}</b><span>${sents.length} câu · giọng ${S.accent==='uk'?'Anh–Anh':'Anh–Mỹ'}</span></div><button class="tx-tg" id="reveal" aria-pressed="false">${I.eye}<span>Hiện lời</span></button></div>
+    <div class="np-meta"><div style="min-width:0"><b>${P.title}</b><span>${sents.length} câu · giọng ${S.accent==='uk'?'Anh–Anh':'Anh–Mỹ'}</span></div></div>
     <div class="wave" id="wave">${bars}</div>
     <div class="np-ctrl">
       <button class="round speed" id="speed" aria-label="Tốc độ">${S.rate}×</button>
@@ -4615,7 +4615,7 @@ function viewListen(v){
   const setTx=(show,scroll)=>{tx.classList.toggle('hide',!show); const h=$('#tx-hint'); if(h)h.textContent=show?'Chạm 1 câu để nghe lại câu đó.':'Lời đang ẩn để bạn tập nghe trước. Chạm vào đây hoặc bấm “Hiện lời” để xem.';
     ['#reveal','#reveal2'].forEach(id=>{const b=$(id); if(b){b.setAttribute('aria-pressed',String(show)); b.innerHTML=(show?I.eyeoff:I.eye)+'<span>'+(show?'Ẩn lời':'Hiện lời')+'</span>'}});
     if(show&&scroll)tx.closest('section').scrollIntoView({behavior:'smooth',block:'start'})};
-  $('#reveal').onclick=()=>setTx(tx.classList.contains('hide'),true); $('#reveal2').onclick=()=>setTx(tx.classList.contains('hide'),false);
+  $('#reveal2').onclick=()=>setTx(tx.classList.contains('hide'),false);
   $('#tx-hint').onclick=()=>{if(tx.classList.contains('hide'))setTx(true,false)};
   tx.addEventListener('click',e=>{if(tx.classList.contains('hide')){e.stopPropagation();e.preventDefault();setTx(true,false)}},true);
   $('#playall').onclick=()=>{if(playing){setPlay(false);hush()}else run(cur>=sents.length?0:cur)};
@@ -5537,7 +5537,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v166';
+const APP_V='elocu-v167';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
