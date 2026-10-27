@@ -5324,18 +5324,27 @@ function viewMe(v){
 }
 
 /* ---------- Onboarding & placement ---------- */
-const PLACE=[
-  ['She ___ a teacher.',['is','are','am'],0],
-  ['I ___ coffee every morning.',['drink','drinks','drinking'],0],
-  ['We ___ to Da Nang last summer.',['went','go','have gone'],0],
-  ['This is the ___ restaurant in town.',['best','goodest','most good'],0],
-  ['If it rains tomorrow, we ___ at home.',['will stay','would stay','stayed'],0],
-  ['I\'ve lived here ___ 2019.',['since','for','from'],0],
-  ['By the time we arrived, the film ___.',['had already started','has already started','already starts'],0],
-  ['She suggested ___ a taxi.',['taking','to take','take'],0],
-  ['Hardly ___ the meeting begun when the power went out.',['had','did','was'],0],
-  ['The report was ___ thorough that nobody questioned it.',['so','such','too'],0],
-].map(([q,o,a])=>{const opts=shuffle(o.map((x,i)=>({x,c:i===a})));return{q,o:opts.map(z=>z.x),a:opts.findIndex(z=>z.c)}});
+/* placement test: 10 slots from easy (A1) to hard (C1); each slot has several variants, the correct option is always listed first */
+const PLACE_BANK=[
+  [['She ___ a teacher.',['is','are','am']],['They ___ my friends.',['are','is','am']],['I ___ hungry now.',['am','is','are']],['My brother ___ at home.',['is','are','be']]],
+  [['I ___ coffee every morning.',['drink','drinks','drinking']],['He ___ to work by bus.',['goes','go','going']],['They ___ football on Sundays.',['play','plays','playing']],['My mother ___ in a bank.',['works','work','working']]],
+  [['We ___ to Da Nang last summer.',['went','go','have gone']],['I ___ a great film yesterday.',['saw','see','have seen']],['She ___ her keys last night.',['lost','loses','has lost']],['They ___ dinner at seven yesterday.',['had','have','has had']]],
+  [['This is the ___ restaurant in town.',['best','goodest','most good']],['My bag is ___ than yours.',['heavier','more heavy','heavyer']],['Ha Noi is ___ than Hue.',['bigger','more big','biggest']],['Today is the ___ day of the year.',['hottest','most hot','hotter']]],
+  [['If it rains tomorrow, we ___ at home.',['will stay','would stay','stayed']],['If you study hard, you ___ the exam.',['will pass','would pass','passed']],['I will call you if I ___ time.',['have','will have','had']],['If she ___ early, she will catch the bus.',['leaves','will leave','left']]],
+  [["I've lived here ___ 2019.",['since','for','from']],['We have known each other ___ ten years.',['for','since','from']],['She has worked here ___ last March.',['since','for','ago']],["I haven't seen him ___ a long time.",['for','since','during']]],
+  [['By the time we arrived, the film ___.',['had already started','has already started','already starts']],['When I got to the station, the train ___.',['had already left','has already left','already leaves']],['She ___ never flown before her trip to Japan.',['had','has','was']],['They were tired because they ___ all day.',['had been working','have been working','are working']]],
+  [['She suggested ___ a taxi.',['taking','to take','take']],["I'm looking forward to ___ you.",['seeing','see','to see']],['He avoided ___ the question.',['answering','to answer','answer']],['They decided ___ the meeting.',['to postpone','postponing','postpone']]],
+  [['Hardly ___ the meeting begun when the power went out.',['had','did','was']],['Never ___ I seen such a beautiful view.',['have','did','was']],['Not only ___ late, but he also forgot the tickets.',['was he','he was','did he']],['Little ___ she know what was waiting for her.',['did','was','had']]],
+  [['The report was ___ thorough that nobody questioned it.',['so','such','too']],['It was ___ a long journey that we slept all day.',['such','so','too']],['The task was ___ difficult for us to finish alone.',['too','so','such']],['She spoke ___ quietly that no one heard her.',['so','such','very']]],
+];
+let PLACE=[];
+function makePlace(){
+  const last=S.placeLast||[];
+  const pick=PLACE_BANK.map((v,i)=>{const pool=v.map((_,k)=>k).filter(k=>k!==last[i]); return pool[Math.floor(Math.random()*pool.length)]});
+  S.placeLast=pick; save();
+  PLACE=PLACE_BANK.map((v,i)=>{const [q,o]=v[pick[i]]; const opts=shuffle(o.map((x,j)=>({x,c:j===0}))); return {q,o:opts.map(z=>z.x),a:opts.findIndex(z=>z.c)}});
+}
+makePlace();
 
 /* ---------- Intro slides (first launch) — premium ---------- */
 const INTRO=[
@@ -5423,7 +5432,7 @@ function onboarding(placementOnly){
       <p class="lead">10 câu ngữ pháp từ dễ đến khó, khoảng 2 phút. Kết quả xác định cấp độ khởi đầu của bạn.</p>
       <div class="choice"><button id="ob-test"><span><b>Làm bài xếp lớp</b><br><span>Khuyên dùng</span></span>${I.arrow}</button>
       <button id="ob-skip"><span><b>Bắt đầu từ A1</b><br><span>Mới học hoặc muốn ôn lại từ đầu</span></span>${I.arrow}</button></div></div>`;
-      $('#ob-test',el).onclick=()=>{step=3;qi=0;correct=0;draw()};
+      $('#ob-test',el).onclick=()=>{makePlace();step=3;qi=0;correct=0;draw()};
       $('#ob-skip',el).onclick=()=>{S.base=0;step=placementOnly?9:4;placementOnly?close():draw()};}
     else if(step===3){const q=PLACE[qi];el.innerHTML=`<div class="ob-in">
       <div class="lesson-top"><div class="bar"><i style="width:${qi/PLACE.length*100}%"></i></div><span class="muted num">${qi+1}/${PLACE.length}</span></div>
