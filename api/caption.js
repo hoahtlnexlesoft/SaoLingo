@@ -3,7 +3,7 @@
 export const config = { maxDuration: 300 };
 const OK_HOST = /^https:\/\/voa-audio\.voanews\.eu\/[\w\/\-.]+\.mp3$/;
 const PROMPT = `Transcribe this English audio (VOA Learning English) for a Vietnamese learner.
-Return ONLY JSON: {"segs":[{"t":<start time in seconds, number>,"en":"<one sentence, exactly as spoken>","vi":"<natural Vietnamese translation>"}]}
+Return ONLY JSON: {"segs":[{"t":"<start time as MM:SS string, e.g. 01:05>","en":"<one sentence, exactly as spoken>","vi":"<natural Vietnamese translation>"}]}
 Rules: one sentence per segment, in order, covering the whole audio; timestamps accurate to about a second; keep speaker words verbatim; skip music; Vietnamese must be natural, not word-for-word.`;
 
 export default async function handler(req, res) {
@@ -42,6 +42,10 @@ export default async function handler(req, res) {
           const segs = arr.map(x => x && ({ t: x.t ?? x.start ?? x.time ?? x.startTime, en: x.en ?? x.text ?? x.english, vi: x.vi ?? x.vietnamese ?? x.translation })).filter(x => x && typeof x.en === 'string' && x.en.trim())
             .map(x => ({ t: Math.max(0, typeof x.t === 'string' && x.t.includes(':') ? x.t.split(':').reduce((a, b) => a * 60 + +b, 0) : +x.t || 0), en: x.en.trim().slice(0, 400), vi: String(x.vi || '').trim().slice(0, 400) }))
             .sort((p, q) => p.t - q.t);
+          // some models write 1:04 as 104; detect that pattern and convert
+          if (segs.length && Math.max(...segs.map(x => x.t)) >= 100 && segs.every(x => x.t % 100 < 60)) segs.forEach(x => { x.t = Math.floor(x.t / 100) * 60 + (x.t % 100); });
+          // stories credited to wire services (AP, Reuters, AFP) are copyrighted, so they are not republished
+          if (segs.some(x => /Associated Press|\bReuters\b|\bAFP\b|Agence France-Presse/.test(x.en))) { res.setHeader('Cache-Control', 'public, s-maxage=31536000, immutable'); return res.status(200).json({ wire: true }); }
           if (segs.length >= 3) {
             res.setHeader('Cache-Control', 'public, s-maxage=31536000, immutable');
             return res.status(200).json({ segs, model });

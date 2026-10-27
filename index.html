@@ -4700,7 +4700,7 @@ async function loadVOA(root){
   drawVOA(box);
 }
 function drawVOA(box){
-  S.voaDone=S.voaDone||{}; const sh=VOA.shelves[Math.min(voaShelf,VOA.shelves.length-1)];
+  S.voaDone=S.voaDone||{}; const hide=S.voaHide||{}; const sh0=VOA.shelves[Math.min(voaShelf,VOA.shelves.length-1)]; const sh={...sh0,items:sh0.items.filter(i=>!hide[i.link])};
   const mm=s=>s?`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`:'';
   box.innerHTML=`<div class="voa-tabs">${VOA.shelves.map((s,i)=>`<button data-vs="${i}" aria-pressed="${i===voaShelf}">${s.name}</button>`).join('')}</div>
     <div class="voa-list">${sh.items.map((it,i)=>`<button class="voa-row ${S.voaDone[it.link]?'done':''}" data-vi="${i}"><span class="voa-th" style="background-image:url('${it.image}')"><span class="voa-pl"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span></span><span class="voa-t"><b>${esc(it.title)}</b><small>${S.voaDone[it.link]?'✓ Đã nghe · ':''}${mm(it.dur)||'Audio'}</small></span></button>`).join('')}</div>
@@ -4745,10 +4745,11 @@ function voaPlayer(it,onClose){
   const syncCap=()=>{if(!segs.length)return; let i=-1; for(let k=0;k<segs.length;k++){if(segs[k].t<=a.currentTime+.25)i=k;else break}
     if(i!==curSeg){curSeg=i; $$('.cap',capBox).forEach((b,k)=>b.classList.toggle('on',k===i)); const on=$('.cap.on',capBox); if(on){const top=on.offsetTop-capBox.offsetTop-capBox.clientHeight/3; capBox.scrollTo({top,behavior:'smooth'})}}};
   a.addEventListener('timeupdate',syncCap);
-  (async()=>{const ck='cap:'+it.audio;
+  (async()=>{const ck='cap2:'+it.audio;
     try{const c=localStorage.getItem(ck); if(c){segs=JSON.parse(c); drawCaps(); return}}catch(e){}
     if(inClaude){capBox.innerHTML='<p class="muted voa-note">Mở saovoxy.vercel.app để xem phụ đề.</p>';return}
-    try{const r=await fetch('/api/caption?audio='+encodeURIComponent(it.audio),{signal:capCtl.signal}); const d=await r.json().catch(()=>({}));
+    try{const r=await fetch('/api/caption?v=2&audio='+encodeURIComponent(it.audio),{signal:capCtl.signal}); const d=await r.json().catch(()=>({}));
+      if(d.wire){a.pause(); S.voaHide=S.voaHide||{}; S.voaHide[it.link]=1; save(); capBox.innerHTML=`<div class="voa-cap-wait"><span>Bài này dựa trên tin của hãng thông tấn có bản quyền (AP, Reuters…) nên SáoVoxy không phát lại. Bạn có thể nghe trên trang VOA.</span></div>`; el.querySelector('#vp-p').disabled=true; return}
       if(!r.ok||!d.segs?.length)throw new Error(d.message||'');
       segs=d.segs; try{localStorage.setItem(ck,JSON.stringify(segs))}catch(e){} drawCaps(); syncCap()}
     catch(e){if(e.name==='AbortError')return; capBox.innerHTML=`<div class="voa-cap-wait"><span>Chưa tạo được phụ đề${e.message?': '+esc(e.message):''}.</span><button class="btn" id="vp-retry">Thử lại</button></div>`; el.querySelector('#vp-retry').onclick=()=>{close();voaPlayer(it,onClose)}}})();
