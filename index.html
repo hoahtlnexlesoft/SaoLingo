@@ -3178,11 +3178,11 @@ const ART={
 
 const TILE={home:'t-lilac',listen:'t-sky',speak:'t-sun',lessons:'t-lime',talk:'t-pink',words:'t-peach',me:'t-lilac'};
 const NAV = [
-  ['lessons','Bài học','Bài học'],['talk','Hội thoại AI','Hội thoại'],['speak','Phát âm','Phát âm'],['listen','Luyện nghe','Nghe'],
+  ['lessons','Bài học','Bài học'],['talk','Gia sư AI','Gia sư AI'],['speak','Phát âm','Phát âm'],['listen','Luyện nghe','Nghe'],
   ['words','Từ vựng','Từ vựng'],['home','Tổng quan','Tổng quan'],
   ['me','Hồ sơ','Hồ sơ'],
 ];
-const TABS=[['home','Hôm nay'],['talk','Hội thoại'],['lessons','Bài học'],['speak','Phát âm'],['me','Hồ sơ']];
+const TABS=[['home','Hôm nay'],['talk','Gia sư AI'],['lessons','Bài học'],['speak','Phát âm'],['me','Hồ sơ']];
 
 /* ---------- Content ---------- */
 let VOCAB = [
@@ -3959,7 +3959,7 @@ const EN={
 "Phòng lab, công thức, an toàn hóa chất":"Lab, formulas, chemical safety","Phòng luyện":"Practice","Phòng thí nghiệm, công thức, an toàn.":"Lab, formulas, safety.",
 "Quên":"Forgot","R và L":"R and L","Review thiết kế · B2":"Design review · B2","SH và S":"SH and S",
 "Sáo chỉ nhắc khi hôm đó bạn chưa học. Bạn có thể đổi giờ bất cứ lúc nào trong Hồ sơ.":"Sáo only reminds you on days you haven't studied. Change the time anytime in Profile.",
-"SáoVoxy sẽ thêm từ vựng chuyên ngành, bài nghe và tình huống hội thoại AI sát với công việc của bạn.":"SáoVoxy adds field vocabulary, listening and AI conversation scenarios close to your work.",
+"SáoVoxy sẽ thêm từ vựng chuyên ngành, bài nghe và tình huống với gia sư AI sát với công việc của bạn.":"SáoVoxy adds field vocabulary, listening and AI conversation scenarios close to your work.",
 "Sandra đang học":"Sandra is learning","Shadowing câu bất kỳ":"Shadow any sentence","Sáng":"Light","Sáng, tối hoặc theo cài đặt của máy":"Light, dark or follow your device",
 "Sáo, linh vật SáoVoxy":"Sáo, SáoVoxy's mascot","Sơ cấp":"Beginner","Cơ bản":"Elementary","Trung cấp":"Intermediate","Trung cao cấp":"Upper-intermediate","Cao cấp":"Advanced","Thành thạo":"Proficient",
 "Theo giờ trên điện thoại của bạn":"Uses your phone's time","Thiết bị chưa có giọng tiếng Anh":"No English voice on this device","Thoát bài":"Exit lesson",
@@ -3978,7 +3978,7 @@ const EN={
 "Ưu tiên giọng nữ, tự nhiên, dễ nghe":"Prefers clear, natural female voices","Ảnh nền ứng dụng":"App background","Ứng dụng":"App",
 "Mỗi ngày một chút: nghe, nói đúng âm và trò chuyện với gia sư AI.":"A little every day: listen, speak clearly and chat with an AI tutor.",
 "App chưa được phép dùng micro. Vào Cài đặt của trình duyệt/điện thoại → cho phép Micro cho trang này, rồi mở lại. Trong lúc đó bạn có thể tự đánh giá.":"The app isn't allowed to use the mic. Allow Microphone for this site in your browser or phone settings, then reopen. Meanwhile you can self-assess.",
-"Bài học và hội thoại AI sẽ ưu tiên mức này. Cấp độ tăng dần theo XP bạn tích lũy.":"Lessons and AI conversations focus on this level. Your level rises with the XP you earn.",
+"Bài học và gia sư AI sẽ ưu tiên mức này. Cấp độ tăng dần theo XP bạn tích lũy.":"Lessons and AI conversations focus on this level. Your level rises with the XP you earn.",
 "Bạn chưa cho phép thông báo":"Notifications not allowed","Bạn đã mở cúp chủ đề này":"You've unlocked this trophy","Bấm micro để thử lại":"Tap the mic to try again","Chuẩn rồi":"Spot on",
 "Chúc mừng, bạn đã lên":"Congrats, you reached","Chưa cấu hình khóa AI":"AI key not configured","Chưa gửi được thông báo trên thiết bị này":"Couldn't send a notification on this device",
 "Chưa nghe thấy gì. Bấm micro và nói lại nhé.":"Didn't catch anything. Tap the mic and try again.","Chạm vào màn hình một lần rồi thử lại. Trình duyệt chỉ cho phát âm thanh sau khi bạn tương tác.":"Tap the screen once and try again. Browsers only play sound after you interact.",
@@ -5665,7 +5665,7 @@ function onboarding(placementOnly){
       $('#ob-next',el).onclick=()=>{step=6;draw()};}
     else if(step===6){el.innerHTML=`<div class="ob-in">
       <span class="eyebrow">Bước 2/4</span><h2>Bạn học tiếng Anh cho ngành nào?</h2>
-      <p class="lead">SáoVoxy sẽ thêm từ vựng chuyên ngành, bài nghe và tình huống hội thoại AI sát với công việc của bạn.</p>
+      <p class="lead">SáoVoxy sẽ thêm từ vựng chuyên ngành, bài nghe và tình huống với gia sư AI sát với công việc của bạn.</p>
       <div class="choice">${trackChoices('data-tk')}</div>
       <button class="btn primary" id="ob-next">Tiếp tục ${I.arrow}</button></div>`;
       $$('[data-tk]',el).forEach(b=>b.onclick=()=>{S.track=b.dataset.tk;applyTrack(true);$$('[data-tk]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
@@ -5701,7 +5701,7 @@ function onboarding(placementOnly){
       <span class="empty-bird" style="width:120px;height:120px">${MASCOT('','wow')}</span>
       <span class="eyebrow">Kết quả xếp lớp · ${correct}/10 đúng</span>
       <div class="lvl-big" style="font-size:110px;color:var(--gold)">${L.code}</div><h2 style="font-size:34px">${L.name}</h2>
-      <p class="lead">Bài học và hội thoại AI sẽ ưu tiên mức này. Cấp độ tăng dần theo XP bạn tích lũy.</p>
+      <p class="lead">Bài học và gia sư AI sẽ ưu tiên mức này. Cấp độ tăng dần theo XP bạn tích lũy.</p>
       <button class="btn primary" id="ob-next">${placementOnly?'Xong':'Tiếp tục'} ${I.arrow}</button></div>`;
       level=['A1','A2'].includes(L.code)?'A2':L.code==='C1'||L.code==='C2'?'C1':L.code;
       $('#ob-next',el).onclick=()=>{if(placementOnly)close();else{step=4;draw()}};}
