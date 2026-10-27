@@ -42,8 +42,8 @@ export default async function handler(req, res) {
     if (req.query.page) {
       const u = String(req.query.page); if (!/^https:\/\/learningenglish\.voanews\.com\/a\//.test(u)) return res.status(400).end();
       const r = await fetch(u, { headers: { 'user-agent': 'Mozilla/5.0 SaoVoxy/1.0' } }); const html = await r.text();
-      const ps = [...html.matchAll(/<p[^>]*>([^<]{80,})/g)]; const i = ps.length ? Math.max(0, ps[0].index - 1500) : -1; const markers = [...new Set((html.match(/(id|class)="[^"]*(article|content|body|wsw)[^"]*"/g) || []))].slice(0, 30); const mp3 = [...new Set((html.match(/https:[^"' ]+\.mp3/g) || []))].slice(0, 5);
-      return res.status(200).json({ status: r.status, len: html.length, mp3, np: ps.length, markers, snippet: i>=0 ? html.slice(i, i + 2600) : '', tail: ps.length ? html.slice(ps[ps.length-1].index, ps[ps.length-1].index + 1500) : '' });
+      const ps = [...html.matchAll(/<p[^>]*>([^<]{80,})/g)]; const i = html.indexOf('class="body-container"'); const markers = [...new Set((html.match(/(id|class)="[^"]*(article|content|body|wsw)[^"]*"/g) || []))].slice(0, 30); const mp3 = [...new Set((html.match(/https:[^"' ]+\.mp3/g) || []))].slice(0, 5);
+      return res.status(200).json({ status: r.status, len: html.length, mp3, np: ps.length, markers, snippet: i>=0 ? html.slice(i, i + 6000).replace(/\s+/g,' ') : '', tail: ps.length ? html.slice(ps[ps.length-1].index, ps[ps.length-1].index + 1500) : '' });
     }
     if (req.query.discover) {
       const r = await fetch('https://learningenglish.voanews.com/rssfeeds', { headers: { 'user-agent': 'SaoVoxy/1.0' } });
