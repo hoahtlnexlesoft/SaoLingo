@@ -6633,7 +6633,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v235';
+const APP_V='elocu-v236';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -6682,7 +6682,7 @@ function regroupMe(v){
   const mkRow=(title,sub,ctl)=>{const d=document.createElement('div'); d.className='setrow'; d.innerHTML=`<div class="t"><b>${title}</b><span>${sub}</span></div>${ctl}`; return d};
   const sfxRow=mkRow('Hiệu ứng âm thanh','Tiếng chuông khi trả lời đúng, sai và hoàn thành bài',seg('sfx-seg',[['on','Bật'],['off','Tắt']],S.sfx===false?'off':'on'));
   const rateRow=mkRow('Tốc độ đọc','Áp dụng cho mọi giọng đọc',seg('rate-seg',[['0.7','0.7×'],['0.9','0.9×'],['1','1×']],String(S.rate||0.9)));
-  const palRow=mkRow('Phong cách','Thẻ, icon và nền đổi theo kiểu bạn chọn',seg('pal-seg',[['pastel','Pastel'],['d3','Xanh Líu Lo'],['vivid','Màu Sáo']],S.palette||'pastel'));
+  const palRow=mkRow('Phong cách','Thẻ, icon và nền đổi theo kiểu bạn chọn',seg('pal-seg',[['pastel','Pastel'],['d3','Xanh Líu Lo'],['vivid','Xám Lông Sáo']],S.palette||'pastel'));
   const birdRow=mkRow('Loài sáo','Sáo đen lông bóng ánh xanh tím, hoặc sáo nâu',seg('bird-seg',[['myna','Sáo đen'],['mynab','Sáo nâu']],BIRD));
   const langRow=mkRow('Ngôn ngữ ứng dụng','Hiển thị menu, hướng dẫn và thông báo',seg('lang-seg',[['vi','Tiếng Việt'],['en','English']],S.lang||'vi'));
   const p2=$$('section.panel',v).filter(p=>!p.classList.contains('lvl-card')&&!p.classList.contains('weekcard'))[1];
