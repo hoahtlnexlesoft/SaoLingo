@@ -3029,7 +3029,7 @@ input[type="range"]{background:transparent!important;min-height:0;accent-color:v
 #t-mic.live>svg,.mic-in-b.live>svg{display:none!important}
 #t-mic.live .wv,.mic-in-b.live .wv{display:flex}
 /* tutor chat colours from the intro */
-.screen .msg.me .bub{background:linear-gradient(135deg,#B0306E,#D9437E)!important;color:#fff!important}
+.screen .msg.me .bub{background:linear-gradient(135deg,#6A4BFF,#8F6BFF)!important;color:#fff!important}
 .screen .msgs .fix:not(.okay){background:#FFF8E1!important;border:1px solid #FFE19A!important;color:#3A2A00!important}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .screen .msgs .fix:not(.okay){background:rgba(255,212,94,.12)!important;border-color:rgba(255,212,94,.35)!important;color:#FFE7A3!important}}
 :root[data-theme="dark"] .screen .msgs .fix:not(.okay){background:rgba(255,212,94,.12)!important;border-color:rgba(255,212,94,.35)!important;color:#FFE7A3!important}
@@ -5563,7 +5563,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v169';
+const APP_V='elocu-v170';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
