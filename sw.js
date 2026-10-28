@@ -1,5 +1,5 @@
 /* Elocu service worker: offline shell + daily reminder checks. */
-const VERSION = 'elocu-v214';
+const VERSION = 'elocu-v216';
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
 const STATE_CACHE = 'elocu-state';
 const STATE_URL = '/__elocu_state';
@@ -50,7 +50,9 @@ async function maybeRemind() {
   const s = await readState();
   if (!s || !s.enabled) return;
   const now = new Date();
-  const [h, m] = (s.time || '20:00').split(':').map(Number);
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  if (nowMin >= 19 * 60 || nowMin < 7 * 60) return; // quiet hours 19:00–07:00
+  const [h, m] = (s.time || '18:30').split(':').map(Number);
   const past = now.getHours() * 60 + now.getMinutes() >= h * 60 + m;
   if (!past || s.studiedDay === today() || s.notifiedDay === today()) return;
   const pick = s.streak > 0 ? LINES[2] : LINES[now.getDate() % LINES.length];
@@ -70,6 +72,8 @@ self.addEventListener('periodicsync', e => { if (e.tag === 'daily-reminder') e.w
 /* Server push (optional, see README): payload {title, body, url} */
 self.addEventListener('push', e => {
   let p = {}; try { p = e.data ? e.data.json() : {}; } catch { p = { body: e.data?.text() }; }
+  const hm = new Date().getHours() * 60 + new Date().getMinutes();
+  if ((hm >= 19 * 60 || hm < 7 * 60) && !p.force) return; // quiet hours
   e.waitUntil(self.registration.showNotification(p.title || 'SáoVoxy', {
     body: p.body || 'Đến giờ luyện tiếng Anh rồi.', icon: '/icons/icon-192.png', tag: 'daily-reminder', data: { url: p.url || '/#home' },
   }));
