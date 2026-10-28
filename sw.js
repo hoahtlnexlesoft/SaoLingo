@@ -1,5 +1,5 @@
 /* Elocu service worker: offline shell + daily reminder checks. */
-const VERSION = 'elocu-v252';
+const VERSION = 'elocu-v253';
 const SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png'];
 const STATE_CACHE = 'elocu-state';
 const STATE_URL = '/__elocu_state';
