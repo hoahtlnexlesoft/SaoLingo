@@ -4320,10 +4320,23 @@ function sayAI(text,rate){return new Promise(async(res,rej)=>{
   try{const src=await aiBlob(text); aiStop(); try{speechSynthesis.cancel()}catch(e){}
     audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.src=src; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
     a.onended=()=>res(); a.onerror=()=>rej(new Error('play')); await a.play(); ttsOK=true; AIV.bad=0}
-  catch(e){AIV.bad++; rej(e)}})}
+  catch(e){AIV.bad++; setTimeout(()=>{AIV.bad=Math.max(0,AIV.bad-1)},60000); rej(e)}})}
+/* never make the learner wait: play the AI voice only if it is ready within ~0.9s,
+   otherwise speak instantly with the device voice and fetch the AI voice for next time */
+AIV.ready=new Set(); AIV.q=[]; AIV.busy=0;
+function aiPrefetch(t){const u=ttsURL(t); if(AIV.ready.has(u)||AIV.q.includes(t))return; AIV.q.push(t); aiPump()}
+function aiPump(){if(AIV.busy||!AIV.q.length||!aiVoiceOn())return; AIV.busy=1; const t=AIV.q.shift();
+  aiBlob(t).then(()=>AIV.ready.add(ttsURL(t))).catch(()=>{}).finally(()=>{AIV.busy=0; setTimeout(aiPump,1500)})}
+async function aiCached(t){const u=ttsURL(t); if(AIV.ready.has(u))return true;
+  try{const c=await caches.open('saovoxy-tts'); if(await c.match(u)){AIV.ready.add(u); return true}}catch(e){} return false}
 function say(text,rate){
-  if(aiVoiceOn()&&text&&text.length<=400)return sayAI(text,rate).catch(()=>sayDevice(text,rate));
-  return sayDevice(text,rate)}
+  if(!(aiVoiceOn()&&text&&text.length<=400))return sayDevice(text,rate);
+  return (async()=>{
+    if(await aiCached(text))return sayAI(text,rate).catch(()=>sayDevice(text,rate));
+    const quick=await Promise.race([aiBlob(text).then(()=>true).catch(()=>false),new Promise(r=>setTimeout(()=>r(false),900))]);
+    if(quick){AIV.ready.add(ttsURL(text)); return sayAI(text,rate).catch(()=>sayDevice(text,rate))}
+    aiBlob(text).then(()=>AIV.ready.add(ttsURL(text))).catch(()=>{});
+    return sayDevice(text,rate)})()}
 function sayDevice(text,rate){return new Promise(res=>{
   audioMode('playback');
   if(!hasTTS){audioFail('unsupported');return res()}
@@ -4592,6 +4605,7 @@ function stopRec(hard){const r=activeRec; activeRec=null; try{hard?r?.abort():r?
 
 /* A reusable speak-and-score block. onDone(score) */
 function micBlock(host,target,onDone){
+  try{aiPrefetch(target)}catch(e){}
   host.innerHTML=`<div class="mic-wrap">
     <div class="target">${esc(target)}</div>
     <div class="row" style="justify-content:center">
@@ -4724,6 +4738,7 @@ let curP=PASSAGES[1].id;
 function viewListen(v){
   const P=PASSAGES.find(p=>p.id===curP);
   const sents=P.text.match(/[^.!?]+[.!?]+/g).map(s=>s.trim());
+  try{sents.slice(0,6).forEach(aiPrefetch)}catch(e){}
   const bars=Array.from({length:42},(_,i)=>{const h=18+Math.abs(Math.sin(i*1.7+P.id.length))*70+(i%5)*3;return `<i style="--h:${Math.min(100,h)}%;--d:${(i%7)/7}"></i>`}).join('');
   v.innerHTML=`
   <div class="minis">${PASSAGES.map(p=>`<button class="mini ${p.tile}" data-p="${p.id}" aria-pressed="${p.id===curP}"><span class="ma ${p.tile}">${ART[p.art]}</span><span><b>${p.title}</b><span>${p.level} · ${p.topic}</span></span></button>`).join('')}</div>
@@ -5680,7 +5695,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v181';
+const APP_V='elocu-v182';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
