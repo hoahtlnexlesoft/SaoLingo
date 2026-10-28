@@ -4166,7 +4166,7 @@ const BIRD_PAL={
   violet:{acc:'#7A60E6',b1:'#C7B8FF',b2:'#8B72F2',b3:'#6A50D8',belly1:'#FFFFFF',belly2:'#ECE6FF',wing:'#7A60E6',patch:'#F4F0FF',crest:'#7A60E6',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#6D55E8',iris2:'#5B3FD9'},
   myna:{acc:'#1B1B24',b1:'#6E6F96',b2:'#272734',b3:'#121219',belly1:'#4E5064',belly2:'#2B2C39',wing:'#1B1B24',patch:'#FFFFFF',crest:'#0F0F15',ring:'#FFD95E',beak1:'#FFD23F',beak2:'#F4A21C',feet:'#F2B93A',blush:'#7C7EA8',iris1:'#7A5A3A',iris2:'#8A5A2E',gloss:1,ink:'#0E0E14',band:'#15151C',cloud:'#D8DAE6',q:'#E9A512',phone:'#F7C23A',blushO:.3,sheen:'#C4BEFF'},
   mynab:{acc:'#2A1D15',b1:'#8C6B55',b2:'#5A3F2F',b3:'#36261C',belly1:'#EBE0D4',belly2:'#C9B6A3',wing:'#2A1D15',patch:'#FFFFFF',crest:'#24180F',ring:'#FFD95E',beak1:'#FFD23F',beak2:'#F4A21C',feet:'#F2B93A',blush:'#C9A58C',iris1:'#7A5A3A',iris2:'#8A5A2E',gloss:1,ink:'#1E1510',band:'#2A1D15',cloud:'#E6DCD2',q:'#E9A512',phone:'#F7C23A',blushO:.35,sheen:'#FFF4E8'},
-  sea:{acc:'#4D80F1',b1:'#D6E3FF',b2:'#6F9BF4',b3:'#4D80F1',belly1:'#FFFFFF',belly2:'#E6EEFF',wing:'#4D80F1',patch:'#FFFFFF',crest:'#4677EA',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#F7A02E',feet:'#FFB547',blush:'#FFB3CF',iris1:'#14254D',iris2:'#2647A8',gloss:1,ink:'#16285A',band:'#3A62C9',cloud:'#D6E3FF',q:'#4D80F1',phone:'#9DBDF8',blushO:.55,sheen:'#EEF3FF'},
+  sea:{acc:'#4677EA',b1:'#8DB3F8',b2:'#5790EE',b3:'#4D80F1',belly1:'#FFFFFF',belly2:'#E3EDFD',wing:'#4677EA',patch:'#FFFFFF',crest:'#4D80F1',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#F7A02E',feet:'#FFB547',blush:'#FFB3CF',iris1:'#14254D',iris2:'#2647A8',gloss:1,ink:'#16285A',band:'#3A62C9',cloud:'#D6E3FF',q:'#4D80F1',phone:'#9DBDF8',blushO:.55,sheen:'#EEF3FF'},
   mint:{acc:'#24B387',b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
   rose:{acc:'#D1376B',b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
 };
@@ -6633,7 +6633,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v234';
+const APP_V='elocu-v235';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
