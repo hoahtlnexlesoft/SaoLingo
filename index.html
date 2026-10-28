@@ -3221,6 +3221,10 @@ input[type="range"]{background:transparent!important;min-height:0;accent-color:v
 :root[data-theme="dark"] .ob .ob-tchg{color:#B9A8FF!important}
 :root[data-theme="dark"] .ob .eyebrow{color:#9C85FF!important}
 /* tap an English answer → hear it */
+.done-screen{position:relative}
+.ds-close{position:absolute;top:calc(8px + env(safe-area-inset-top,0px));left:4px;z-index:5;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--g-ctl,rgba(255,255,255,.6));border:.5px solid var(--g-line,rgba(0,0,0,.06));color:var(--fg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.ds-close svg{width:20px;height:20px}
+.ds-exit{background:none;border:0;color:var(--muted);font-weight:700;font-size:14.5px;padding:10px;margin-top:2px;text-decoration:underline;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--muted) 40%,transparent)}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -4550,7 +4554,7 @@ const MG_STEPS={
   desktop:[['Bấm biểu tượng ổ khoá cạnh địa chỉ','Góc trái thanh địa chỉ'],['Micro → “Cho phép”','Chọn đúng micro nếu có nhiều thiết bị'],['Tải lại trang','Rồi bấm micro một lần nữa']]
 };
 function micGuideHTML(){
-  const ua=navigator.userAgent, pf=/iPhone|iPad|iPod/i.test(ua)?'ios':/android/i.test(ua)?'android':'desktop';
+  const ua=navigator.userAgent, pf=(/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))?'ios':/android/i.test(ua)?'android':'desktop';
   return `<div class="mg" data-pf="${pf}"><div class="mg-tabs">${[['ios','iPhone'],['android','Android'],['desktop','Máy tính']].map(([k,l])=>`<button data-pf="${k}" aria-selected="${k===pf}">${l}</button>`).join('')}</div><ol class="mg-steps"></ol></div>`;
 }
 function initMicGuide(root){
@@ -4625,6 +4629,7 @@ const ALERTS={
            error:['Lỗi phát âm thanh','Không phát được câu này. Hãy thử lại, hoặc chọn giọng khác trong Hồ sơ → Giọng đọc.']},
   mic:{none:['Thiết bị chưa hỗ trợ nhận giọng nói','Không chấm điểm phát âm tự động được ở đây. Bạn vẫn có thể nghe mẫu, đọc to theo và tự đánh giá. Chấm tự động chạy trên Chrome/Edge hoặc Safari khi mở app cài trên máy.'],
        claude:['Bản xem thử không dùng được micro','Khung xem thử trong Claude không cho trang web dùng micro. Mở app thật (saovoxy.vercel.app hoặc app đã cài trên màn hình chính) để nói và được chấm phát âm.'],
+       nodict:['Cần bật Đọc chính tả','Micro đã được cho phép, nhưng iPad/iPhone cần bật Đọc chính tả để nhận giọng nói. Vào Cài đặt → Cài đặt chung → Bàn phím → bật “Đọc chính tả”, rồi mở lại app.'],
        blocked:['Micro đang bị chặn','SáoVoxy cần micro để chấm phát âm. Làm theo vài bước dưới đây để bật lại nhé.']}};
 function showAlert(kind,why,{onOk}={}){
   if(kind==='mic'&&typeof inClaude!=='undefined'&&inClaude)why='claude';
@@ -4668,7 +4673,7 @@ function _recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
     if(silenceMs){arm();return}
     if(!onPartial||(fin&&e.results.length===1)){done=true; res([...(fin||e.results[0])].map(a=>a.transcript))}
     else if(fin&&[...e.results].every(R=>R.isFinal)){done=true; res([last])}};
-  r.onerror=e=>{if(['not-allowed','service-not-allowed','audio-capture'].includes(e.error))micState='blocked'; if(!done){done=true; if(last&&micState!=='blocked')res([last]); else rej(micState==='blocked'?'unavailable':e.error)}};
+  r.onerror=e=>{if(e.error==='service-not-allowed'&&micState!=='blocked')micState='nodict'; else if(['not-allowed','audio-capture'].includes(e.error))micState='blocked'; if(!done){done=true; if(last&&micState!=='blocked')res([last]); else rej(micState==='blocked'||micState==='nodict'?'unavailable':e.error)}};
   r.onend=()=>{recognize._busy=false; clearTimeout(sil); if(!done){done=true; if(!last)return rej('no-speech'); res(lastRes&&lastRes.length===1?[...lastRes[0]].map(a=>a.transcript):[last])}};
   let tries=0; const go=()=>{try{r.start(); recognize._busy=true; activeRec=r; if(silenceMs){clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs+4000)}}catch(e){if(e&&e.name==='InvalidStateError'&&tries++<3){try{r.abort()}catch(_){} setTimeout(go,300);return} micState='blocked'; rej('unavailable')}}; go();
 })}
@@ -4680,14 +4685,15 @@ function attachMic(ta){
   let tok=0;
   const fire=()=>{ta.dispatchEvent(new Event('input',{bubbles:true}))};
   b.onclick=async()=>{
-    if(typeof inClaude!=='undefined'&&inClaude||micState==='none'||micState==='blocked'){showAlert('mic',micState==='none'?'none':'blocked');return}
+    if(typeof inClaude!=='undefined'&&inClaude||micState==='none'||micState==='blocked'){showAlert('mic',micWhy());return}
     if(b.classList.contains('live')){stopRec();return}
     hush(); b.classList.add('live'); const my=++tok; const base=ta.value.trim()?ta.value.replace(/\s+$/,'')+' ':'';
     try{const alts=await recognize(t=>{if(my!==tok)return; ta.value=base+t; fire()},2000); if(my===tok){ta.value=base+alts[0]; fire()}}
-    catch(err){if(err==='unavailable')showAlert('mic',micState==='none'?'none':'blocked')}
+    catch(err){if(err==='unavailable')showAlert('mic',micWhy())}
     finally{b.classList.remove('live')}
   };
 }
+function micWhy(){return micState==='none'?'none':micState==='nodict'?'nodict':'blocked'}
 function stopRec(hard){const r=activeRec; activeRec=null; try{hard?r?.abort():r?.stop()}catch(e){}}
 
 /* A reusable speak-and-score block. onDone(score) */
@@ -4708,7 +4714,7 @@ function micBlock(host,target,onDone){
   $('[data-a=model]',host).onclick=()=>say(target);
   $('[data-a=slow]',host).onclick=()=>say(target,0.65);
   const selfRate=()=>{
-    st.innerHTML=`<span class="warn-line">${I.mic}<span>${micState==='none'?'Thiết bị chưa hỗ trợ nhận giọng nói.':'Micro đang bị chặn.'} Hãy <b>nghe mẫu, đọc to theo</b> rồi tự đánh giá.</span></span>`;
+    st.innerHTML=`<span class="warn-line">${I.mic}<span>${micState==='none'?'Thiết bị chưa hỗ trợ nhận giọng nói.':micState==='nodict'?'Cần bật Đọc chính tả trong Cài đặt → Cài đặt chung → Bàn phím.':'Micro đang bị chặn.'} Hãy <b>nghe mẫu, đọc to theo</b> rồi tự đánh giá.</span></span>`;
     mic.disabled=true; mic.style.opacity=.4;
     out.innerHTML=`<div class="selfrate"><button class="btn" data-r="40">Còn khó</button><button class="btn" data-r="70">Gần đúng</button><button class="btn primary" data-r="95">Chuẩn rồi</button></div>
       <p class="heard">Chấm điểm tự động hoạt động khi mở app bằng Chrome/Edge ở trang riêng (ví dụ host trên Vercel).</p>`;
@@ -4728,7 +4734,7 @@ function micBlock(host,target,onDone){
       st.textContent='Bấm micro để thử lại';
       S.speak.push(best.score); S.speak=S.speak.slice(-50); addXP(best.score>=85?10:5,'speak'); onDone&&onDone(best.score);
     }catch(err){
-      if(err==='unavailable'){selfRate(); showAlert('mic',micState==='none'?'none':'blocked')}
+      if(err==='unavailable'){selfRate(); showAlert('mic',micWhy())}
       else st.textContent=err==='no-speech'?'Chưa nghe thấy gì. Bấm micro và nói lại nhé.':'Có lỗi nhận giọng nói ('+err+'). Thử lại.';
     }finally{mic.classList.remove('live'); host.classList.remove('live-vu')}
   };
@@ -5595,6 +5601,7 @@ function runLesson(v,u,round=0){
     sfx('done');
     const nu=u.id==='review'||u.ai||nxt>=0?null:(()=>{const k=UNITS.findIndex(x=>x.id===u.id); return [...UNITS.slice(k+1),...UNITS.slice(0,k)].find(x=>roundsOf(x).includes(false))})();
     v.innerHTML=`<div class="lesson done-screen">
+      <button class="ds-close" id="f-x" aria-label="Thoát, về lộ trình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       <div class="confetti" aria-hidden="true">${conf}</div>
       <div class="ds-hero">${MASCOT('ds-bird',perfect?'cheer':acc>=70||u.id==='review'?'happy':'wink')}</div>
       <div class="ds-text"><h2>${head}</h2><p>${sub}</p>${acc<70&&u.id!=='review'?'<p class="ds-tip">Làm lại vòng này một lần nữa sẽ giúp bạn nhớ lâu hơn 💪</p>':''}</div>
@@ -5606,10 +5613,11 @@ function runLesson(v,u,round=0){
       <div class="ds-act">
         <button class="btn primary" id="f-next">${u.id==='review'?'Về lộ trình':nxt>=0?'Vòng tiếp: '+ROUNDS[nxt].name:nu?'Chủ đề tiếp: '+nu.title:'Về lộ trình'} ${I.arrow}</button>
         <button class="btn" id="f-again">Làm lại vòng này</button>
+        ${u.id==='review'||(nxt<0&&!nu)?'':'<button class="ds-exit" id="f-out">Nghỉ ở đây, về lộ trình</button>'}
       </div>
       <button id="f-back" hidden></button>
     </div>`;
-    $('#f-again').onclick=()=>runLesson(v,u,round); $('#f-back').onclick=()=>go('lessons');
+    $('#f-again').onclick=()=>runLesson(v,u,round); $('#f-back').onclick=()=>go('lessons'); $('#f-x').onclick=()=>go('lessons'); $('#f-out')&&($('#f-out').onclick=()=>go('lessons'));
     $('#f-next').onclick=()=>{if(u.id!=='review'&&nxt>=0)runLesson(v,u,nxt); else if(u.id!=='review'&&nu)runLesson(v,nu,nextRound(nu)); else go('lessons')};
   };
   step();
@@ -5675,8 +5683,8 @@ function viewTalk(v){
     for(;k<w.length;k++){acc=(acc+' '+w[k].toLowerCase().replace(/[^a-z0-9']/g,'')).trim(); if(acc===a){return w.slice(k+1).join(' ')} if(!a.startsWith(acc))break}
     return t};
   const micOff=()=>inClaude||micState==='none'||micState==='blocked'; if(micOff())micB.style.opacity=.45;
-  micB.onclick=async()=>{ if(micOff()){showAlert('mic',micState==='none'?'none':'blocked');return} if(micB.classList.contains('live')){stopRec();return} micB.classList.add('live');
-    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; const my=++recTok; try{const alts=await recognize(t=>{if(my!==recTok)return; inp.value=base+stripSent(t); inp.oninput()},2600); if(my===recTok){inp.value=base+stripSent(alts[0]); inp.oninput()}}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micState==='none'?'none':'blocked')}}
+  micB.onclick=async()=>{ if(micOff()){showAlert('mic',micWhy());return} if(micB.classList.contains('live')){stopRec();return} micB.classList.add('live');
+    const base=inp.value?inp.value.replace(/\s+$/,'')+' ':''; const my=++recTok; try{const alts=await recognize(t=>{if(my!==recTok)return; inp.value=base+stripSent(t); inp.oninput()},2600); if(my===recTok){inp.value=base+stripSent(alts[0]); inp.oninput()}}catch(err){if(err==='unavailable'){micB.style.opacity=.45;showAlert('mic',micWhy())}}
     finally{micB.classList.remove('live')}};
   async function send(){
     recTok++; stopRec(true); micB.classList.remove('live')
@@ -5757,7 +5765,7 @@ function viewWords(v){
 const swDay=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
 let swReg=null, installEvt=null;
 const notifSupported='Notification' in window && 'serviceWorker' in navigator;
-const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
 const isStandalone=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
 function syncReminder(){
   if(!swReg?.active)return;
@@ -5782,7 +5790,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v185';
+const APP_V='elocu-v186';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
