@@ -4120,7 +4120,7 @@ const BIRD_PAL={
   mint:{acc:'#24B387',b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
   rose:{acc:'#D1376B',b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
 };
-const birdFor=(pal,sao)=>pal==='vivid'?(sao==='brown'?'mynab':'myna'):pal==='d3'?'sea':'violet';
+const birdFor=(pal,sao)=>pal==='vivid'?(sao==='black'?'myna':'mynab'):pal==='d3'?'sea':'violet';
 let BIRD='violet'; try{const _s=JSON.parse(localStorage.getItem('elocu.v1')||'{}'); BIRD=birdFor(_s.palette,_s.sao)}catch(e){}
 function MASCOT(cls='',mood='idle',palKey){
   const P=BIRD_PAL[palKey||BIRD], uid='b'+(MASCOT._n=(MASCOT._n||0)+1);
@@ -6583,7 +6583,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v224';
+const APP_V='elocu-v225';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
