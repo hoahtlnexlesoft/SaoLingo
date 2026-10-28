@@ -3446,11 +3446,11 @@ html body .tsheet{background:rgba(10,8,25,.38)!important}
 /* diagonal stripes on cards */
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card){position:relative;overflow:hidden;isolation:isolate}
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;
-  background:repeating-linear-gradient(135deg,rgba(91,63,224,.09) 0 3px,transparent 3px 10px);
+  background:repeating-linear-gradient(135deg,rgba(91,63,224,.085) 0 2px,transparent 2px 8px);
   -webkit-mask:linear-gradient(155deg,#000 0%,rgba(0,0,0,.45) 45%,transparent 80%);mask:linear-gradient(155deg,#000 0%,rgba(0,0,0,.45) 45%,transparent 80%)}
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)>*{position:relative;z-index:1}
-@media (prefers-color-scheme: dark){html:not([data-theme="light"]) body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 3px,transparent 3px 10px)}}
-html[data-theme="dark"] body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 3px,transparent 3px 10px)}
+@media (prefers-color-scheme: dark){html:not([data-theme="light"]) body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 2px,transparent 2px 8px)}}
+html[data-theme="dark"] body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 2px,transparent 2px 8px)}
 /* pastel icon chips */
 html body .screen :is(.pr-ic,.task .tk-ic,.ccard .cart svg.ph,.trackcard .ta){background:color-mix(in srgb,var(--c1) 16%,#fff)!important;color:color-mix(in srgb,var(--c1) 85%,#000)!important;box-shadow:none!important}
 html body .screen :is(.pr-ic,.task .tk-ic,.ccard .cart svg.ph,.trackcard .ta) *{stroke:currentColor!important}
@@ -6032,7 +6032,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v200';
+const APP_V='elocu-v201';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -6083,7 +6083,7 @@ function regroupMe(v){
   const palRow=mkRow('Màu sắc','Dịu nhẹ hay rực rỡ, đậm màu',seg('pal-seg',[['pastel','Pastel'],['vivid','Đậm đà']],S.palette||'pastel'));
   const birdRow=mkRow('Màu của Sáo','Chọn màu linh vật bạn thích',seg('bird-seg',[['violet','Tím'],['mint','Xanh mint'],['rose','Hồng đậm'],['myna','Sáo đen']],BIRD));
   const langRow=mkRow('Ngôn ngữ ứng dụng','Hiển thị menu, hướng dẫn và thông báo',seg('lang-seg',[['vi','Tiếng Việt'],['en','English']],S.lang||'vi'));
-  const p2=$$('section.panel',v).filter(p=>!p.classList.contains('lvl-card'))[1];
+  const p2=$$('section.panel',v).filter(p=>!p.classList.contains('lvl-card')&&!p.classList.contains('weekcard'))[1];
   const installBits=p2?[...p2.children].filter(c=>!c.classList.contains('sec-head')&&!c.querySelector('#track-choice,#voice-sel,#theme-seg,#name-in,#redo-place,#reset')&&c.id!=='reset-confirm'):[];
   const acctRow=document.createElement('div'); acctRow.className='acct-slot'; acctRow.innerHTML=accountRowHTML();
   const T=[
