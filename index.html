@@ -4268,7 +4268,26 @@ function fillVoiceSelect(){const sel=$('#voice-sel'); if(!sel)return; const list
   sel.disabled=false; $('#voice-cur')&&($('#voice-cur').textContent='Đang dùng: '+(cur||'mặc định'))}
 let ttsOK=hasTTS?null:false; let ttsWarned=false;
 function audioFail(why){ttsOK=false; if(ttsWarned)return; ttsWarned=true; showAlert('speaker',why)}
-function say(text,rate){return new Promise(res=>{
+/* natural AI voice (Gemini) with on-device fallback */
+const AIV={el:null,mem:new Map(),bad:0};
+function aiVoiceOn(){return S.aiVoice!==false&&!(typeof inClaude!=='undefined'&&inClaude)&&navigator.onLine&&AIV.bad<3&&/^https:|localhost/.test(location.origin)}
+function ttsURL(t){return '/api/tts?v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
+async function aiBlob(t){const u=ttsURL(t); if(AIV.mem.has(u))return AIV.mem.get(u);
+  const p=(async()=>{let c; try{c=await caches.open('saovoxy-tts'); const hit=await c.match(u); if(hit)return URL.createObjectURL(await hit.blob())}catch(e){}
+    const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
+    const r=await fetch(u,{signal:ctl.signal}); clearTimeout(tm); if(!r.ok)throw new Error('tts '+r.status);
+    try{c&&c.put(u,r.clone())}catch(e){} return URL.createObjectURL(await r.blob())})();
+  AIV.mem.set(u,p); p.catch(()=>AIV.mem.delete(u)); return p}
+function aiStop(){try{if(AIV.el){AIV.el.pause(); AIV.el.onended=null}}catch(e){}}
+function sayAI(text,rate){return new Promise(async(res,rej)=>{
+  try{const src=await aiBlob(text); aiStop(); try{speechSynthesis.cancel()}catch(e){}
+    const a=AIV.el||(AIV.el=new Audio()); a.src=src; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
+    a.onended=()=>res(); a.onerror=()=>rej(new Error('play')); await a.play(); ttsOK=true; AIV.bad=0}
+  catch(e){AIV.bad++; rej(e)}})}
+function say(text,rate){
+  if(aiVoiceOn()&&text&&text.length<=400)return sayAI(text,rate).catch(()=>sayDevice(text,rate));
+  return sayDevice(text,rate)}
+function sayDevice(text,rate){return new Promise(res=>{
   if(!hasTTS){audioFail('unsupported');return res()}
   try{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate;
     let started=false; const guard=setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){} audioFail('silent'); res()}},3500);
@@ -4490,7 +4509,7 @@ async function probeMic(){
   try{if(window.self!==window.top&&!document.featurePolicy?.allowsFeature?.('microphone')){micState='blocked';return 'blocked'}}catch(e){}
   return micState;
 }
-function hush(){if(hasTTS)try{speechSynthesis.cancel()}catch(e){}}
+function hush(){aiStop(); if(hasTTS)try{speechSynthesis.cancel()}catch(e){}}
 
 /* ---------- Speech in ---------- */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -4953,7 +4972,7 @@ function playShort(idx){
   let s=SHORTS[idx], si=0, paused=false, tok=0, timer=null, startAt=0, dur=0, left=0;
   const el=document.createElement('div'); el.className='shp';
   ($('#screen')||document.body).appendChild(el);
-  const stop=()=>{tok++; clearTimeout(timer); try{speechSynthesis.cancel()}catch(e){}};
+  const stop=()=>{tok++; clearTimeout(timer); aiStop(); try{speechSynthesis.cancel()}catch(e){}};
   const close=()=>{stop(); el.classList.add('out'); setTimeout(()=>el.remove(),250); const v=$('#view'); if(v&&$('.sh-strip',v)){$$('.sh-strip',v).forEach(x=>x.outerHTML=shortsStripHTML()); bindShorts(v)}};
   const hlText=(t,h)=>{let x=esc(t); if(h){const i=t.toLowerCase().indexOf(h.toLowerCase()); if(i>=0)x=esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+h.length))+'</mark>'+esc(t.slice(i+h.length))} return x};
   const frame=()=>{
@@ -4989,7 +5008,7 @@ function playShort(idx){
   };
   const togglePause=()=>{
     const b=segs()[si]?.firstChild;
-    if(!paused){paused=true; tok++; clearTimeout(timer); try{speechSynthesis.cancel()}catch(e){} left=Math.max(600,left-(Date.now()-startAt)); if(b){const w=getComputedStyle(b).width; b.style.transition='none'; b.style.width=w} el.classList.add('paused')}
+    if(!paused){paused=true; tok++; clearTimeout(timer); aiStop(); try{speechSynthesis.cancel()}catch(e){} left=Math.max(600,left-(Date.now()-startAt)); if(b){const w=getComputedStyle(b).width; b.style.transition='none'; b.style.width=w} el.classList.add('paused')}
     else{paused=false; el.classList.remove('paused'); const my=++tok; startAt=Date.now(); if(b){requestAnimationFrame(()=>{b.style.transition=`width ${left}ms linear`; b.style.width='100%'})} timer=setTimeout(()=>{if(my===tok){si++;scene()}},left)}
   };
   const quiz=()=>{
@@ -5622,7 +5641,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v177';
+const APP_V='elocu-v178';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
