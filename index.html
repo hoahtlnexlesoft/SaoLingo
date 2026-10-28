@@ -4047,7 +4047,7 @@ html[data-palette="d3"]:not([data-theme="light"]):not(#z1):not(#z2):not(#z3):not
 
 /* Back button stays put while scrolling: transparent header; the title fades once content slides under it */
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .panel.set-detail,html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .me-sub{overflow:visible!important}
-html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7) body .screen .set-detail .sd-head{position:sticky!important;top:max(6px,calc(env(safe-area-inset-top,0px) - 10px))!important;z-index:30!important;margin:0 0 6px!important;padding:6px 2px!important;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0!important;box-shadow:none!important;pointer-events:none}
+html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7) body .screen .set-detail .sd-head{position:sticky!important;top:4px!important;z-index:30!important;margin:0 0 6px!important;padding:6px 2px!important;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0!important;box-shadow:none!important;pointer-events:none}
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head > *{pointer-events:auto}
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head h2{transition:opacity .18s,transform .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head.stuck h2{opacity:0;transform:translateY(-4px)}
@@ -6677,7 +6677,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v243';
+const APP_V='elocu-v244';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
