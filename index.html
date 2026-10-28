@@ -3446,11 +3446,11 @@ html body .tsheet{background:rgba(10,8,25,.38)!important}
 /* diagonal stripes on cards */
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card){position:relative;overflow:hidden;isolation:isolate}
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;
-  background:repeating-linear-gradient(135deg,rgba(91,63,224,.06) 0 1.5px,transparent 1.5px 7px);
+  background:repeating-linear-gradient(135deg,rgba(91,63,224,.09) 0 3px,transparent 3px 10px);
   -webkit-mask:linear-gradient(155deg,#000 0%,rgba(0,0,0,.45) 45%,transparent 80%);mask:linear-gradient(155deg,#000 0%,rgba(0,0,0,.45) 45%,transparent 80%)}
 html body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)>*{position:relative;z-index:1}
-@media (prefers-color-scheme: dark){html:not([data-theme="light"]) body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.055) 0 1.5px,transparent 1.5px 7px)}}
-html[data-theme="dark"] body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.055) 0 1.5px,transparent 1.5px 7px)}
+@media (prefers-color-scheme: dark){html:not([data-theme="light"]) body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 3px,transparent 3px 10px)}}
+html[data-theme="dark"] body .screen :is(.ccard,.prc,.sprint,.trackcard,.lvl-card,.mt-card,.stat,.badge,.badge-card,.sec-card,.review-card)::after{background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 3px,transparent 3px 10px)}
 /* pastel icon chips */
 html body .screen :is(.pr-ic,.task .tk-ic,.ccard .cart svg.ph,.trackcard .ta){background:color-mix(in srgb,var(--c1) 16%,#fff)!important;color:color-mix(in srgb,var(--c1) 85%,#000)!important;box-shadow:none!important}
 html body .screen :is(.pr-ic,.task .tk-ic,.ccard .cart svg.ph,.trackcard .ta) *{stroke:currentColor!important}
@@ -6032,7 +6032,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v199';
+const APP_V='elocu-v200';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
