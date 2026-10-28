@@ -4300,23 +4300,32 @@ function audioFail(why){ttsOK=false; if(ttsWarned)return; ttsWarned=true; showAl
 /* natural AI voice (Gemini) with on-device fallback */
 const AIV={el:null,mem:new Map(),bad:0};
 function aiVoiceOn(){return S.aiVoice!==false&&!(typeof inClaude!=='undefined'&&inClaude)&&navigator.onLine&&AIV.bad<3&&/^https:|localhost/.test(location.origin)}
-function ttsURL(t){return '/api/tts?v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
+function ttsURL(t){return '/api/tts?n=2&v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
 async function aiBlob(t){const u=ttsURL(t); if(AIV.mem.has(u))return AIV.mem.get(u);
   const p=(async()=>{let c; try{c=await caches.open('saovoxy-tts'); const hit=await c.match(u); if(hit)return URL.createObjectURL(await hit.blob())}catch(e){}
     const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
     const r=await fetch(u,{signal:ctl.signal}); clearTimeout(tm); if(!r.ok)throw new Error('tts '+r.status);
     try{c&&c.put(u,r.clone())}catch(e){} return URL.createObjectURL(await r.blob())})();
   AIV.mem.set(u,p); p.catch(()=>AIV.mem.delete(u)); return p}
+/* iOS: keep audio on the loud speaker and unlock playback on first touch */
+function audioMode(m){try{if(navigator.audioSession)navigator.audioSession.type=m}catch(e){}}
+audioMode('playback');
+(function(){const SIL='data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+  const unlock=()=>{try{const a=AIV.el||(AIV.el=new Audio()); a.src=SIL; a.play().catch(()=>{}); }catch(e){}
+    try{const C=window.AudioContext||window.webkitAudioContext; if(C){const c=new C(); c.resume&&c.resume(); setTimeout(()=>c.close&&c.close(),300)}}catch(e){}
+    document.removeEventListener('pointerdown',unlock,true); document.removeEventListener('touchend',unlock,true)};
+  document.addEventListener('pointerdown',unlock,true); document.addEventListener('touchend',unlock,true)})();
 function aiStop(){try{if(AIV.el){AIV.el.pause(); AIV.el.onended=null}}catch(e){}}
 function sayAI(text,rate){return new Promise(async(res,rej)=>{
   try{const src=await aiBlob(text); aiStop(); try{speechSynthesis.cancel()}catch(e){}
-    const a=AIV.el||(AIV.el=new Audio()); a.src=src; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
+    audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.src=src; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
     a.onended=()=>res(); a.onerror=()=>rej(new Error('play')); await a.play(); ttsOK=true; AIV.bad=0}
   catch(e){AIV.bad++; rej(e)}})}
 function say(text,rate){
   if(aiVoiceOn()&&text&&text.length<=400)return sayAI(text,rate).catch(()=>sayDevice(text,rate));
   return sayDevice(text,rate)}
 function sayDevice(text,rate){return new Promise(res=>{
+  audioMode('playback');
   if(!hasTTS){audioFail('unsupported');return res()}
   try{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate;
     let started=false; const guard=setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){} audioFail('silent'); res()}},3500);
@@ -4543,10 +4552,11 @@ function hush(){aiStop(); if(hasTTS)try{speechSynthesis.cancel()}catch(e){}}
 /* ---------- Speech in ---------- */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let micState=SR?'unknown':'none'; let activeRec=null;
-function recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
+function recognize(onPartial,silenceMs){audioMode('play-and-record'); return _recognize(onPartial,silenceMs).finally(()=>setTimeout(()=>audioMode('playback'),150))}
+function _recognize(onPartial,silenceMs){return new Promise((res,rej)=>{
   if(!SR||micState==='blocked')return rej('unavailable');
   let r; try{r=recognize._r||(recognize._r=new SR())}catch(e){micState='blocked';return rej('unavailable')}
-  if(recognize._busy){r.onresult=r.onerror=null; r.onend=()=>{recognize._busy=false; recognize(onPartial,silenceMs).then(res,rej)}; try{r.abort()}catch(_){} setTimeout(()=>{if(recognize._busy){recognize._busy=false; r.onend&&r.onend()}},600); return}
+  if(recognize._busy){r.onresult=r.onerror=null; r.onend=()=>{recognize._busy=false; _recognize(onPartial,silenceMs).then(res,rej)}; try{r.abort()}catch(_){} setTimeout(()=>{if(recognize._busy){recognize._busy=false; r.onend&&r.onend()}},600); return}
   r.lang=S.accent==='uk'?'en-GB':'en-US'; r.interimResults=!!onPartial; r.continuous=!!silenceMs; r.maxAlternatives=4; let done=false, last='', lastRes=null, sil=null;
   const arm=()=>{if(!silenceMs)return; clearTimeout(sil); sil=setTimeout(()=>{try{r.stop()}catch(_){}} ,silenceMs)};
   r.onresult=e=>{micState='ok';
@@ -5670,7 +5680,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v180';
+const APP_V='elocu-v181';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;

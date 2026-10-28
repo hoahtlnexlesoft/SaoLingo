@@ -4,6 +4,16 @@ export const config = { maxDuration: 60 };
 const VOICES = new Set(['Kore', 'Aoede', 'Zephyr', 'Puck', 'Charon', 'Leda', 'Callirrhoe', 'Autonoe', 'Sulafat', 'Achird']);
 const MODELS = () => [...new Set([process.env.GEMINI_TTS_MODEL, 'gemini-3.1-flash-tts-preview', 'gemini-2.5-flash-preview-tts', 'gemini-2.5-flash-tts'].filter(Boolean))];
 
+function loud(pcm) {
+  // normalise 16-bit PCM so every sentence plays at the same, clear level (peak ≈ 92%)
+  let peak = 1;
+  for (let i = 0; i + 1 < pcm.length; i += 2) { const v = Math.abs(pcm.readInt16LE(i)); if (v > peak) peak = v; }
+  const g = Math.min(4, (32767 * 0.92) / peak);
+  if (g <= 1.02) return pcm;
+  const out = Buffer.alloc(pcm.length);
+  for (let i = 0; i + 1 < pcm.length; i += 2) out.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(pcm.readInt16LE(i) * g))), i);
+  return out;
+}
 function wav(pcm, rate = 24000) {
   const h = Buffer.alloc(44);
   h.write('RIFF', 0); h.writeUInt32LE(36 + pcm.length, 4); h.write('WAVE', 8); h.write('fmt ', 12);
@@ -42,7 +52,7 @@ export default async function handler(req, res) {
         const part = (j.candidates?.[0]?.content?.parts || []).find(p => p.inlineData?.data);
         if (part) {
           const m = /rate=(\d+)/.exec(part.inlineData.mimeType || '');
-          const buf = wav(Buffer.from(part.inlineData.data, 'base64'), m ? +m[1] : 24000);
+          const buf = wav(loud(Buffer.from(part.inlineData.data, 'base64')), m ? +m[1] : 24000);
           res.setHeader('content-type', 'audio/wav');
           res.setHeader('cache-control', 'public, max-age=31536000, s-maxage=31536000, immutable');
           console.log('tts ok', model, voice, text.length);
