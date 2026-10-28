@@ -4045,15 +4045,12 @@ html[data-palette="d3"]:not([data-theme="light"]):not(#z1):not(#z2):not(#z3):not
 html[data-palette="d3"]:not([data-theme="light"]):not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .pr-st{background:rgba(255,255,255,.08)!important;color:#CFE0FF!important;border-color:rgba(160,190,255,.2)!important}
 }
 
-/* Back button stays put while scrolling: iOS-style frosted nav bar, content slides under it */
+/* Back button stays put while scrolling: transparent header; the title fades once content slides under it */
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .panel.set-detail,html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .me-sub{overflow:visible!important}
-html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head{position:sticky!important;top:0!important;z-index:30!important;margin:0 -18px 6px!important;padding:calc(env(safe-area-inset-top,0px) + 8px) 18px 10px!important;background:linear-gradient(180deg,rgba(248,248,252,.86) 0%,rgba(248,248,252,.78) 100%)!important;-webkit-backdrop-filter:blur(20px) saturate(180%)!important;backdrop-filter:blur(20px) saturate(180%)!important;transition:box-shadow .2s,border-color .2s;border-bottom:.5px solid transparent!important}
-html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head.stuck{border-bottom-color:rgba(20,30,60,.08)!important;box-shadow:0 8px 20px -14px rgba(20,30,60,.25)!important}
-html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head h2{font-size:clamp(20px,6vw,26px)!important;line-height:1.15!important;margin:0!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head{background:rgba(232,240,253,.82)!important}
-html[data-palette="vivid"]:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head{background:rgba(246,246,248,.84)!important}
-html[data-theme="dark"]:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6) body .screen .set-detail .sd-head{background:rgba(16,20,30,.78)!important}
-@media (prefers-color-scheme:dark){html:not([data-theme="light"]):not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6) body .screen .set-detail .sd-head{background:rgba(16,20,30,.78)!important}}
+html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7) body .screen .set-detail .sd-head{position:sticky!important;top:calc(env(safe-area-inset-top,0px) + 6px)!important;z-index:30!important;margin:0 0 6px!important;padding:6px 2px!important;background:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0!important;box-shadow:none!important;pointer-events:none}
+html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head > *{pointer-events:auto}
+html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head h2{transition:opacity .18s,transform .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5) body .screen .set-detail .sd-head.stuck h2{opacity:0;transform:translateY(-4px)}
 
 html:not(#z1) .oc-sw.d3 i:nth-child(1){background:radial-gradient(circle at 35% 30%,#fff,#D2E1FF)!important}
 html:not(#z1) .oc-sw.d3 i:nth-child(2){background:linear-gradient(135deg,#4D80F1,#5C9CEC)!important}
@@ -6669,7 +6666,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v238';
+const APP_V='elocu-v239';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7128,7 +7125,7 @@ document.addEventListener('click',e=>{const g=e.target.closest?.('#sn-go'),x=e.t
   if(g){loginSheet()} if(x){S.saveNudgeT=Date.now(); save(); x.closest('.save-nudge')?.remove()}});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')try{sbPush(true)}catch(e){}});
 
-(function(){const sc=document.getElementById('scroller');if(!sc)return;let t=0;sc.addEventListener('scroll',()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;const h=document.querySelector('.set-detail.open .sd-head');if(h)h.classList.toggle('stuck',sc.scrollTop>40)})},{passive:true})})();
+(function(){let t=0;const f=()=>{t=0;const h=document.querySelector('.set-detail.open .sd-head');if(!h)return;const n=h.nextElementSibling;if(!n)return;h.classList.toggle('stuck',n.getBoundingClientRect().top<h.getBoundingClientRect().bottom-2)};document.addEventListener('scroll',()=>{if(!t)t=requestAnimationFrame(f)},{passive:true,capture:true})})();
 </script>
 </body>
 </html>
