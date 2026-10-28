@@ -4008,8 +4008,8 @@ html[data-palette="d3"]:not(#z1):not(#z2):not(#z3) .face.back.fc-back{background
 html[data-palette="d3"]:not(#z1):not(#z2):not(#z3) .fc-back :is(.fc-pos,.fc-word,.fc-hint,.vi,.ex,b){color:#1D5A82!important}
 
 /* Thủy tinh v2: match the UMC logo — clear sky gradient behind, white glass on top, denim-navy accents */
-html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body .screen{background:linear-gradient(180deg,#7FCBF3 0%,#98D5F5 18%,#B9E2F7 40%,#D9EFFA 65%,#EEF8FD 88%,#F6FBFE 100%)!important;background-attachment:fixed!important}
-html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body{background:#7FCBF3}
+html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body .screen{background:linear-gradient(180deg,#A8DBF4 0%,#BEE4F6 22%,#D4ECF8 44%,#EAF5F8 66%,#F6F8F9 82%,#FAFAFA 100%)!important;background-attachment:fixed!important}
+html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body{background:#A8DBF4}
 html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body .screen :is(.sprint,.panel,.ccard,.task,.stat,.pk,.mini,.np,.scard,.setrow,.lvl-card,.weekcard,.save-pill,.round,.streak-pill,.tabbar .nv-wrap,.tabbar){background:rgba(255,255,255,.62)!important;-webkit-backdrop-filter:blur(20px) saturate(160%)!important;backdrop-filter:blur(20px) saturate(160%)!important;border:1px solid rgba(255,255,255,.85)!important;box-shadow:0 14px 30px -18px rgba(30,110,170,.45),inset 0 1px 0 rgba(255,255,255,.9)!important}
 html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) body .screen .sprint .task{background:rgba(255,255,255,.7)!important}
 html[data-palette="d3"]:not(#z1):not(#z2):not(#z3):not(#z4) :is(.sh-eye,.eyebrow,.sprint h2 em,.lvl-card .num,.mt-skip,.lv-xp b){color:#2F5A9E!important;-webkit-text-fill-color:#2F5A9E!important}
@@ -6594,7 +6594,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v226';
+const APP_V='elocu-v227';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
