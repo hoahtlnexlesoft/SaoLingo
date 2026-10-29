@@ -5839,18 +5839,17 @@ function aiPump(){if(AIV.busy||!AIV.q.length||!aiVoiceOn())return; AIV.busy=1; c
   aiBlob(t).then(()=>AIV.ready.add(ttsURL(t))).catch(()=>{}).finally(()=>{AIV.busy=0; setTimeout(aiPump,1500)})}
 async function aiCached(t){const u=ttsURL(t); if(AIV.ready.has(u))return true;
   try{const c=await caches.open('saovoxy-tts'); if(await c.match(u)){AIV.ready.add(u); return true}}catch(e){} return false}
+/* decide synchronously so playback starts inside the tap (iOS drops audio started after an await) */
 function say(text,rate){
+  try{stopRec(true)}catch(e){} audioMode('playback');
   if(!(aiVoiceOn()&&text&&text.length<=400))return sayDevice(text,rate);
-  return (async()=>{
-    if(await aiCached(text))return sayAI(text,rate).catch(()=>sayDevice(text,rate));
-    const quick=await Promise.race([aiBlob(text).then(()=>true).catch(()=>false),new Promise(r=>setTimeout(()=>r(false),900))]);
-    if(quick){AIV.ready.add(ttsURL(text)); return sayAI(text,rate).catch(()=>sayDevice(text,rate))}
-    aiBlob(text).then(()=>AIV.ready.add(ttsURL(text))).catch(()=>{});
-    return sayDevice(text,rate)})()}
+  if(AIV.ready.has(ttsURL(text)))return sayAI(text,rate).catch(()=>sayDevice(text,rate));
+  aiBlob(text).then(()=>AIV.ready.add(ttsURL(text))).catch(()=>{});
+  return sayDevice(text,rate)}
 function sayDevice(text,rate){return new Promise(res=>{
   audioMode('playback');
   if(!hasTTS){audioFail('unsupported');return res()}
-  try{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate;
+  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel(); try{speechSynthesis.resume()}catch(e){} const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate;
     let started=false; const guard=setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){} audioFail('silent'); res()}},3500);
     u.onstart=()=>{started=true; ttsOK=true};
     u.onend=()=>{clearTimeout(guard); res()};
@@ -6147,15 +6146,16 @@ function micBlock(host,target,onDone){
   $('[data-a=slow]',host).onclick=()=>say(target,0.65);
   const selfRate=()=>{
     st.innerHTML=`<span class="warn-line">${I.mic}<span>${micState==='none'?'Thiết bị chưa hỗ trợ nhận giọng nói.':micState==='nodict'?'Cần bật Đọc chính tả trong Cài đặt → Cài đặt chung → Bàn phím.':'Micro đang bị chặn.'} Hãy <b>nghe mẫu, đọc to theo</b> rồi tự đánh giá.</span></span>`;
-    mic.disabled=true; mic.style.opacity=.4;
+    if(micState==='none'){mic.disabled=true; mic.style.opacity=.4}
     out.innerHTML=`<div class="selfrate"><button class="btn" data-r="40">Còn khó</button><button class="btn" data-r="70">Gần đúng</button><button class="btn primary" data-r="95">Chuẩn rồi</button></div>
       <p class="heard">Chấm điểm tự động hoạt động khi mở app bằng Chrome/Edge ở trang riêng (ví dụ host trên Vercel).</p>`;
     $$('[data-r]',out).forEach(b=>b.onclick=()=>{const sc=+b.dataset.r; S.speak.push(sc); S.speak=S.speak.slice(-50); addXP(5,'speak'); onDone&&onDone(sc); $$('[data-r]',out).forEach(x=>x.disabled=true); b.classList.add('primary')});
   };
-  if(micState==='none'||micState==='blocked'){selfRate();return}
-  probeMic().then(m=>{if(m==='none'||m==='blocked')selfRate()});
+  if(micState==='none'){selfRate();return}
+  if(micState==='blocked')selfRate(); else probeMic().then(m=>{if(m==='none'||m==='blocked')selfRate()});
   mic.onclick=async()=>{
     if(mic.classList.contains('live')){stopRec();return}
+    if(micState==='blocked'){try{const ms=await navigator.mediaDevices.getUserMedia({audio:true}); ms.getTracks().forEach(t=>t.stop()); micState='ok'; out.innerHTML=''; st.textContent='Bấm micro rồi đọc to câu trên'}catch(e){showAlert('mic',micWhy());return}}
     hush(); mic.classList.add('live'); host.classList.add('live-vu'); st.textContent='Đang nghe… bấm nút đỏ để dừng'; out.innerHTML='';
     try{
       const alts=await recognize(t=>{st.innerHTML='<span class="live-tx">“'+esc(t)+'”</span>'},1800);
@@ -7221,7 +7221,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v301';
+const APP_V='elocu-v302';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
