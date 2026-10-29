@@ -4485,7 +4485,7 @@ const BIRD_PAL={
   mint:{acc:'#24B387',b1:'#8FE8CB',b2:'#3DCB9C',b3:'#1FA77D',belly1:'#FFFFFF',belly2:'#E4FAF2',wing:'#24B387',patch:'#F0FFF9',crest:'#1FA77D',ring:'#FFD95E',beak1:'#FFB23D',beak2:'#FF8A2E',feet:'#FFAE45',blush:'#FF8FB8',iris1:'#16765C',iris2:'#13866A'},
   rose:{acc:'#D1376B',b1:'#FF9DBE',b2:'#E8457A',b3:'#C22D60',belly1:'#FFFFFF',belly2:'#FFE6EF',wing:'#D1376B',patch:'#FFF2F6',crest:'#C22D60',ring:'#FFD95E',beak1:'#FFC24D',beak2:'#FF9A2E',feet:'#FFAE45',blush:'#FFB8CF',iris1:'#8A1E47',iris2:'#B0285C'}
 };
-const birdFor=(pal,sao)=>pal==='vivid'?(sao==='black'?'myna':'mynab'):pal==='d3'?'sea':'violet';
+const birdFor=(pal,sao)=>pal==='vivid'?(sao==='black'?'myna':'mynab'):'violet';
 let BIRD='violet'; try{const _s=JSON.parse(localStorage.getItem('elocu.v1')||'{}'); BIRD=birdFor(_s.palette,_s.sao)}catch(e){}
 function MASCOT(cls='',mood='idle',palKey){
   const P=BIRD_PAL[palKey||BIRD], uid='b'+(MASCOT._n=(MASCOT._n||0)+1);
@@ -6958,7 +6958,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v275';
+const APP_V='elocu-v276';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7007,7 +7007,7 @@ function regroupMe(v){
   const mkRow=(title,sub,ctl)=>{const d=document.createElement('div'); d.className='setrow'; d.innerHTML=`<div class="t"><b>${title}</b><span>${sub}</span></div>${ctl}`; return d};
   const sfxRow=mkRow('Hiệu ứng âm thanh','Tiếng chuông khi trả lời đúng, sai và hoàn thành bài',seg('sfx-seg',[['on','Bật'],['off','Tắt']],S.sfx===false?'off':'on'));
   const rateRow=mkRow('Tốc độ đọc','Áp dụng cho mọi giọng đọc',seg('rate-seg',[['0.7','0.7×'],['0.9','0.9×'],['1','1×']],String(S.rate||0.9)));
-  const palRow=mkRow('Phong cách','Thẻ, icon và nền đổi theo kiểu bạn chọn',seg('pal-seg',[['pastel','Pastel'],['d3','Xanh Líu Lo'],['vivid','Xám Lông Sáo']],S.palette||'pastel'));
+  const palRow=mkRow('Phong cách','Thẻ, icon và nền đổi theo kiểu bạn chọn',seg('pal-seg',[['pastel','Pastel'],['vivid','Xám Lông Sáo']],S.palette||'pastel'));
   const birdRow=mkRow('Loài sáo','Sáo đen lông bóng ánh xanh tím, hoặc sáo nâu',seg('bird-seg',[['myna','Sáo đen'],['mynab','Sáo nâu']],BIRD));
   const langRow=mkRow('Ngôn ngữ ứng dụng','Hiển thị menu, hướng dẫn và thông báo',seg('lang-seg',[['vi','Tiếng Việt'],['en','English']],S.lang||'vi'));
   const p2=$$('section.panel',v).filter(p=>!p.classList.contains('lvl-card')&&!p.classList.contains('weekcard'))[1];
@@ -7043,7 +7043,7 @@ function regroupMe(v){
   if(meOpen)open(meOpen,!v.classList.contains('pg-in'));
 }
 document.addEventListener('click',e=>{const t=e.target.closest?.('[data-metab]'); if(t)meOpen=t.dataset.metab},true);
-function applyPalette(){const v=['pastel','d3','vivid'].includes(S.palette)?S.palette:'pastel'; document.documentElement.dataset.palette=v; try{applyTheme()}catch(e){} const nb=birdFor(v,S.sao); if(BIRD!==nb){BIRD=nb; try{LOGO=mkLogo(); const bl=document.getElementById('brand-logo'); if(bl)bl.innerHTML=LOGO; if(typeof route!=='undefined'&&route)go(route,true)}catch(e){}}}
+function applyPalette(){const v=['pastel','vivid'].includes(S.palette)?S.palette:'pastel'; document.documentElement.dataset.palette=v; try{applyTheme()}catch(e){} const nb=birdFor(v,S.sao); if(BIRD!==nb){BIRD=nb; try{LOGO=mkLogo(); const bl=document.getElementById('brand-logo'); if(bl)bl.innerHTML=LOGO; if(typeof route!=='undefined'&&route)go(route,true)}catch(e){}}}
 function viewMe(v){
   const L=levelInfo(); const notifState=!notifSupported?'unsupported':window.Notification.permission;
   const installed=isStandalone();
