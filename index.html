@@ -4514,9 +4514,9 @@ html[data-theme="dark"]:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):no
 html[data-theme="dark"]:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not(#k9) .pb::before{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0))}
 @media (prefers-color-scheme:dark){html:not([data-theme="light"]):not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not(#k9) .pb.lock,html:not([data-theme="light"]):not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not(#k9) .pb.open{background:radial-gradient(120% 100% at 30% 20%,rgba(255,255,255,.22),color-mix(in srgb,var(--pa) 18%,rgba(255,255,255,.04)) 70%)!important;border-color:rgba(255,255,255,.35)!important;color:color-mix(in srgb,var(--pa) 70%,#fff)!important}html:not([data-theme="light"]):not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not(#k9) .pb.cur{background:radial-gradient(120% 100% at 30% 20%,rgba(255,255,255,.25),rgba(20,24,40,.7))!important}html:not([data-theme="light"]):not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not(#k9) .pb-sign{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04))!important;border-color:rgba(255,255,255,.18)!important}}
 
-.pb.jump{animation:pbJump 2.2s ease-in-out infinite}
+.pb.jump{}
 @keyframes pbJump{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-.pb.jump .pb-ic{font-size:22px}
+
 .pb-jump{position:absolute;left:calc(100% + 8px);top:50%;transform:translateY(-50%);white-space:nowrap;font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.75);border:1px solid #fff;color:var(--pa);box-shadow:0 6px 14px -10px var(--pa)}
 html[data-theme="dark"] .pb-jump{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
 @media (prefers-color-scheme:dark){html:not([data-theme="light"]) .pb-jump{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}}
@@ -6721,8 +6721,8 @@ function viewLessons(v){
     return `<section class="mt-stage ${stDone?'done':''}"><div class="mt-sh"><span class="mt-no">${stDone?NI.check:si+1}</span><div><span class="mt-eye">Chặng ${si+1}</span><b>${sg.name}</b><small>${sg.sub} · ${sd}/${sg.units.length*3} vòng</small></div>${stDone?'':`<button class="mt-skip" data-skip="${si}">⚡ Vượt chặng</button>`}</div>
       <div class="pb-path">${sg.units.map((u,ui)=>{const rd=roundsOf(u), all=rd.every(Boolean), isCur=u===cu; const state=all?'done':isCur?'cur':passedCur?'next':'open'; if(isCur)passedCur=true; const t=u.tile.slice(2); const first=rd.indexOf(false);
         const sign=`<button class="pb-sign ${state}" data-open="${u.id}" style="--uc:var(--n-${t});--ut:var(--${t})"><span class="pb-flw" aria-hidden="true"><i></i><i></i><i></i></span><span class="pb-art">${ART[u.art]}</span><span class="pb-tx"><b>${u.title}</b><small>${u.level} · ${all?'Hoàn thành':rd.filter(Boolean).length+'/3 vòng'}</small></span><span class="pb-more">›</span></button>`;
-        const peb=rd.map((d,i)=>{let pst=d?'done':(isCur&&i===cr)?'cur':((state==='next'&&!rd.some(Boolean))||i!==first)?'lock':'open'; const jump=ui===0&&i===0&&pst==='lock'; if(jump)pst='open jump'; const k=(ui*3+i)%6, x=[0,58,22,-40,-62,-14][k];
-          return `${i||ui?`<span class="pb-feet" style="--x:${x}px;--px:${[0,58,22,-40,-62,-14][(k+5)%6]}px" aria-hidden="true"><i></i><i></i></span>`:''}<div class="pb-row" style="--x:${x}px"><button class="pb ${pst}" data-pu="${u.id}" data-pr="${i}" aria-label="${u.title} · ${ROUNDS[i].name}"><span class="pb-ic">${pst==='done'?NI.check:pst==='lock'?LOCK_IC:jump?'⚡':(i+1)}</span>${jump?'<span class="pb-jump">Học vượt</span>':''}${pst==='cur'?`<span class="pb-bird">${MASCOT('','happy')}</span><span class="pb-say">${ROUNDS[i].name} nè!</span>`:''}</button><small class="pb-lb">${['Đọc & viết','Nói','Nghe'][i]}</small></div>`}).join('');
+        const peb=rd.map((d,i)=>{let pst=d?'done':(isCur&&i===cr)?'cur':((state==='next'&&!rd.some(Boolean))||i!==first)?'lock':'open'; const jump=ui===0&&i===0&&pst==='lock'; if(jump)pst='cur jump'; const k=(ui*3+i)%6, x=[0,58,22,-40,-62,-14][k];
+          return `${i||ui?`<span class="pb-feet" style="--x:${x}px;--px:${[0,58,22,-40,-62,-14][(k+5)%6]}px" aria-hidden="true"><i></i><i></i></span>`:''}<div class="pb-row" style="--x:${x}px"><button class="pb ${pst}" data-pu="${u.id}" data-pr="${i}" aria-label="${u.title} · ${ROUNDS[i].name}"><span class="pb-ic">${pst==='done'?NI.check:pst==='lock'?LOCK_IC:(i+1)}</span>${jump?'<span class="pb-jump">Học vượt</span>':''}${pst==='cur'&&!jump?`<span class="pb-bird">${MASCOT('','happy')}</span><span class="pb-say">${ROUNDS[i].name} nè!</span>`:''}</button><small class="pb-lb">${['Đọc & viết','Nói','Nghe'][i]}</small></div>`}).join('');
         return `<div class="pb-unit ${state}">${sign}${peb}</div>`}).join('')}</div></section>`}).join('')}
     ${(()=>{const last=stages[stages.length-1], lastDone=last.units.every(u=>roundsOf(u).every(Boolean)); const lv=nextStageLevel();
       return `<button class="mt-next ${lastDone?'':'locked'}" id="mt-next"><span class="mt-nx-ic">${lastDone?'✨':LOCK_IC}</span><span class="mt-nx-t"><small>Chặng ${stages.length+1} · ${lv}</small><b>${lastDone?'Mở chặng tiếp theo':'Chặng tiếp theo đang chờ bạn'}</b><em>${lastDone?'Sáo soạn 4 chủ đề mới ở trình độ cao hơn':'Hoàn thành hoặc vượt chặng '+stages.length+' để mở'}</em></span></button>`})()}</div>`;
@@ -7108,7 +7108,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v285';
+const APP_V='elocu-v286';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
