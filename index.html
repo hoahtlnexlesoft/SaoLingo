@@ -4764,6 +4764,8 @@ function MASCOT(cls='',mood='idle',palKey){
   const starEye=([x,y])=>sclera([x,y])+`<path d="${star(x+(x<50?1:-1),y,8.2)}" fill="${P.acc}"/><circle cx="${x-1.6}" cy="${y-2.6}" r="1.5" fill="#fff"/>`;
   const brow=d=>`<path d="${d}" fill="none" stroke="${line}" stroke-width="2.6" stroke-linecap="round" opacity=".9"/>`;
   const L=E1[0],R=E2[0],Y=E1[1];
+  const lid=([x,y])=>sclera([x,y])+iris([x,y],0,2.4)+`<path d="M${x-10.5} ${y+.5}A10 11 0 0 1 ${x+10.5} ${y+.5}Z" fill="${P.ring}"/><path d="M${x-9.5} ${y+.5}h19" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>`;
+  const shades=()=>`<path d="M23 38.5h22c1.6 0 2.6 1.3 2.3 2.9l-1.3 6.4c-.6 3-3.2 5.2-6.3 5.2h-8.6c-3.6 0-6.6-2.7-7-6.3l-.9-6c-.2-1.2.6-2.2 1.8-2.2zM55 38.5h22c1.2 0 2 1 1.8 2.2l-.9 6c-.4 3.6-3.4 6.3-7 6.3h-8.6c-3.1 0-5.7-2.2-6.3-5.2l-1.3-6.4c-.3-1.6.7-2.9 2.3-2.9z" fill="${ink}"/><path d="M47 41.5q3-1.6 6 0" fill="none" stroke="${ink}" stroke-width="2.4"/><path d="M27 41.5h5M59 41.5h5" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".75"/><path d="M28 45l3-2.6M60 45l3-2.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".5"/>`;
   const M={
     idle:{eyes:openEye(E1)+openEye(E2),brows:'',beak:'c',w:'down'},
     fly:{eyes:openEye(E1,1.2,-.6)+openEye(E2,1.2,-.6),brows:'',beak:'smile',w:'up',blush:1},
@@ -4781,7 +4783,14 @@ function MASCOT(cls='',mood='idle',palKey){
     sleepy:{eyes:shut(E1)+shut(E2),brows:'',beak:'s',w:'down',pose:'rotate(8 50 92)',cap:1},
     listen:{eyes:smile(E1)+smile(E2),brows:'',beak:'smile',w:'phone',pose:'rotate(-5 50 90)',phones:1,blush:1},
     wow:{eyes:sclera(E1,1.08)+`<circle cx="${E1[0]+1}" cy="${E1[1]}" r="3.4" fill="${ink}"/><circle cx="${E1[0]}" cy="${E1[1]-1.3}" r="1.1" fill="#fff"/>`+sclera(E2,1.08)+`<circle cx="${E2[0]-1}" cy="${E2[1]}" r="3.4" fill="${ink}"/><circle cx="${E2[0]-2}" cy="${E2[1]-1.3}" r="1.1" fill="#fff"/>`,brows:brow(`M${L-8} ${Y-21}q8-5 15-2`)+brow(`M${R+8} ${Y-21}q-8-5-15-2`),beak:'o',w:'spread',pose:'translate(0 -3)'},
-    wink:{eyes:openEye(E1)+smile(E2),brows:brow(`M${L-7} ${Y-19}q7-4 13-1`),beak:'tongue',w:'wave',pose:'rotate(4 50 90)',blush:1}
+    wink:{eyes:openEye(E1)+smile(E2),brows:brow(`M${L-7} ${Y-19}q7-4 13-1`),beak:'tongue',w:'wave',pose:'rotate(4 50 90)',blush:1},
+    nope:{eyes:lid(E1)+lid(E2),brows:brow(`M${L-8} ${Y-17}l12 3`)+brow(`M${R+8} ${Y-17}l-12 3`),beak:'wob',w:'stop',pose:'rotate(-3 50 90)'},
+    sing:{eyes:smile(E1)+smile(E2),brows:brow(`M${L-7} ${Y-20}q7-4 13-1`)+brow(`M${R+7} ${Y-20}q-7-4-13-1`),beak:'o',w:'spread',pose:'rotate(-7 50 90)',blush:1},
+    spy:{eyes:openEye(E1,1.5,0,.95)+patch(E2)+`<path d="M${R-7} ${Y}q7-3 14 0" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`,brows:brow(`M${R+7} ${Y-14}l-12-2`),beak:'side',w:'lens',pose:'rotate(5 50 90)'},
+    cool:{eyes:shades(),brows:'',beak:'smile',w:'down',pose:'rotate(-5 50 90)',blush:1},
+    mail:{eyes:smile(E1)+smile(E2),brows:'',beak:'smile',w:'hold',pose:'rotate(3 50 90)',blush:1},
+    th:{eyes:openEye(E1,2.2,2.2)+openEye(E2,-2.2,2.2),brows:brow(`M${L-7} ${Y-20}q7-5 13-2`)+brow(`M${R+7} ${Y-20}q-7-5-13-2`),beak:'th',w:'cheeks'},
+    time:{eyes:openEye(E1,2.6,-2.4)+openEye(E2,2.6,-2.4),brows:brow(`M${L-7} ${Y-20}q7-4 13-1`)+brow(`M${R+7} ${Y-21}q-7-4-13-1`),beak:'c',w:'stop',pose:'rotate(-4 50 90)'}
   };
   const m=M[mood]||M.idle;
   const by=55;
@@ -4793,10 +4802,11 @@ function MASCOT(cls='',mood='idle',palKey){
     s:`<path d="M45.6 ${by-1.6}c1.8-2 7-2 8.8 0L50.7 ${by+5.6}c-.4.6-1 .6-1.4 0z" fill="${P.beak1}"/>`,
     smile:`<path d="M44 ${by-2.4}c2.6-3.2 9.4-3.2 12 0L50.9 ${by+1.4}c-.5.5-1.3.5-1.8 0z" fill="${P.beak1}"/><path d="M45 ${by-.4}h10q-1.4 4.8-5 4.8t-5-4.8z" fill="#D94A3E"/>`,
     o:`<path d="M45 ${by-3.4}c2-2.6 8-2.6 10 0L50.8 ${by-.2}c-.5.4-1.1.4-1.6 0z" fill="${P.beak1}"/><ellipse cx="50" cy="${by+2.4}" rx="4" ry="4.8" fill="#D94A3E"/><ellipse cx="50" cy="${by+4.4}" rx="2.3" ry="1.9" fill="#FF8E8E"/>`,
+    th:`<path d="M43.8 ${by-2.6}c2.6-3.2 9.8-3.2 12.4 0L50.9 ${by+.8}c-.5.5-1.3.5-1.8 0z" fill="${P.beak1}"/><path d="M46.6 ${by+.4}h6.8v3.4a3.4 3.4 0 0 1-6.8 0z" fill="#FF8CA8"/><path d="M50 ${by+.8}v3" stroke="#E0607F" stroke-width="1" stroke-linecap="round"/><path d="M44.4 ${by+.2}c2.6 1.4 8.6 1.4 11.2 0L50.9 ${by-1.4}c-.5.4-1.3.4-1.8 0z" fill="${P.beak2}"/>`,
     tongue:`<path d="M43.8 ${by-2.4}c2.6-3.2 9.8-3.2 12.4 0L50.9 ${by+1.4}c-.5.5-1.3.5-1.8 0z" fill="${P.beak1}"/><path d="M45 ${by-.6}h10q-1.2 4.2-5 4.2t-5-4.2z" fill="#D94A3E"/><path d="M50.6 ${by+1.8}h4v3a2 2 0 0 1-4 0z" fill="#FF8CA8"/>`
   }[m.beak];
   const wing=(side,rot)=>{const g=`<path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="${P.gloss?`url(#${uid}g)`:P.acc}"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/>`; return side<0?`<g transform="rotate(${rot} 21 58)">${g}</g>`:`<g transform="translate(100 0) scale(-1 1)"><g transform="rotate(${-rot} 21 58)">${g}</g></g>`};
-  const W={none:'',down:wing(-1,0)+wing(1,0),up:wing(-1,58)+wing(1,-58),spread:wing(-1,32)+wing(1,-32),chin:wing(-1,0)+`<g transform="rotate(-120 80 66) translate(-2 4)">${wing(1,0)}</g>`,cheeks:wing(-1,38)+wing(1,-38),phone:wing(-1,70)+wing(1,0),wave:wing(-1,0)+`<g class="ms-wave">${wing(1,-62)}</g>`}[m.w];
+  const W={none:'',down:wing(-1,0)+wing(1,0),up:wing(-1,58)+wing(1,-58),spread:wing(-1,32)+wing(1,-32),chin:wing(-1,0)+`<g transform="rotate(-120 80 66) translate(-2 4)">${wing(1,0)}</g>`,cheeks:wing(-1,38)+wing(1,-38),phone:wing(-1,70)+wing(1,0),wave:wing(-1,0)+`<g class="ms-wave">${wing(1,-62)}</g>`,stop:wing(-1,0)+wing(1,-78),hold:wing(-1,-30)+wing(1,30),lens:wing(-1,0)+wing(1,-34)}[m.w];
   const fx={
     cheer:`<g class="fx-tw"><path d="${star(11,26,5)}" fill="#FFC93C"/><path d="${star(89,18,4)}" fill="#FF7AAE" style="animation-delay:.4s"/><path d="${star(92,42,2.6)}" fill="#7CCBEA" style="animation-delay:.8s"/><circle cx="7" cy="46" r="1.8" fill="#5EDB8C"/></g>`,
     wow:`<g class="fx-tw"><path d="M84 11v8M80 15h8" stroke="#FFC93C" stroke-width="2.8" stroke-linecap="round"/><path d="M15 13l3.4 5.4M9 22l6 1.2" stroke="#FF7AAE" stroke-width="2.6" stroke-linecap="round"/></g>`,
@@ -4804,7 +4814,14 @@ function MASCOT(cls='',mood='idle',palKey){
     sleepy:`<g class="fx-rise"><text x="10" y="30" font-family="Quicksand, Nunito, sans-serif" font-weight="800" font-size="11" fill="#8E7CF6">z</text><text x="5" y="20" font-family="Quicksand, Nunito, sans-serif" font-weight="800" font-size="8" fill="#B3A4FF" style="animation-delay:.6s">z</text></g>`,
     oops:`<path class="fx-drop" d="M80 32c0 0-2.4 3.2-2.4 4.8a2.4 2.4 0 0 0 4.8 0c0-1.6-2.4-4.8-2.4-4.8z" fill="#9FD8F7"/>`,
     listen:`<g class="fx-rise"><path d="M86 24v-9l7-2v8" fill="none" stroke="#FF7AAE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="84" cy="24.5" r="2.4" fill="#FF7AAE"/><circle cx="91" cy="21.5" r="2.4" fill="#FF7AAE"/></g>`,
-    wink:`<g class="fx-tw"><path d="${star(14,24,4.2)}" fill="#FFC93C"/></g>`
+    wink:`<g class="fx-tw"><path d="${star(14,24,4.2)}" fill="#FFC93C"/></g>`,
+    nope:`<g class="ms-think"><circle cx="15" cy="20" r="9" fill="#fff" stroke="#FFC2CF" stroke-width="1.4"/><path d="M11.4 16.4l7.2 7.2M18.6 16.4l-7.2 7.2" stroke="#F0506E" stroke-width="2.6" stroke-linecap="round"/><circle cx="22.5" cy="30" r="2" fill="#fff" stroke="#FFC2CF" stroke-width="1.2"/></g>`,
+    sing:`<g class="fx-rise"><path d="M80 26v-10l8-2.4v9" fill="none" stroke="#FF7AAE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="78" cy="26.5" r="2.5" fill="#FF7AAE"/><circle cx="86" cy="23" r="2.5" fill="#FF7AAE"/><path d="M14 22v-8q3 1 4 4" fill="none" stroke="#FFC93C" stroke-width="2" stroke-linecap="round"/><circle cx="12.2" cy="22.4" r="2.3" fill="#FFC93C"/><path d="M90 40q2-3 5-2" fill="none" stroke="#7CCBEA" stroke-width="2" stroke-linecap="round"/></g>`,
+    spy:`<g><circle cx="35" cy="44" r="12.5" fill="#fff" fill-opacity=".25" stroke="#7A5A3A" stroke-width="3.2"/><path d="M28 37.5a9 9 0 0 1 8-3.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".85"/><path d="M26 53.5l-7 9" stroke="#7A5A3A" stroke-width="5" stroke-linecap="round"/></g>`,
+    cool:`<g class="fx-tw"><path d="${star(86,20,5)}" fill="#FFC93C"/><path d="${star(13,28,3.2)}" fill="#7CCBEA" style="animation-delay:.5s"/></g>`,
+    mail:`<g><g transform="rotate(-6 50 72)"><rect x="35" y="61" width="30" height="21" rx="3.2" fill="#fff" stroke="#E4DCFF" stroke-width="1.2"/><path d="M36 63l14 10 14-10" fill="none" stroke="#C9BCFF" stroke-width="1.8" stroke-linejoin="round"/><path d="M50 78.6c-2.6-1.8-4-3-4-4.4a1.9 1.9 0 0 1 4-.7 1.9 1.9 0 0 1 4 .7c0 1.4-1.4 2.6-4 4.4z" fill="#FF6F91"/></g><g class="fx-tw"><path d="M84 18c-2.2-1.5-3.4-2.6-3.4-3.8a1.6 1.6 0 0 1 3.4-.6 1.6 1.6 0 0 1 3.4.6c0 1.2-1.2 2.3-3.4 3.8z" fill="#FF7AAE"/></g></g>`,
+    th:`<g class="ms-think"><path d="M73 12h18a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5h-9l-5 4.5V30h-4a5 5 0 0 1-5-5v-8a5 5 0 0 1 5-5z" fill="#fff" stroke="${(P.cloud||'#DCD3FF')}" stroke-width="1.4"/><text x="82.5" y="25.6" text-anchor="middle" font-family="Quicksand, Nunito, system-ui, sans-serif" font-weight="800" font-size="11" fill="${(P.q||'#7B5CFF')}">th</text></g>`,
+    time:`<g class="fx-tw"><circle cx="86" cy="17" r="9.5" fill="#fff" stroke="#FFC93C" stroke-width="2.4"/><path d="M86 11.5V17l3.6 2.4" fill="none" stroke="${ink}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M80 5.5l-2.2-2M92 5.5l2.2-2" stroke="#FFC93C" stroke-width="2.2" stroke-linecap="round"/></g>`
   }[mood]||'';
   const cap=m.cap?`<g><path d="M26 40C26 22 46 12 61 18c9 4 16 13 21 25-5-4.6-9-6.6-12-7.6C57 30 40 31 26 40z" fill="#8EC9F0"/><path d="M36 24c6-4 13-6 20-5M64 21c6 3 10 8 13 14" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-dasharray=".5 4.5"/><path d="M25 40.5c15-9.5 34-10.5 49-2.5" fill="none" stroke="#fff" stroke-width="5.2" stroke-linecap="round"/><circle cx="83" cy="44" r="4.8" fill="#fff" stroke="#DCEFFC" stroke-width="1.2"/></g>`:'';
   const phones=m.phones?`<g><path d="M17 54a33 33 0 0 1 66 0" fill="none" stroke="${(P.band||'#2D2846')}" stroke-width="4.6" stroke-linecap="round"/><rect x="9.5" y="49" width="12" height="18" rx="6" fill="${(P.phone||'#FF7AAE')}"/><rect x="78.5" y="49" width="12" height="18" rx="6" fill="${(P.phone||'#FF7AAE')}"/><path d="M13 53.5v9M87 53.5v9" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".6"/></g>`:'';
@@ -4826,7 +4843,7 @@ ${m.eyes}${m.brows}${BK}${cap}${phones}
 <path d="M43 88.5c-1.6 2-1.8 3.4-.6 3.8 1.2.4 2.4-.4 3.2-1.8M57 88.5c1.6 2 1.8 3.4.6 3.8-1.2.4-2.4-.4-3.2-1.8" stroke="${P.feet}" stroke-width="2.8" stroke-linecap="round" fill="none"/>
 </g></g>${fx}</svg>`;
 }
-const MOODS=['idle','happy','cheer','think','oops','sleepy','listen','wow','wink'];
+const MOODS=['idle','happy','cheer','think','oops','sleepy','listen','wow','wink','nope','sing','spy','cool','mail','th','time'];
 
 function mkLogo(){const m=MASCOT('','idle',BIRD).replace(/<svg[^>]*>/,'<svg x="-14" y="-6" width="128" height="128" viewBox="0 0 100 100">');return `<svg class="av" viewBox="0 0 100 100" role="img" aria-label="Logo SáoVoxy: chim sáo"><clipPath id="lgclip"><path d="M100.00 50.00 L99.97 65.36 L99.89 70.26 L99.75 73.81 L99.56 76.68 L99.31 79.12 L99.01 81.26 L98.64 83.17 L98.22 84.89 L97.74 86.46 L97.20 87.89 L96.60 89.21 L95.94 90.43 L95.20 91.54 L94.40 92.58 L93.53 93.53 L92.58 94.40 L91.54 95.20 L90.43 95.94 L89.21 96.60 L87.89 97.20 L86.46 97.74 L84.89 98.22 L83.17 98.64 L81.26 99.01 L79.12 99.31 L76.68 99.56 L73.81 99.75 L70.26 99.89 L65.36 99.97 L50.00 100.00 L34.64 99.97 L29.74 99.89 L26.19 99.75 L23.32 99.56 L20.88 99.31 L18.74 99.01 L16.83 98.64 L15.11 98.22 L13.54 97.74 L12.11 97.20 L10.79 96.60 L9.57 95.94 L8.46 95.20 L7.42 94.40 L6.47 93.53 L5.60 92.58 L4.80 91.54 L4.06 90.43 L3.40 89.21 L2.80 87.89 L2.26 86.46 L1.78 84.89 L1.36 83.17 L0.99 81.26 L0.69 79.12 L0.44 76.68 L0.25 73.81 L0.11 70.26 L0.03 65.36 L0.00 50.00 L0.03 34.64 L0.11 29.74 L0.25 26.19 L0.44 23.32 L0.69 20.88 L0.99 18.74 L1.36 16.83 L1.78 15.11 L2.26 13.54 L2.80 12.11 L3.40 10.79 L4.06 9.57 L4.80 8.46 L5.60 7.42 L6.47 6.47 L7.42 5.60 L8.46 4.80 L9.57 4.06 L10.79 3.40 L12.11 2.80 L13.54 2.26 L15.11 1.78 L16.83 1.36 L18.74 0.99 L20.88 0.69 L23.32 0.44 L26.19 0.25 L29.74 0.11 L34.64 0.03 L50.00 0.00 L65.36 0.03 L70.26 0.11 L73.81 0.25 L76.68 0.44 L79.12 0.69 L81.26 0.99 L83.17 1.36 L84.89 1.78 L86.46 2.26 L87.89 2.80 L89.21 3.40 L90.43 4.06 L91.54 4.80 L92.58 5.60 L93.53 6.47 L94.40 7.42 L95.20 8.46 L95.94 9.57 L96.60 10.79 L97.20 12.11 L97.74 13.54 L98.22 15.11 L98.64 16.83 L99.01 18.74 L99.31 20.88 L99.56 23.32 L99.75 26.19 L99.89 29.74 L99.97 34.64Z"/></clipPath><path d="M100.00 50.00 L99.97 65.36 L99.89 70.26 L99.75 73.81 L99.56 76.68 L99.31 79.12 L99.01 81.26 L98.64 83.17 L98.22 84.89 L97.74 86.46 L97.20 87.89 L96.60 89.21 L95.94 90.43 L95.20 91.54 L94.40 92.58 L93.53 93.53 L92.58 94.40 L91.54 95.20 L90.43 95.94 L89.21 96.60 L87.89 97.20 L86.46 97.74 L84.89 98.22 L83.17 98.64 L81.26 99.01 L79.12 99.31 L76.68 99.56 L73.81 99.75 L70.26 99.89 L65.36 99.97 L50.00 100.00 L34.64 99.97 L29.74 99.89 L26.19 99.75 L23.32 99.56 L20.88 99.31 L18.74 99.01 L16.83 98.64 L15.11 98.22 L13.54 97.74 L12.11 97.20 L10.79 96.60 L9.57 95.94 L8.46 95.20 L7.42 94.40 L6.47 93.53 L5.60 92.58 L4.80 91.54 L4.06 90.43 L3.40 89.21 L2.80 87.89 L2.26 86.46 L1.78 84.89 L1.36 83.17 L0.99 81.26 L0.69 79.12 L0.44 76.68 L0.25 73.81 L0.11 70.26 L0.03 65.36 L0.00 50.00 L0.03 34.64 L0.11 29.74 L0.25 26.19 L0.44 23.32 L0.69 20.88 L0.99 18.74 L1.36 16.83 L1.78 15.11 L2.26 13.54 L2.80 12.11 L3.40 10.79 L4.06 9.57 L4.80 8.46 L5.60 7.42 L6.47 6.47 L7.42 5.60 L8.46 4.80 L9.57 4.06 L10.79 3.40 L12.11 2.80 L13.54 2.26 L15.11 1.78 L16.83 1.36 L18.74 0.99 L20.88 0.69 L23.32 0.44 L26.19 0.25 L29.74 0.11 L34.64 0.03 L50.00 0.00 L65.36 0.03 L70.26 0.11 L73.81 0.25 L76.68 0.44 L79.12 0.69 L81.26 0.99 L83.17 1.36 L84.89 1.78 L86.46 2.26 L87.89 2.80 L89.21 3.40 L90.43 4.06 L91.54 4.80 L92.58 5.60 L93.53 6.47 L94.40 7.42 L95.20 8.46 L95.94 9.57 L96.60 10.79 L97.20 12.11 L97.74 13.54 L98.22 15.11 L98.64 16.83 L99.01 18.74 L99.31 20.88 L99.56 23.32 L99.75 26.19 L99.89 29.74 L99.97 34.64Z" fill="${({myna:'#E7E7EF',mynab:'#E9EAED',mint:'#E4FAF2',sea:'#E2F0FD'})[BIRD]||'#EDE8FF'}"/><g clip-path="url(#lgclip)">${m}</g></svg>`}
 let LOGO=mkLogo();
@@ -5811,7 +5828,7 @@ function audioFail(why){ttsOK=false; if(ttsWarned)return; ttsWarned=true; showAl
 /* natural AI voice (Gemini) with on-device fallback */
 const AIV={el:null,mem:new Map(),bad:0};
 function aiVoiceOn(){return S.aiVoice!==false&&!(typeof inClaude!=='undefined'&&inClaude)&&navigator.onLine&&AIV.bad<3&&/^https:|localhost/.test(location.origin)}
-function ttsURL(t){return '/api/tts?n=2&v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
+function ttsURL(t){if(AIV.cute)return '/api/tts?n=2&s=cute&v=Leda&a=us&t='+encodeURIComponent(t.trim()); return '/api/tts?n=2&v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
 async function aiBlob(t){const u=ttsURL(t); if(AIV.mem.has(u))return AIV.mem.get(u);
   const p=(async()=>{let c; try{c=await caches.open('saovoxy-tts'); const hit=await c.match(u); if(hit)return URL.createObjectURL(await hit.blob())}catch(e){}
     const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
@@ -5826,9 +5843,9 @@ audioMode('playback');
     document.removeEventListener('pointerdown',unlock,true); document.removeEventListener('touchend',unlock,true)};
   document.addEventListener('pointerdown',unlock,true); document.addEventListener('touchend',unlock,true)})();
 function aiStop(){try{if(AIV.el){AIV.el.pause(); AIV.el.onended=null}}catch(e){}}
-function sayAI(text,rate){return new Promise(async(res,rej)=>{
+function sayAI(text,rate){const cute=AIV.cute; return new Promise(async(res,rej)=>{
   try{const src=await aiBlob(text); aiStop(); try{speechSynthesis.cancel()}catch(e){}
-    audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.src=src; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
+    audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.src=src; a.preservesPitch=!cute; a.playbackRate=cute?1.07:Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
     a.onended=()=>res(); a.onerror=()=>rej(new Error('play')); await a.play(); ttsOK=true; AIV.bad=0}
   catch(e){AIV.bad++; setTimeout(()=>{AIV.bad=Math.max(0,AIV.bad-1)},60000); rej(e)}})}
 /* never make the learner wait: play the AI voice only if it is ready within ~0.9s,
@@ -5849,7 +5866,7 @@ function say(text,rate){
 function sayDevice(text,rate){return new Promise(res=>{
   audioMode('playback');
   if(!hasTTS){audioFail('unsupported');return res()}
-  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel(); try{speechSynthesis.resume()}catch(e){} const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate;
+  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel(); try{speechSynthesis.resume()}catch(e){} const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate; if(AIV.cute){u.pitch=1.55; u.rate=Math.min(u.rate,.88)}
     let started=false; const guard=setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){} audioFail('silent'); res()}},3500);
     u.onstart=()=>{started=true; ttsOK=true};
     u.onend=()=>{clearTimeout(guard); res()};
@@ -6455,19 +6472,19 @@ function viewHome(v){
 
 /* ---------- Video ngắn (Sáo Shorts): narrated micro-lessons ---------- */
 const SHORTS=[
- {id:'very-like',tag:'Lỗi hay gặp',title:'Đừng nói “I very like”',g:['#6A4BFF','#B06BFF'],mood:'think',sc:[
+ {id:'very-like',tag:'Lỗi hay gặp',title:'Đừng nói “I very like”',g:['#6A4BFF','#B06BFF'],mood:'nope',sc:[
    {k:'title',vi:'Người Việt rất hay nói “I very like…”. Sai ở đâu nhỉ?'},
    {k:'bad',en:'I very like coffee.',vi:'“very” không đứng trước động từ.'},
    {k:'good',en:'I really like coffee.',vi:'Dùng “really” trước động từ.',hl:'really'},
    {k:'good',en:'I like coffee very much.',vi:'Hoặc đặt “very much” ở cuối câu.',hl:'very much'}],
   q:['Chọn câu đúng',['I very love music.','I really love music.','I love very music.'],1]},
- {id:'final-s',tag:'Phát âm',title:'Đừng nuốt âm cuối',g:['#3A6BFF','#3FC8E8'],mood:'listen',sc:[
+ {id:'final-s',tag:'Phát âm',title:'Đừng nuốt âm cuối',g:['#3A6BFF','#3FC8E8'],mood:'sing',sc:[
    {k:'title',vi:'Âm cuối quyết định nghĩa của từ. “book” khác “books”!'},
    {k:'say',en:'books',ipa:'/bʊks/',vi:'Nghe rõ âm /s/ ở cuối.'},
    {k:'say',en:'She likes cats.',ipa:'/laɪks/ · /kæts/',vi:'Hai âm /s/ cuối đều phải bật ra.'},
    {k:'say',en:'dogs and birds',ipa:'/dɒɡz/ · /bɜːdz/',vi:'Sau âm hữu thanh, “s” đọc thành /z/.'}],
   q:['Từ nào kết thúc bằng âm /z/?',['cats','dogs','books'],1]},
- {id:'look',tag:'Cụm động từ',title:'look for · look after · look up',g:['#FF8A3D','#FF4F8B'],mood:'happy',sc:[
+ {id:'look',tag:'Cụm động từ',title:'look for · look after · look up',g:['#FF8A3D','#FF4F8B'],mood:'spy',sc:[
    {k:'title',vi:'Cùng là “look”, đi với giới từ khác nhau thì nghĩa khác hẳn.'},
    {k:'say',en:"I'm looking for my keys.",vi:'look for = tìm kiếm',hl:'looking for'},
    {k:'say',en:'She looks after her little brother.',vi:'look after = chăm sóc',hl:'looks after'},
@@ -6485,7 +6502,7 @@ const SHORTS=[
    {k:'say',en:'played, called, loved',ipa:'/d/',vi:'Sau âm hữu thanh và nguyên âm → /d/'},
    {k:'say',en:'wanted, needed, decided',ipa:'/ɪd/',vi:'Sau t hoặc d → /ɪd/, thêm một âm tiết.'}],
   q:['“needed” đọc đuôi -ed là?',['/t/','/d/','/ɪd/'],2]},
- {id:'idioms',tag:'Thành ngữ',title:'3 thành ngữ dùng hằng ngày',g:['#6C5CFF','#4FB3FF'],mood:'cheer',sc:[
+ {id:'idioms',tag:'Thành ngữ',title:'3 thành ngữ dùng hằng ngày',g:['#6C5CFF','#4FB3FF'],mood:'cool',sc:[
    {k:'title',vi:'Thành ngữ giúp bạn nói chuyện tự nhiên như người bản xứ.'},
    {k:'say',en:'The test was a piece of cake.',vi:'a piece of cake = dễ như ăn bánh',hl:'a piece of cake'},
    {k:'say',en:"Let's play a game to break the ice.",vi:'break the ice = phá vỡ sự ngại ngùng',hl:'break the ice'},
@@ -6497,19 +6514,19 @@ const SHORTS=[
    {k:'good',en:'do homework, do the dishes',vi:'do: làm bài tập, rửa bát',hl:'do'},
    {k:'bad',en:'I did a mistake.',vi:'Sai! Phải nói: I made a mistake.'}],
   q:['I ___ a mistake in my email.',['did','made','done'],1]},
- {id:'polite',tag:'Công sở',title:'Nhờ vả lịch sự trong email',g:['#5A3DF0','#9B7BFF'],mood:'happy',sc:[
+ {id:'polite',tag:'Công sở',title:'Nhờ vả lịch sự trong email',g:['#5A3DF0','#9B7BFF'],mood:'mail',sc:[
    {k:'title',vi:'“I want…” nghe hơi cộc. Thử các mẫu câu lịch sự hơn nhé.'},
    {k:'bad',en:'I want the report today.',vi:'Nghe như ra lệnh.'},
    {k:'good',en:'Could you please send me the report today?',vi:'Bạn có thể gửi tôi báo cáo hôm nay không?',hl:'Could you please'},
    {k:'good',en:'Would you mind checking this file?',vi:'Bạn có phiền kiểm tra file này giúp tôi không?',hl:'Would you mind'}],
   q:['Câu nào lịch sự nhất?',['Send me the file.','I want the file.','Could you please send me the file?'],2]},
- {id:'th',tag:'Phát âm',title:'Âm “th” — think, không phải sink',g:['#2F5BFF','#5FA8FF'],mood:'listen',sc:[
+ {id:'th',tag:'Phát âm',title:'Âm “th” — think, không phải sink',g:['#2F5BFF','#5FA8FF'],mood:'th',sc:[
    {k:'title',vi:'Đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi nhẹ ra.'},
    {k:'say',en:'think, three, thank you',ipa:'/θ/',vi:'Âm /θ/ vô thanh: chỉ có hơi, không rung cổ.'},
    {k:'say',en:'this, that, mother',ipa:'/ð/',vi:'Âm /ð/ hữu thanh: rung nhẹ cổ họng.'},
    {k:'bad',en:'I sink so.',vi:'Đọc nhầm thành /s/ sẽ thành “chìm”!'}],
   q:['Khi đọc /θ/, lưỡi đặt ở đâu?',['Chạm vòm miệng','Giữa hai hàm răng','Cuộn ra sau'],1]},
- {id:'in-on-at',tag:'Ngữ pháp',title:'in · on · at chỉ thời gian',g:['#14A88A','#4FD8C4'],mood:'wink',sc:[
+ {id:'in-on-at',tag:'Ngữ pháp',title:'in · on · at chỉ thời gian',g:['#14A88A','#4FD8C4'],mood:'time',sc:[
    {k:'title',vi:'Mẹo nhớ: at cho giờ, on cho ngày, in cho khoảng thời gian dài.'},
    {k:'good',en:'See you at 7 pm.',vi:'at + giờ',hl:'at'},
    {k:'good',en:"We're meeting on Monday.",vi:'on + thứ, ngày',hl:'on'},
@@ -7221,7 +7238,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v302';
+const APP_V='elocu-v303';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7501,11 +7518,11 @@ function introSlides(done){
   const prime=()=>{if(primed)return; primed=true; pool.forEach(x=>{x.muted=true; const pr=x.play(); const done=()=>{try{x.pause(); x.currentTime=0}catch(e){} x.muted=false}; pr&&pr.then?pr.then(done,()=>{x.muted=false; primed=false}):done()})};
   const ac=()=>null;
   const chirp=(n)=>{if(!songOn||!primed)return; const x=pool[(n??Math.floor(Math.random()*pool.length))%pool.length]; try{x.muted=false; x.currentTime=0; x.volume=1; x.play().catch(()=>{})}catch(e){}};
-  let speaking=false, voiceUnlocked=false, lastTxt='';
+  let speaking=false, voiceUnlocked=false, lastTxt='', lastWho='s';
   const unlockVoice=()=>{if(voiceUnlocked)return; voiceUnlocked=true;
     try{const u=new SpeechSynthesisUtterance(' '); u.volume=0; speechSynthesis.speak(u)}catch(e){}
     try{const a=AIV.el||(AIV.el=new Audio()); a.src=typeof SIL!=='undefined'?SIL:''; a.play().catch(()=>{})}catch(e){}
-    setTimeout(()=>{if(lastTxt&&el.isConnected)voice(lastTxt)},250)};
+    setTimeout(()=>{if(lastTxt&&el.isConnected)voice(lastTxt,lastWho)},250)};
   const songLoop=()=>{if(!speaking)chirp(); songTm=setTimeout(songLoop,3500+Math.random()*3500)};
   const snd=document.createElement('button'); snd.className='fz-snd'; snd.setAttribute('aria-label','Bật tiếng hót'); snd.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg>';
   el.appendChild(snd);
@@ -7527,14 +7544,14 @@ function introSlides(done){
   const show=(box,txt,vi)=>{const sp=box.querySelector('span'); box.classList.remove('on'); void box.offsetWidth; sp.innerHTML=esc(txt)+(vi?`<small class="fz-vi">${esc(vi)}</small>`:''); box.classList.add('on')};
   /* Sáo reads every line aloud — English with the app voice, Vietnamese with a vi-VN device voice */
   const VI=/[ăâđêôơưàáạảãằắặẳẵầấậẩẫèéẹẻẽềếệểễìíịỉĩòóọỏõồốộổỗờớợởỡùúụủũừứựửữỳýỵỷỹ]/i;
-  const voice=txt=>{speaking=true; const done=()=>{speaking=false}; const r=voice0(txt); r.then(done,done); return r};
+  const voice=(txt,who)=>{speaking=true; const done=()=>{speaking=false}; AIV.cute=who==='s'; let r; try{r=voice0(txt)}finally{AIV.cute=false} r.then(done,done); return r};
   const voice0=txt=>{const t=txt.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu,'').trim(); if(!t||!songOn)return Promise.resolve();
     if(!VI.test(t.replace(/Sáo/g,'')))return Promise.race([window.say(t,.9),new Promise(r=>setTimeout(r,6000))]).catch(()=>{});
     return new Promise(res=>{try{speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); const v=speechSynthesis.getVoices().find(x=>/^vi/i.test(x.lang)); if(v)u.voice=v; u.lang='vi-VN'; u.rate=1; u.pitch=1.15; u.onend=u.onerror=()=>res(); speechSynthesis.speak(u); setTimeout(res,6000)}catch(e){res()}})};
-  const step=()=>{const [who,txt,vi]=SCRIPT[si%SCRIPT.length]; si++; lastTxt=txt;
+  const step=()=>{const [who,txt,vi]=SCRIPT[si%SCRIPT.length]; si++; lastTxt=txt; lastWho=who;
     if(who==='s'){you.classList.remove('on'); show(say,txt,vi); talk(txt); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); 0}
     else{say.classList.remove('on'); show(you,txt,vi); setTimeout(()=>{if(!talking&&mode==='perch')(Math.random()<.5?flip():takeoff())},450)}
-    const t0=Date.now(), base=who==='s'?2600:1700; voice(txt).then(()=>{if(!el.isConnected)return; clearTimeout(tm); tm=setTimeout(step,Math.max(700,base-(Date.now()-t0)))});
+    const t0=Date.now(), base=who==='s'?2600:1700; voice(txt,who).then(()=>{if(!el.isConnected)return; clearTimeout(tm); tm=setTimeout(step,Math.max(700,base-(Date.now()-t0)))});
     tm=setTimeout(step,base+6500)};
   tm=setTimeout(step,700);
   const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{pool.forEach(x=>x.pause())}catch(e){} S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};

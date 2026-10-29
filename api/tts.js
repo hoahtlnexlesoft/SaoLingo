@@ -30,7 +30,10 @@ export default async function handler(req, res) {
   const voice = VOICES.has(url.searchParams.get('v')) ? url.searchParams.get('v') : 'Kore';
   const uk = url.searchParams.get('a') === 'uk';
   if (!text) return res.status(400).json({ error: 'bad_request' });
-  const prompt = `Read this aloud clearly and naturally for an English learner, in a warm, friendly ${uk ? 'British' : 'American'} accent, at a natural pace:\n${text}`;
+  const cute = url.searchParams.get('s') === 'cute';
+  const prompt = cute
+    ? `Say this in a soft, sweet, gentle and cute voice, like a cheerful little bird talking to a friend. Light, airy and smiling, a little slow and very clear, never loud:\n${text}`
+    : `Read this aloud clearly and naturally for an English learner, in a warm, friendly ${uk ? 'British' : 'American'} accent, at a natural pace:\n${text}`;
   let last = 0;
   for (const model of MODELS()) {
     for (let attempt = 0; attempt < 2; attempt++) {
