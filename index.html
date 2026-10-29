@@ -4243,6 +4243,14 @@ html[data-palette="vivid"] .fz-go{background:linear-gradient(180deg,#FFD24D,#F2A
 .fz-login{display:block;margin:10px auto 0;background:none;border:0;font-size:13.5px;color:#5B6A60}.fz-login b{color:#1D2B22}
 @media (prefers-reduced-motion:reduce){.fz *{animation-duration:.01s!important;animation-iteration-count:1!important}}
 @media (min-width:700px){.fz-card{bottom:40px}}
+
+.fz-bird.glide .fz-up,.fz-bird.glide .fz-tu{opacity:0!important}.fz-bird.glide:not(.talk) .fz-dn{opacity:1!important}.fz-bird.glide.talk .fz-td{opacity:1!important}
+.fz-snd{position:absolute;right:16px;top:calc(env(safe-area-inset-top,0px) + 14px);z-index:8;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.95);background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#1D2B22;box-shadow:0 10px 22px -12px rgba(20,70,40,.45)}
+.fz-snd svg{width:22px;height:22px}.fz-snd .w1,.fz-snd .w2{opacity:0}.fz-snd.on .w1,.fz-snd.on .w2{opacity:1}.fz-snd.on .x{opacity:0}
+.fz-snd.on .w1{animation:fzW 1.2s ease-in-out infinite}.fz-snd.on .w2{animation:fzW 1.2s ease-in-out .2s infinite}
+@keyframes fzW{50%{opacity:.25}}
+.fz-snd:not(.on)::after{content:"Chạm để nghe Sáo hót";position:absolute;right:52px;white-space:nowrap;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.85);color:#1D2B22;animation:fzHint 2.4s ease-in-out infinite}
+@keyframes fzHint{50%{transform:translateX(-4px)}}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -6826,7 +6834,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v254';
+const APP_V='elocu-v255';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7048,29 +7056,65 @@ function introSlides(done){
   $('#screen').appendChild(el);
   const bird=$('#fz-bird',el), say=$('#fz-say',el), you=$('#fz-you',el), notes=$('#fz-notes',el);
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let t0=performance.now(), raf=0, face=1, flap=0, lastX=0;
-  const loop=now=>{const t=(now-t0)/1000, W=el.clientWidth, H=el.clientHeight;
-    const x=W*.5+W*.30*Math.sin(t*.42)+W*.04*Math.sin(t*1.3), y=H*.30+H*.06*Math.sin(t*.9)+H*.025*Math.sin(t*2.3);
-    const vx=x-lastX; lastX=x; if(Math.abs(vx)>.15)face=vx>0?1:-1;
-    const tilt=Math.max(-12,Math.min(12,Math.cos(t*.9)*10));
-    bird.style.transform=`translate(${x-70}px,${y-70}px) rotate(${tilt*face*.6}deg) scaleX(${face})`;
-    if(!reduce&&now-flap>130){flap=now; bird.classList.toggle('up')}
-    const bx=x+face*38, by=y-58; say.style.transform=`translate(${Math.max(12,Math.min(W-232,bx-(face>0?10:210)))}px,${Math.max(8,by-60)}px)`; say.dataset.side=face>0?'l':'r';
-    notes.style.transform=`translate(${x+face*30}px,${y-30}px)`;
+  /* agile flight: steer toward random waypoints with a little physics — darts, swoops, loops, hovers, glides */
+  let raf=0, face=1, flapT=0, last=performance.now(), mode='fly', modeUntil=0, loopA=0;
+  const P={x:el.clientWidth*.5,y:el.clientHeight*.3,vx:0,vy:0}, T={x:0,y:0};
+  const pick=()=>{const W=el.clientWidth,H=el.clientHeight,r=Math.random();
+    if(r<.16){mode='hover';modeUntil=performance.now()+900+Math.random()*900}
+    else if(r<.30){mode='loop';loopA=0;modeUntil=performance.now()+1300;T.cx=P.x;T.cy=P.y-50;T.dir=Math.random()<.5?1:-1}
+    else{mode='fly';modeUntil=performance.now()+700+Math.random()*1300}
+    T.x=W*(.12+Math.random()*.76); T.y=H*(.18+Math.random()*.32)};
+  pick();
+  const loop=now=>{const dt=Math.min(.05,(now-last)/1000); last=now; const W=el.clientWidth,H=el.clientHeight;
+    if(now>modeUntil)pick();
+    if(mode==='loop'){loopA+=dt*4.8*T.dir; const tx=T.cx+Math.sin(loopA)*60, ty=T.cy+Math.cos(loopA)*-50+50; P.vx+=(tx-P.x)*18*dt; P.vy+=(ty-P.y)*18*dt}
+    else if(mode==='hover'){P.vx+=(T.x*0+P.x-P.x)*0; P.vx*=.9; P.vy+=Math.sin(now/180)*40*dt}
+    else{const dx=T.x-P.x, dy=T.y-P.y, d=Math.hypot(dx,dy)||1, sp=Math.min(520,140+d*1.6); P.vx+=((dx/d)*sp-P.vx)*3.2*dt; P.vy+=((dy/d)*sp-P.vy)*3.2*dt}
+    P.vx*=.985; P.vy*=.985; P.x+=P.vx*dt; P.y+=P.vy*dt;
+    P.x=Math.max(60,Math.min(W-60,P.x)); P.y=Math.max(130,Math.min(H*.52,P.y));
+    if(Math.abs(P.vx)>25)face=P.vx>0?1:-1;
+    const speed=Math.hypot(P.vx,P.vy), climb=-P.vy;
+    const tilt=Math.max(-28,Math.min(28,P.vy*.06))*face + (mode==='loop'?Math.sin(loopA)*14:0);
+    const sc=1+Math.max(-.12,Math.min(.1,(P.y/H-.3)*.5));
+    bird.style.transform=`translate(${P.x-70}px,${P.y-70}px) rotate(${tilt}deg) scale(${(sc*face).toFixed(3)},${sc.toFixed(3)})`;
+    const glide=P.vy>140&&mode==='fly', rate=mode==='hover'?70:climb>60?85:speed>300?100:135;
+    if(!reduce){ if(glide){bird.classList.add('glide')} else {bird.classList.remove('glide'); if(now-flapT>rate){flapT=now; bird.classList.toggle('up')}}}
+    const bx=P.x+face*38, by=P.y-58; say.style.transform=`translate(${Math.max(12,Math.min(W-232,bx-(face>0?10:210)))}px,${Math.max(8,by-60)}px)`; say.dataset.side=face>0?'l':'r';
+    notes.style.transform=`translate(${P.x+face*30}px,${P.y-30}px)`;
     raf=requestAnimationFrame(loop)};
   raf=requestAnimationFrame(loop);
+  /* bird song: synthesized myna whistles & trills (WebAudio; starts after the first tap, as browsers require) */
+  let AC=null, songOn=false, songTm=0;
+  const ac=()=>{if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)(); const d=AC.createDelay(); d.delayTime.value=.17; const fb=AC.createGain(); fb.gain.value=.28; const wet=AC.createGain(); wet.gain.value=.35; d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(AC.destination); AC._fx=d; AC._out=AC.createGain(); AC._out.gain.value=.55; AC._out.connect(AC.destination); AC._out.connect(d)}catch(e){}} if(AC&&AC.state==='suspended')AC.resume(); return AC};
+  const tone=(t,dur,f0,f1,vol,trill)=>{const o=AC.createOscillator(), g=AC.createGain(); o.type='sine'; o.frequency.setValueAtTime(f0,t); o.frequency.exponentialRampToValueAtTime(f1,t+dur);
+    if(trill){const l=AC.createOscillator(), lg=AC.createGain(); l.frequency.value=trill; lg.gain.value=f0*.09; l.connect(lg); lg.connect(o.frequency); l.start(t); l.stop(t+dur)}
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+.012); g.gain.setValueAtTime(vol,t+dur*.7); g.gain.exponentialRampToValueAtTime(.0008,t+dur);
+    o.connect(g); g.connect(AC._out); o.start(t); o.stop(t+dur+.02)};
+  const chirp=(n)=>{if(!songOn||!ac())return; let t=AC.currentTime+.02; const kind=n??Math.floor(Math.random()*4);
+    if(kind===0){for(let i=0;i<3+Math.floor(Math.random()*3);i++){const f=2200+Math.random()*900; tone(t,.08,f,f*1.55,.22); t+=.11}}
+    else if(kind===1){tone(t,.32,2600,3400,.2,34); t+=.36; tone(t,.12,3600,2400,.2)}
+    else if(kind===2){tone(t,.22,1500,3200,.22); t+=.24; tone(t,.18,3000,1900,.18); t+=.2; tone(t,.1,2600,3600,.2)}
+    else {for(let i=0;i<7;i++){tone(t,.05,3200+(i%2)*500,3600+(i%2)*400,.16); t+=.065} t+=.05; tone(t,.26,2400,3800,.2,28)}};
+  const songLoop=()=>{chirp(); songTm=setTimeout(songLoop,1600+Math.random()*2600)};
+  const snd=document.createElement('button'); snd.className='fz-snd'; snd.setAttribute('aria-label','Bật tiếng hót'); snd.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg>';
+  el.appendChild(snd);
+  const setSong=v=>{songOn=v; snd.classList.toggle('on',v); try{localStorage.setItem('fz.song',v?'1':'0')}catch(e){} clearTimeout(songTm); if(v){ac(); try{audioMode&&audioMode('playback')}catch(e){} chirp(3); songTm=setTimeout(songLoop,1400)}};
+  snd.onclick=e=>{e.stopPropagation(); setSong(!songOn)};
+  let wantSong=true; try{wantSong=localStorage.getItem('fz.song')!=='0'}catch(e){}
+  const firstTap=()=>{el.removeEventListener('pointerdown',firstTap,true); if(wantSong&&!songOn)setSong(true)};
+  el.addEventListener('pointerdown',firstTap,true);
   const SCRIPT=[['s','Hello! 👋'],['u','Hi Sáo!'],['s','Mình là Sáo, chim biết nói tiếng Anh 🎶'],['u','Dạy mình với nhé!'],['s','Let’s practice together!'],['u','Okay! 😄'],['s','Mỗi ngày 5 phút thôi nha ✨']];
   let si=0, tm=0;
   const show=(box,txt)=>{const sp=box.querySelector('span'); box.classList.remove('on'); void box.offsetWidth; sp.textContent=txt; box.classList.add('on')};
   const step=()=>{const [who,txt]=SCRIPT[si%SCRIPT.length]; si++;
-    if(who==='s'){you.classList.remove('on'); show(say,txt); bird.classList.add('talk'); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); setTimeout(()=>bird.classList.remove('talk'),1400)}
+    if(who==='s'){you.classList.remove('on'); show(say,txt); chirp(); bird.classList.add('talk'); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); setTimeout(()=>bird.classList.remove('talk'),1400)}
     else{say.classList.remove('on'); show(you,txt)}
     tm=setTimeout(step,who==='s'?2600:1700)};
   tm=setTimeout(step,700);
-  const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};
+  const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{AC&&AC.close()}catch(e){} S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};
   $('#fz-go',el).onclick=()=>{sfx('tap'); finish()};
-  $('#fz-login',el)&&($('#fz-login',el).onclick=()=>{cancelAnimationFrame(raf); clearTimeout(tm); S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
-  bird.onclick=()=>{clearTimeout(tm); step()};
+  $('#fz-login',el)&&($('#fz-login',el).onclick=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{AC&&AC.close()}catch(e){} S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
+  bird.onclick=()=>{clearTimeout(tm); if(!songOn)setSong(true); step(); P.vy-=260; P.vx+=face*120};
 }
 function onboarding(placementOnly){
   const el=document.createElement('div'); el.className='ob'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); $('#screen').appendChild(el);
