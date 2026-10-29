@@ -6842,7 +6842,7 @@ function runLesson(v,u,round=0){
         <div class="tf-card"><button class="tf-say" id="ls-say" aria-label="Nghe">${I.vol}</button><p class="tf-en">${esc(e.en)}</p><p class="tf-vi">= ${esc(e.vi)}</p></div>
         <div class="opts tf-opts">${e.o.map((x,i)=>`<button class="opt tf-${i?'no':'yes'}" data-i="${i}">${i?'✕ ':'✓ '}${x}</button>`).join('')}</div>`;
       $('#ls-say').onclick=()=>say(e.en); say(e.en);
-      $$('.opt',body).forEach(b=>b.onclick=()=>{chosen=+b.dataset.i;$$('.opt',body).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)));refresh()});
+      $$('.opt',body).forEach(b=>b.onclick=()=>{if(b.disabled)return;chosen=+b.dataset.i;$$('.opt',body).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));refresh();btn.onclick&&btn.onclick()}); btn.style.display='none';
       checkReady=()=>chosen!==null; isRight=()=>chosen===e.a; answerText=e.a?'Sai. Nghĩa đúng: '+e.real:'Đúng';
     } else if(e.t==='match'){
       const L=shuffle(e.pairs.map((p,i)=>({i,t:p[0]}))), R=shuffle(e.pairs.map((p,i)=>({i,t:p[1]})));
@@ -6864,7 +6864,7 @@ function runLesson(v,u,round=0){
       $('#ls-say').onclick=()=>say(e.w,.85);
       const draw=()=>{$('#sp-slots').innerHTML=e.w.split('').map((_,p)=>got[p]!=null?`<button class="sp-s on" data-p="${p}">${letters[got[p]]}</button>`:`<span class="sp-s"></span>`).join('');
         $$('#sp-slots .sp-s.on').forEach(b=>b.onclick=()=>{const i=got.splice(+b.dataset.p,1)[0]; $(`.sp-l[data-i="${i}"]`).classList.remove('used'); draw()}); refresh()};
-      $$('.sp-l',body).forEach(b=>b.onclick=()=>{if(b.classList.contains('used')||got.length>=e.w.length)return; b.classList.add('used'); got.push(+b.dataset.i); draw(); if(got.length===e.w.length)say(got.map(i=>letters[i]).join(''),.9)});
+      $$('.sp-l',body).forEach(b=>b.onclick=()=>{if(b.classList.contains('used')||got.length>=e.w.length)return; b.classList.add('used'); got.push(+b.dataset.i); draw(); if(got.length===e.w.length){say(got.map(i=>letters[i]).join(''),.9); setTimeout(()=>btn.onclick&&btn.onclick(),350)}});
       draw(); checkReady=()=>got.length===e.w.length; isRight=()=>got.map(i=>letters[i]).join('')===e.w; answerText=e.w;
     } else if(e.t==='dict'){
       body.innerHTML=`<button class="listen-big" id="ls-say" aria-label="Nghe lại">${I.vol}</button><div class="prompt" style="text-align:center"><small>Nghe và gõ lại câu</small></div>
@@ -6882,7 +6882,7 @@ function runLesson(v,u,round=0){
         `<div class="prompt"><small>${label}</small>${esc(e.p).replace('___','<span style="color:var(--gold)">_____</span>')}</div>
         <div class="opts">${e.o.map((x,i)=>`<button class="opt" data-i="${i}">${esc(x)}</button>`).join('')}</div>`;
       if(e.t==='listen'){const reveal=()=>{if(ttsOK===false&&!$('.tts-fallback',body))$('#ls-say').insertAdjacentHTML('afterend',`<p class="tts-fallback">${I.vol}<span>Không phát được âm thanh. Câu cần nghe: <b>${esc(e.s)}</b></span></p>`)}; $('#ls-say').onclick=()=>say(e.s).then(reveal); say(e.s).then(reveal)}
-      $$('.opt',body).forEach(b=>b.onclick=()=>{chosen=+b.dataset.i;$$('.opt',body).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)));refresh()});
+      $$('.opt',body).forEach(b=>b.onclick=()=>{if(b.disabled)return;chosen=+b.dataset.i;$$('.opt',body).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));refresh();btn.onclick&&btn.onclick()}); btn.style.display='none';
       checkReady=()=>chosen!==null; isRight=()=>chosen===e.a; answerText=e.o[e.a];
       if(e.t==='fill') answerText=e.p.replace('___',e.o[e.a]);
     } else if(e.t==='build'||e.t==='lbuild'){
@@ -7149,7 +7149,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v291';
+const APP_V='elocu-v292';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
