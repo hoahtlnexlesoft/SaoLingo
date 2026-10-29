@@ -6980,11 +6980,17 @@ function skipSheet(v,stages,si){
 
 /* ---------- Endless path: AI opens a new, harder stage whenever the last one is done ---------- */
 const LV_UP={A1:'A2',A2:'B1',B1:'B2',B2:'C1',C1:'C2',C2:'C2'};
+/* planned upcoming stages: shown on the path before they are generated, and used as the brief when Sáo writes them */
+const PLANNED_STAGES={
+ 5:{name:'Tranh luận & quan điểm',sub:'Thuyết phục, tin tức, văn hoá',level:'C1',topics:['Nêu và bảo vệ quan điểm','Bàn về tin tức thời sự','Văn hoá & khác biệt vùng miền','Sức khoẻ tinh thần']},
+ 6:{name:'Công việc chuyên sâu',sub:'Kinh doanh, khoa học, nghệ thuật',level:'C1',topics:['Kinh doanh & khởi nghiệp','Khoa học & môi trường','Phim ảnh & nghệ thuật','Thành ngữ nâng cao']},
+ 7:{name:'Giao tiếp chuyên nghiệp',sub:'Thuyết trình, đàm phán, văn chương',level:'C2',topics:['Thuyết trình chuyên nghiệp','Đàm phán & thương lượng','Văn học & phê bình','Triết lý sống']},
+ 8:{name:'Tiếng Anh tinh tế',sub:'Học thuật, sắc thái, hài hước',level:'C2',topics:['Học thuật & nghiên cứu','Sắc thái ngôn từ','Hài hước & chơi chữ','Lãnh đạo & truyền cảm hứng']}};
 function nextStageLevel(){const g=S.aiStages||[]; if(!g.length)return 'C1'; const l=g[g.length-1].level; return g.length>=2&&l==='C1'?'C2':(l==='C2'?'C2':'C1')}
 function aiStageUnits(){return (typeof S!=='undefined'&&S.aiStages||[]).flatMap(g=>g.units)}
 async function openNextStage(v,stages){
   if(inClaude)return toast('Mở saovoxy.vercel.app để tạo chặng mới');
-  const level=nextStageLevel(), no=(S.aiStages||[]).length+1;
+  const level=(PLANNED_STAGES[stages.length+1]||{}).level||nextStageLevel(), no=(S.aiStages||[]).length+1;
   const el=document.createElement('div'); el.className='tsheet';
   el.innerHTML=`<div class="ts-card ai-wait"><span class="cf-bird" style="width:110px;height:110px">${MASCOT('','think')}</span><b>Sáo đang mở chặng ${stages.length+1}…</b><p class="muted" id="ns-st">Đang chọn chủ đề phù hợp trình độ ${level}</p><span class="ai-dots"><i></i><i></i><i></i></span><button class="btn" id="ns-x">Huỷ</button></div>`;
   ($('#screen')||document.body).appendChild(el);
@@ -6993,7 +6999,7 @@ async function openNextStage(v,stages){
   const post=async body=>{for(let i=0;i<3;i++){const r=await fetch('/api/lesson',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)}); const d=await r.json().catch(()=>({})); if(r.ok)return d; if(i===2||r.status<429)throw new Error(d.message||'AI lỗi'); await new Promise(z=>setTimeout(z,4000))}};
   try{
     const done=UNITS.map(u=>u.title);
-    const o=await post({kind:'outline',level,no,done}); if(cancelled)return;
+    const P=PLANNED_STAGES[stages.length+1]; const o=P?{name:P.name,sub:P.sub,topics:P.topics.map(t=>({title:t,desc:t}))}:await post({kind:'outline',level,no,done}); if(cancelled)return;
     const arts=['talk','work','travel','opinion','tech','shop','health','cafe','design','memory','attention','train'], tiles=['t-lilac','t-pink','t-sky','t-peach','t-lime','t-sun'];
     const units=[];
     for(let i=0;i<o.topics.length;i++){
@@ -7084,9 +7090,9 @@ function viewLessons(v){
           return `<div class="pb-row" style="--x:${x}px"><button class="pb pbs${k%3} pbc${(ui*3+i)%7} ${pst}" data-pu="${u.id}" data-pr="${i}" aria-label="${u.title} · ${ROUNDS[i].name}"><span class="pb-ic">${pst==='lock'?PB_LOCK:ROUND_IC[i]}</span>${jump?'<span class="pb-jump">Học vượt</span>':''}${pst==='cur'?`<span class="pb-rip" aria-hidden="true"><i></i><i></i><i></i></span><span class="pb-spk" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="pb-bird">${MASCOT('','happy')}</span><span class="pb-say">${ROUNDS[i].name} nè!</span>`:''}</button><small class="pb-lb">${['Đọc & viết','Nói','Nghe'][i]}</small></div>`}).join('');
         return `<div class="pb-unit ${state}">${sign}${peb}</div>`}).join('')}</div></section>`}).join('')}
     ${(()=>{const lastDone=endDone; const lv=nextStageLevel();
-      return `<button class="mt-next ${lastDone?'':'locked'}" id="mt-next"><span class="mt-nx-ic">${lastDone?'✨':LOCK_IC}</span><span class="mt-nx-t"><small>Chặng ${stages.length+1} · ${lv}</small><b>${lastDone?'Mở chặng tiếp theo':'Chặng tiếp theo đang chờ bạn'}</b><em>${lastDone?'Sáo soạn 4 chủ đề mới ở trình độ cao hơn':'Hoàn thành hoặc vượt chặng '+stages.length+' để mở'}</em></span></button>`})()}${(()=>{let h=''; for(let k=stages.length+1;k<=8;k++){const lv=k<=6?'C1':'C2';
-      h+=`<section class="mt-stage mt-future bn${(k-1)%8}"><div class="mt-sh"><span class="mt-no mt-no-bean"><span class="pb done" aria-hidden="true"></span></span><div><span class="mt-eye">Chặng ${k} · ${lv}</span><b>Sắp mở</b><small>Sáo soạn 4 chủ đề mới khi bạn xong chặng ${k-1}</small></div></div>
-        <div class="pb-path"><div class="pb-unit next"><span class="pb-sign"><span class="pb-tx"><b>4 chủ đề mới</b></span></span>${[0,1,2].map(i=>{const x=[0,58,22][i]; return `<div class="pb-row" style="--x:${x}px"><span class="pb lock" aria-hidden="true"><span class="pb-ic">${PB_LOCK}</span></span><small class="pb-lb">${['Đọc & viết','Nói','Nghe'][i]}</small></div>`}).join('')}</div></div></section>`}
+      return `<button class="mt-next ${lastDone?'':'locked'}" id="mt-next"><span class="mt-nx-ic">${lastDone?'✨':LOCK_IC}</span><span class="mt-nx-t"><small>Chặng ${stages.length+1} · ${lv}</small><b>${lastDone?'Mở chặng tiếp theo':'Chặng tiếp theo đang chờ bạn'}</b><em>${lastDone?'Sáo soạn 4 chủ đề mới ở trình độ cao hơn':'Hoàn thành hoặc vượt chặng '+stages.length+' để mở'}</em></span></button>`})()}${(()=>{let h=''; for(let k=stages.length+1;k<=8;k++){const P=PLANNED_STAGES[k]||{name:'Chặng mới',sub:'Sáo soạn khi bạn tới',level:k<=6?'C1':'C2',topics:['Chủ đề 1','Chủ đề 2','Chủ đề 3','Chủ đề 4']};
+      h+=`<section class="mt-stage mt-future bn${(k-1)%8}"><div class="mt-sh"><span class="mt-no">${k}</span><div><span class="mt-eye">Chặng ${k} · ${P.level}</span><b>${P.name}</b><small>${P.sub} · 0/${P.topics.length*3} vòng</small></div></div>
+        <div class="pb-path">${P.topics.map((t,ui)=>`<div class="pb-unit next"><span class="pb-sign"><span class="pb-tx"><b>${t}</b></span></span>${[0,1,2].map(i=>{const kk=(ui*3+i)%6, x=[0,58,22,-40,-62,-14][kk]; return `<div class="pb-row" style="--x:${x}px"><span class="pb lock" aria-hidden="true"><span class="pb-ic">${PB_LOCK}</span></span><small class="pb-lb">${['Đọc & viết','Nói','Nghe'][i]}</small></div>`}).join('')}</div>`).join('')}</div></section>`}
       return h})()}</div>`;
   v.innerHTML=hero+map+'';
   $('#cx-go',v)&&($('#cx-go',v).onclick=()=>runLesson(v,cu,cr));
@@ -7483,7 +7489,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v346';
+const APP_V='elocu-v347';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
