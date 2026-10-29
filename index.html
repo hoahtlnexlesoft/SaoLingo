@@ -4179,6 +4179,70 @@ html[data-palette] .done .vx-pl,html .done .vx-pl{background:rgba(45,190,108,.14
 /* settings detail is a page, never a card — in every style */
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7):not(#z8):not(#z9):not(#z10):not(#z11):not(#z12):not(#z13) body .screen .panel.set-detail{background:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7):not(#z8):not(#z9):not(#z10):not(#z11):not(#z12):not(#z13) body .screen .panel.set-detail::before,html:not(#z1):not(#z2):not(#z3):not(#z4):not(#z5):not(#z6):not(#z7):not(#z8):not(#z9):not(#z10):not(#z11):not(#z12):not(#z13) body .screen .panel.set-detail::after{content:none!important}
+
+/* ===== Onboarding: Sáo flying & chatting in a sunlit forest ===== */
+.fz{position:fixed;inset:0;z-index:70;overflow:hidden;background:#DDF3E6;font-family:var(--f-body,inherit);animation:fzIn .5s ease both}
+.fz.out{animation:fzOut .42s ease both}
+@keyframes fzIn{from{opacity:0}to{opacity:1}}@keyframes fzOut{to{opacity:0;transform:scale(1.04)}}
+.fz-sky{position:absolute;inset:0;background:linear-gradient(180deg,#BFE8DA 0%,#DFF5E6 38%,#F6FBEA 62%,#FFF1D6 100%)}
+.fz-sun{position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,244,200,.95),rgba(255,236,170,.4) 40%,transparent 70%);animation:fzSun 6s ease-in-out infinite}
+@keyframes fzSun{50%{transform:scale(1.08);opacity:.85}}
+.fz-ray{position:absolute;top:-10%;right:10%;width:70px;height:130%;background:linear-gradient(180deg,rgba(255,250,220,.55),transparent 75%);transform-origin:top;filter:blur(6px);animation:fzRay 7s ease-in-out infinite}
+.fz-ray.r1{transform:rotate(28deg)}.fz-ray.r2{right:30%;width:46px;transform:rotate(22deg);animation-delay:-2s}.fz-ray.r3{right:48%;width:30px;transform:rotate(18deg);animation-delay:-4s}
+@keyframes fzRay{50%{opacity:.35}}
+.fz-far,.fz-mid,.fz-ferns,.fz-top{position:absolute;left:-10%;width:120%;pointer-events:none}
+.fz-far{bottom:28%;height:34%;animation:fzDrift 26s ease-in-out infinite alternate}
+.fz-mid{bottom:18%;height:36%;animation:fzDrift 18s ease-in-out infinite alternate-reverse}
+@keyframes fzDrift{to{transform:translateX(4%)}}
+.fz-top{top:0;height:150px;left:0;width:100%}
+.fz-br{animation:fzSway 5s ease-in-out infinite}.fz-brl{transform-origin:0 40px}.fz-brr{transform-origin:410px 24px;animation-delay:-2.5s}
+@keyframes fzSway{50%{transform:rotate(2.5deg)}}
+.fz-ferns{bottom:0;height:22%;left:-4%;width:108%}
+.fz-fern{transform-box:fill-box;transform-origin:bottom;animation:fzFern 4s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes fzFern{50%{transform:rotate(-4deg) scaleY(1.03)}}
+.fz-dots{position:absolute;inset:0;pointer-events:none}
+.fz-p{position:absolute;width:6px;height:6px;border-radius:50%;background:radial-gradient(circle,#FFF7C2,rgba(255,236,140,.0) 70%);box-shadow:0 0 10px 3px rgba(255,240,160,.55);animation:fzP var(--t) ease-in-out var(--d) infinite;opacity:0}
+@keyframes fzP{0%{opacity:0;transform:translate(0,0)}20%{opacity:1}80%{opacity:.8}100%{opacity:0;transform:translate(24px,-80px)}}
+.fz-lf{position:absolute;top:-30px;width:22px;height:10px;animation:fzLf var(--t) linear var(--d) infinite}
+.fz-lf svg{width:100%;height:100%;display:block;animation:fzSpin 2.4s ease-in-out infinite}
+@keyframes fzLf{0%{transform:translate(0,0)}100%{transform:translate(60px,110vh)}}
+@keyframes fzSpin{50%{transform:rotate(160deg) translateX(14px)}}
+.fz-bird{position:absolute;left:0;top:0;width:140px;height:140px;z-index:4;cursor:pointer;will-change:transform;filter:drop-shadow(0 18px 18px rgba(30,80,50,.25))}
+.fz-f{position:absolute;inset:0}.fz-f .mascot{width:100%;height:100%}.fz-f .mascot,.fz-f .mascot *{animation:none!important}
+.fz-dn,.fz-tu,.fz-td{opacity:0}.fz-bird.up .fz-up{opacity:0}.fz-bird.up .fz-dn{opacity:1}.fz-bird.talk .fz-up,.fz-bird.talk .fz-dn{opacity:0!important}.fz-bird.talk:not(.up) .fz-tu{opacity:1}.fz-bird.talk.up .fz-td{opacity:1}
+.fz-bird.talk .fz-f{animation:fzTalk .3s ease-in-out 3}
+@keyframes fzTalk{50%{transform:scale(1.07) rotate(-3deg)}}
+.fz-say,.fz-you{position:absolute;left:0;top:0;z-index:5;max-width:220px;pointer-events:none}
+.fz-say span,.fz-you span{display:inline-block;padding:10px 14px;border-radius:20px;font-weight:700;font-size:14.5px;line-height:1.35;opacity:0;transform:scale(.6) translateY(8px)}
+.fz-say span{background:rgba(255,255,255,.92);color:#1D2B22;box-shadow:0 12px 26px -12px rgba(20,70,40,.45);border:1px solid #fff;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.fz-say[data-side="l"] span{border-bottom-left-radius:6px;transform-origin:bottom left}.fz-say[data-side="r"] span{border-bottom-right-radius:6px;transform-origin:bottom right}
+.fz-say{width:220px;display:flex}.fz-say[data-side="r"]{justify-content:flex-end}
+.fz-on,.fz-say.on span,.fz-you.on span{animation:fzPop .45s cubic-bezier(.3,1.6,.5,1) forwards}
+@keyframes fzPop{to{opacity:1;transform:none}}
+.fz-you{left:auto;right:18px;top:auto;bottom:calc(45% + 4px);text-align:right}
+.fz-you span{background:linear-gradient(160deg,#9A80FF,#7B5CFF);color:#fff;border-bottom-right-radius:6px;transform-origin:bottom right;box-shadow:0 12px 26px -12px rgba(123,92,255,.6)}
+html[data-palette="d3"] .fz-you span{background:linear-gradient(170deg,#5AA2F7,#3F8EF5)}
+html[data-palette="vivid"] .fz-you span{background:linear-gradient(180deg,#FFD24D,#F2AE1A);color:#1C2029}
+.fz-notes{position:absolute;left:0;top:0;z-index:5;pointer-events:none}
+.fz-notes i{position:absolute;font-style:normal;font-weight:800;font-size:18px;color:#2F8C5E;animation:fzNote 1.6s ease-out forwards}
+@keyframes fzNote{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-70px) scale(1.2) rotate(20deg)}}
+.fz-card{position:absolute;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:6;padding:20px 20px 16px;border-radius:30px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);border:1px solid rgba(255,255,255,.95);box-shadow:0 24px 50px -24px rgba(20,70,40,.45),inset 0 1px 0 #fff;animation:fzCard .7s cubic-bezier(.2,.9,.25,1) .25s both;max-width:520px;margin:0 auto}
+@keyframes fzCard{from{opacity:0;transform:translateY(40px)}}
+.fz-brand{display:flex;align-items:center;gap:8px;font-size:14px;color:#1D2B22}.fz-brand .in-logo{width:30px;height:30px;display:block}.fz-brand .in-logo svg{width:100%;height:100%}
+.fz-card h2{margin:10px 0 6px;font-family:var(--f-display);font-size:28px;line-height:1.12;letter-spacing:-.02em;color:#16241B}
+.fz-card h2 em{font-style:normal;background:linear-gradient(90deg,#2F8C5E,#7B5CFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-palette="d3"] .fz-card h2 em{background:linear-gradient(90deg,#2F8C5E,#3F8EF5);-webkit-background-clip:text;background-clip:text}
+html[data-palette="vivid"] .fz-card h2 em{background:linear-gradient(90deg,#2A2F37,#E9A512);-webkit-background-clip:text;background-clip:text}
+.fz-card p{margin:0 0 16px;font-size:14.5px;line-height:1.5;color:#4B5A50}
+.fz-go{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;height:54px;border-radius:18px;border:0;font-weight:800;font-size:16px;color:#fff;background:linear-gradient(160deg,#9A80FF,#7B5CFF);box-shadow:0 14px 28px -12px rgba(123,92,255,.7),inset 0 1px 0 rgba(255,255,255,.35);animation:fzGlow 2.6s ease-in-out infinite}
+.fz-go svg{width:18px;height:18px}
+html[data-palette="d3"] .fz-go{background:linear-gradient(170deg,#5AA2F7,#3F8EF5 55%,#347FEE);box-shadow:0 14px 28px -12px rgba(63,142,245,.7)}
+html[data-palette="vivid"] .fz-go{background:linear-gradient(180deg,#FFD24D,#F2AE1A);color:#1C2029;box-shadow:0 14px 28px -12px rgba(233,165,18,.7)}
+@keyframes fzGlow{50%{transform:translateY(-2px);filter:brightness(1.06)}}
+.fz-go:active{transform:scale(.97)}
+.fz-login{display:block;margin:10px auto 0;background:none;border:0;font-size:13.5px;color:#5B6A60}.fz-login b{color:#1D2B22}
+@media (prefers-reduced-motion:reduce){.fz *{animation-duration:.01s!important;animation-iteration-count:1!important}}
+@media (min-width:700px){.fz-card{bottom:40px}}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -4312,6 +4376,10 @@ function MASCOT(cls='',mood='idle',palKey){
   const L=E1[0],R=E2[0],Y=E1[1];
   const M={
     idle:{eyes:openEye(E1)+openEye(E2),brows:'',beak:'c',w:'down'},
+    fly:{eyes:openEye(E1,1.2,-.6)+openEye(E2,1.2,-.6),brows:'',beak:'smile',w:'up',blush:1},
+    fly2:{eyes:openEye(E1,1.2,-.6)+openEye(E2,1.2,-.6),brows:'',beak:'smile',w:'spread',blush:1},
+    flyT:{eyes:openEye(E1,1.2,-.6)+openEye(E2,1.2,-.6),brows:'',beak:'open',w:'up',blush:1},
+    flyT2:{eyes:openEye(E1,1.2,-.6)+openEye(E2,1.2,-.6),brows:'',beak:'open',w:'spread',blush:1},
     happy:{eyes:smile(E1)+smile(E2),brows:'',beak:'open',w:'down',pose:'rotate(-4 50 90)',blush:1},
     cheer:{eyes:starEye(E1)+starEye(E2),brows:brow(`M${L-7} ${Y-19}q7-4 13-1`)+brow(`M${R+7} ${Y-19}q-7-4-13-1`),beak:'open',w:'up',pose:'translate(0 -6)',blush:1,jump:1},
     think:{eyes:openEye(E1,2.4,-2.6)+openEye(E2,2.4,-2.6),brows:brow(`M${L-6} ${Y-17}q6-1 12 1`)+brow(`M${R+6} ${Y-21}q-6-4-12-.5`),beak:'side',w:'chin',pose:'rotate(6 50 90)'},
@@ -6758,7 +6826,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v253';
+const APP_V='elocu-v254';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -6952,28 +7020,57 @@ const INTRO=[
           <div class="ic ic-c ic-pack"><b>Gói B1</b><span class="ic-bar"><i></i></span></div>`},
 ];
 function introSlides(done){
-  const el=document.createElement('div'); el.className='intro pr'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true');
-  el.innerHTML=`<div class="in-bg"><span class="o1"></span><span class="o2"></span><span class="o3"></span><span class="grain"></span></div>
-    <div class="in-top"><div class="in-seg">${INTRO.map((_,i)=>`<i data-i="${i}"><b></b></i>`).join('')}</div>
-      <div class="in-row"><span class="in-brand"><span class="in-logo">${LOGO}</span><b>SáoVoxy</b></span><button class="in-skip" id="in-skip">Bỏ qua</button></div></div>
-    <div class="in-track" id="in-track">${INTRO.map((x,i)=>`<section class="in-slide">
-      <div class="in-stage"><span class="in-halo"></span><span class="in-bird">${MASCOT('',x.mood)}</span>${x.cards}</div>
-      <div class="in-copy"><span class="in-tag">${x.tag}</span><h2>${x.title}</h2><p>${x.body}</p></div></section>`).join('')}</div>
-    <div class="in-foot"><button class="in-next" id="in-next"><span>Tiếp tục</span>${I.arrow}</button>${inClaude?'':'<button class="in-login" id="in-login">Đã có tài khoản? <b>Đăng nhập</b></button>'}</div>`;
+  const el=document.createElement('div'); el.className='fz'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
+  const tree=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0c-26-2-40-22-30-42-14-8-10-30 6-34-2-18 18-30 32-20 10-14 34-10 36 8 18 0 26 22 14 34 12 14 0 34-18 32-6 16-30 22-40 22z" fill="${c}"/><rect x="2" y="-4" width="6" height="40" rx="3" fill="${c}"/></g>`;
+  const pine=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0-90L22-52H12L30-22H16L36 8H-36L-16-22H-30L-12-52H-22Z" fill="${c}"/><rect x="-4" y="6" width="8" height="22" rx="3" fill="${c}"/></g>`;
+  const far=[tree(30,250,1.1,'#B7E2C8'),pine(110,262,1.2,'#A8DABE'),tree(190,248,1.3,'#B7E2C8'),pine(270,258,1.05,'#A8DABE'),tree(350,252,1.2,'#B7E2C8'),pine(430,262,1.3,'#A8DABE'),tree(510,250,1.1,'#B7E2C8')].join('');
+  const mid=[pine(10,330,1.6,'#6CC495'),tree(110,320,1.5,'#5DB888'),pine(200,336,1.9,'#4FAE7E'),tree(300,322,1.6,'#6CC495'),pine(395,334,1.7,'#5DB888'),tree(490,326,1.5,'#4FAE7E')].join('');
+  const leaf=(x,y,r,s,c)=>`<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" d="M0 0C10-14 30-16 44-6 30 4 12 8 0 0z" fill="${c}"/>`;
+  const branchL=`<g class="fz-br fz-brl"><path d="M-10 40C40 30 80 34 130 58" stroke="#2E7A55" stroke-width="7" fill="none" stroke-linecap="round"/>${[[10,36,-20],[34,30,10],[56,38,-30],[78,40,20],[100,46,-10],[120,56,30],[44,46,40],[90,52,50]].map(([x,y,r],i)=>leaf(x,y,r,1.1,i%2?'#3E9F6D':'#2F8C5E')).join('')}</g>`;
+  const branchR=`<g class="fz-br fz-brr"><path d="M410 24C360 20 320 30 286 52" stroke="#2E7A55" stroke-width="6" fill="none" stroke-linecap="round"/>${[[396,22,200],[372,22,170],[348,28,210],[326,32,160],[304,42,200],[340,36,140]].map(([x,y,r],i)=>leaf(x,y,r,1,i%2?'#47A877':'#2F8C5E')).join('')}</g>`;
+  const ferns=[...Array(9)].map((_,i)=>`<path class="fz-fern" style="--d:${(i*.37).toFixed(2)}s" d="M${i*48-10} 140C${i*48+10} 60 ${i*48+40} 40 ${i*48+60} 30C${i*48+44} 60 ${i*48+30} 100 ${i*48+28} 140z" fill="${['#2F8C5E','#3E9F6D','#287A52'][i%3]}"/>`).join('');
+  const dots=[...Array(16)].map((_,i)=>`<i class="fz-p" style="left:${(i*61)%100}%;top:${30+(i*37)%55}%;--d:${(i*.6)%7}s;--t:${6+(i%5)}s"></i>`).join('');
+  const fall=[...Array(5)].map((_,i)=>`<i class="fz-lf" style="left:${8+i*20}%;--d:${i*1.7}s;--t:${9+i}s"><svg viewBox="0 0 44 20"><path d="M0 10C10-4 30-6 44 4 30 14 12 18 0 10z" fill="${i%2?'#7CC79A':'#F2C14E'}"/></svg></i>`).join('');
+  el.innerHTML=`<div class="fz-sky"><span class="fz-sun"></span><span class="fz-ray r1"></span><span class="fz-ray r2"></span><span class="fz-ray r3"></span></div>
+    <svg class="fz-far" viewBox="0 0 540 300" preserveAspectRatio="xMidYMax slice">${far}</svg>
+    <svg class="fz-mid" viewBox="0 0 540 360" preserveAspectRatio="xMidYMax slice">${mid}<rect y="330" width="540" height="40" fill="#4FAE7E"/></svg>
+    <svg class="fz-top" viewBox="0 0 400 140" preserveAspectRatio="xMidYMin slice">${branchL}${branchR}</svg>
+    <div class="fz-dots">${dots}${fall}</div>
+    <svg class="fz-ferns" viewBox="0 0 420 140" preserveAspectRatio="xMidYMax slice">${ferns}</svg>
+    <div class="fz-bird" id="fz-bird"><span class="fz-f fz-up">${MASCOT('','fly')}</span><span class="fz-f fz-dn">${MASCOT('','fly2')}</span><span class="fz-f fz-tu">${MASCOT('','flyT')}</span><span class="fz-f fz-td">${MASCOT('','flyT2')}</span></div>
+    <div class="fz-say" id="fz-say"><span></span></div>
+    <div class="fz-you" id="fz-you"><span></span></div>
+    <div class="fz-notes" id="fz-notes"></div>
+    <div class="fz-card"><span class="fz-brand"><span class="in-logo">${LOGO}</span><b>SáoVoxy</b></span>
+      <h2>Chào bạn, mình là <em>Sáo</em>!</h2><p>Chú sáo biết nói tiếng Anh. Mỗi ngày trò chuyện cùng mình vài phút là bạn tự tin hẳn lên.</p>
+      <button class="fz-go" id="fz-go"><span>Bắt đầu cùng Sáo</span>${I.arrow}</button>
+      ${inClaude?'':'<button class="fz-login" id="fz-login">Đã có tài khoản? <b>Đăng nhập</b></button>'}</div>`;
   $('#screen').appendChild(el);
-  const track=$('#in-track',el), segs=$$('.in-seg i',el), next=$('#in-next',el); let cur=0;
-  const paint=()=>{const g=INTRO[cur].g; el.style.setProperty('--g1',g[0]); el.style.setProperty('--g2',g[1]); el.style.setProperty('--g3',g[2])};
-  const go_=i=>{cur=Math.max(0,Math.min(INTRO.length-1,i)); track.scrollTo({left:cur*track.clientWidth,behavior:'smooth'})};
-  const upd=()=>{cur=Math.round(track.scrollLeft/Math.max(1,track.clientWidth)); segs.forEach((d,i)=>{d.classList.toggle('done',i<cur); d.classList.toggle('on',i===cur)}); paint();
-    $$('.in-slide',el).forEach((sl,i)=>sl.classList.toggle('act',i===cur));
-    $('span',next).textContent=cur===INTRO.length-1?'Bắt đầu học':'Tiếp tục'};
-  track.addEventListener('scroll',()=>{clearTimeout(track._t); track._t=setTimeout(upd,60)});
-  segs.forEach(d=>d.onclick=()=>go_(+d.dataset.i));
-  const finish=()=>{S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},300)};
-  next.onclick=()=>{sfx('tap'); cur<INTRO.length-1?go_(cur+1):finish()};
-  $('#in-skip',el).onclick=finish;
-  $('#in-login',el)&&($('#in-login',el).onclick=()=>{S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
-  upd();
+  const bird=$('#fz-bird',el), say=$('#fz-say',el), you=$('#fz-you',el), notes=$('#fz-notes',el);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let t0=performance.now(), raf=0, face=1, flap=0, lastX=0;
+  const loop=now=>{const t=(now-t0)/1000, W=el.clientWidth, H=el.clientHeight;
+    const x=W*.5+W*.30*Math.sin(t*.42)+W*.04*Math.sin(t*1.3), y=H*.30+H*.06*Math.sin(t*.9)+H*.025*Math.sin(t*2.3);
+    const vx=x-lastX; lastX=x; if(Math.abs(vx)>.15)face=vx>0?1:-1;
+    const tilt=Math.max(-12,Math.min(12,Math.cos(t*.9)*10));
+    bird.style.transform=`translate(${x-70}px,${y-70}px) rotate(${tilt*face*.6}deg) scaleX(${face})`;
+    if(!reduce&&now-flap>130){flap=now; bird.classList.toggle('up')}
+    const bx=x+face*38, by=y-58; say.style.transform=`translate(${Math.max(12,Math.min(W-232,bx-(face>0?10:210)))}px,${Math.max(8,by-60)}px)`; say.dataset.side=face>0?'l':'r';
+    notes.style.transform=`translate(${x+face*30}px,${y-30}px)`;
+    raf=requestAnimationFrame(loop)};
+  raf=requestAnimationFrame(loop);
+  const SCRIPT=[['s','Hello! 👋'],['u','Hi Sáo!'],['s','Mình là Sáo, chim biết nói tiếng Anh 🎶'],['u','Dạy mình với nhé!'],['s','Let’s practice together!'],['u','Okay! 😄'],['s','Mỗi ngày 5 phút thôi nha ✨']];
+  let si=0, tm=0;
+  const show=(box,txt)=>{const sp=box.querySelector('span'); box.classList.remove('on'); void box.offsetWidth; sp.textContent=txt; box.classList.add('on')};
+  const step=()=>{const [who,txt]=SCRIPT[si%SCRIPT.length]; si++;
+    if(who==='s'){you.classList.remove('on'); show(say,txt); bird.classList.add('talk'); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); setTimeout(()=>bird.classList.remove('talk'),1400)}
+    else{say.classList.remove('on'); show(you,txt)}
+    tm=setTimeout(step,who==='s'?2600:1700)};
+  tm=setTimeout(step,700);
+  const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};
+  $('#fz-go',el).onclick=()=>{sfx('tap'); finish()};
+  $('#fz-login',el)&&($('#fz-login',el).onclick=()=>{cancelAnimationFrame(raf); clearTimeout(tm); S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
+  bird.onclick=()=>{clearTimeout(tm); step()};
 }
 function onboarding(placementOnly){
   const el=document.createElement('div'); el.className='ob'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); $('#screen').appendChild(el);
