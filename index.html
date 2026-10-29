@@ -4278,6 +4278,33 @@ html[data-palette="vivid"] .fz-go{background:linear-gradient(180deg,#FFD24D,#F2A
 .fz-bird.talk.m-o .fz-o{opacity:1!important}
 .fz-bird.talk .fz-body{animation:fzBob var(--fr) ease-in-out infinite alternate,fzNod .44s ease-in-out infinite}
 @keyframes fzNod{50%{rotate:-4deg}}
+
+/* ===== Onboarding v3: Sáo perched under a bougainvillea pergola ===== */
+.fz-sky2{background:linear-gradient(180deg,#FFE7EF 0%,#FFF3E6 40%,#FFF8EE 65%,#F6EEE2 100%)!important}
+.fz-sky2 .fz-sun{right:auto;left:-80px;top:20%;background:radial-gradient(circle,rgba(255,236,200,.9),rgba(255,220,190,.35) 45%,transparent 70%)}
+.fz-perg{position:absolute;left:0;top:0;width:100%;height:50%;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(150,40,90,.15))}
+.fz-can{animation:fzCan 7s ease-in-out infinite;transform-origin:50% 0}
+@keyframes fzCan{50%{transform:translateY(2px) rotate(.4deg)}}
+.fz-hang{transform-box:fill-box;transform-origin:50% 0;animation:fzSway 4.5s ease-in-out infinite;animation-delay:var(--d)}
+.fz-branch{position:absolute;left:0;width:100%;top:41%;height:14%;pointer-events:none;z-index:2;filter:drop-shadow(0 8px 8px rgba(90,50,20,.25))}
+.fz-wall{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,transparent,rgba(232,200,170,.35) 40%,rgba(222,186,150,.5))}
+.fz-pt{position:absolute;top:-30px;width:16px;height:18px;animation:fzLf var(--t) linear var(--d) infinite}
+.fz-pt svg{width:100%;height:100%;display:block;animation:fzSpin 2.2s ease-in-out infinite}
+.fz-bird{width:150px!important;height:150px!important;z-index:3}
+.fz-bird.perched .fz-wl{animation:none;transform:rotate(0deg);transition:transform .25s}
+.fz-bird.perched .fz-wr{animation:none;transform:rotate(0deg);transition:transform .25s}
+.fz-bird.flutter{--fr:.12s}
+.fz-bird.perched .fz-body{animation:fzPerch 1.6s ease-in-out infinite}
+.fz-bird.perched.talk .fz-body{animation:fzPerch 1.6s ease-in-out infinite,fzNod .44s ease-in-out infinite}
+@keyframes fzPerch{50%{transform:translateY(-2px)}}
+.fz-bird.land .fz-body{animation:fzLand .35s ease-out}
+@keyframes fzLand{40%{transform:translateY(5px)}}
+.fz-feet{position:absolute}
+.fz-p{background:radial-gradient(circle,#FFF2F7,rgba(255,200,225,0) 70%)!important;box-shadow:0 0 10px 3px rgba(255,190,220,.5)!important}
+.fz-card{box-shadow:0 24px 50px -24px rgba(150,40,90,.35),inset 0 1px 0 #fff!important}
+.fz-card h2 em{background:linear-gradient(90deg,#D6267E,#7B5CFF)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.fz-notes i{color:#D6267E!important}
+.fz-snd{color:#5A2A44}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -6865,7 +6892,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v259';
+const APP_V='elocu-v260';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7060,66 +7087,59 @@ const INTRO=[
 ];
 function introSlides(done){
   const el=document.createElement('div'); el.className='fz'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
-  const tree=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0c-26-2-40-22-30-42-14-8-10-30 6-34-2-18 18-30 32-20 10-14 34-10 36 8 18 0 26 22 14 34 12 14 0 34-18 32-6 16-30 22-40 22z" fill="${c}"/><rect x="2" y="-4" width="6" height="40" rx="3" fill="${c}"/></g>`;
-  const pine=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0-90L22-52H12L30-22H16L36 8H-36L-16-22H-30L-12-52H-22Z" fill="${c}"/><rect x="-4" y="6" width="8" height="22" rx="3" fill="${c}"/></g>`;
-  const far=[tree(30,250,1.1,'#B7E2C8'),pine(110,262,1.2,'#A8DABE'),tree(190,248,1.3,'#B7E2C8'),pine(270,258,1.05,'#A8DABE'),tree(350,252,1.2,'#B7E2C8'),pine(430,262,1.3,'#A8DABE'),tree(510,250,1.1,'#B7E2C8')].join('');
-  const mid=[pine(10,330,1.6,'#6CC495'),tree(110,320,1.5,'#5DB888'),pine(200,336,1.9,'#4FAE7E'),tree(300,322,1.6,'#6CC495'),pine(395,334,1.7,'#5DB888'),tree(490,326,1.5,'#4FAE7E')].join('');
-  const leaf=(x,y,r,s,c)=>`<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" d="M0 0C10-14 30-16 44-6 30 4 12 8 0 0z" fill="${c}"/>`;
-  const branchL=`<g class="fz-br fz-brl"><path d="M-10 40C40 30 80 34 130 58" stroke="#2E7A55" stroke-width="7" fill="none" stroke-linecap="round"/>${[[10,36,-20],[34,30,10],[56,38,-30],[78,40,20],[100,46,-10],[120,56,30],[44,46,40],[90,52,50]].map(([x,y,r],i)=>leaf(x,y,r,1.1,i%2?'#3E9F6D':'#2F8C5E')).join('')}</g>`;
-  const branchR=`<g class="fz-br fz-brr"><path d="M410 24C360 20 320 30 286 52" stroke="#2E7A55" stroke-width="6" fill="none" stroke-linecap="round"/>${[[396,22,200],[372,22,170],[348,28,210],[326,32,160],[304,42,200],[340,36,140]].map(([x,y,r],i)=>leaf(x,y,r,1,i%2?'#47A877':'#2F8C5E')).join('')}</g>`;
-  const ferns=[...Array(9)].map((_,i)=>`<path class="fz-fern" style="--d:${(i*.37).toFixed(2)}s" d="M${i*48-10} 140C${i*48+10} 60 ${i*48+40} 40 ${i*48+60} 30C${i*48+44} 60 ${i*48+30} 100 ${i*48+28} 140z" fill="${['#2F8C5E','#3E9F6D','#287A52'][i%3]}"/>`).join('');
-  const dots=[...Array(16)].map((_,i)=>`<i class="fz-p" style="left:${(i*61)%100}%;top:${30+(i*37)%55}%;--d:${(i*.6)%7}s;--t:${6+(i%5)}s"></i>`).join('');
-  const fall=[...Array(5)].map((_,i)=>`<i class="fz-lf" style="left:${8+i*20}%;--d:${i*1.7}s;--t:${9+i}s"><svg viewBox="0 0 44 20"><path d="M0 10C10-4 30-6 44 4 30 14 12 18 0 10z" fill="${i%2?'#7CC79A':'#F2C14E'}"/></svg></i>`).join('');
-  el.innerHTML=`<div class="fz-sky"><span class="fz-sun"></span><span class="fz-ray r1"></span><span class="fz-ray r2"></span><span class="fz-ray r3"></span></div>
-    <svg class="fz-far" viewBox="0 0 540 300" preserveAspectRatio="xMidYMax slice">${far}</svg>
-    <svg class="fz-mid" viewBox="0 0 540 360" preserveAspectRatio="xMidYMax slice">${mid}<rect y="330" width="540" height="40" fill="#4FAE7E"/></svg>
-    <svg class="fz-top" viewBox="0 0 400 140" preserveAspectRatio="xMidYMin slice">${branchL}${branchR}</svg>
-    <div class="fz-dots">${dots}${fall}</div>
-    <svg class="fz-ferns" viewBox="0 0 420 140" preserveAspectRatio="xMidYMax slice">${ferns}</svg>
+  const bract=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${[0,120,240].map(a=>`<path transform="rotate(${a})" d="M0 0C-7-4-9-14-4-19 0-21 4-21 6-18 10-13 7-4 0 0z" fill="${c}"/>`).join('')}<circle r="1.8" fill="#FFF6D8"/></g>`;
+  const PINK=['#E8358F','#F0549F','#D6267E','#F577B4','#C91E74'];
+  const rnd=(i,k)=>{const v=Math.sin(i*12.9898+k*78.233)*43758.5453;return v-Math.floor(v)};
+  const cluster=(cx,cy,n,sp,sc,seed)=>[...Array(n)].map((_,i)=>{const lx=cx+(rnd(i,seed)-.5)*sp,ly=cy+(rnd(i,seed+1)-.5)*sp*.6;
+    return (i%3===0?`<ellipse cx="${lx+6}" cy="${ly+4}" rx="7" ry="3.6" transform="rotate(${rnd(i,seed+3)*180} ${lx+6} ${ly+4})" fill="${i%2?'#3E8E4F':'#5BA864'}"/>`:'')+bract(lx,ly,rnd(i,seed+2)*120,sc*(.8+rnd(i,seed+4)*.5),PINK[i%PINK.length])}).join('');
+  const lattice=`<g stroke="#B98A5E" stroke-width="7" stroke-linecap="round" opacity=".85">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-20}" y1="0" x2="${i*70-20}" y2="230"/>`).join('')}<line x1="-10" y1="40" x2="430" y2="40"/><line x1="-10" y1="120" x2="430" y2="120"/></g><g stroke="#D3A97B" stroke-width="2" opacity=".6">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-22}" y1="0" x2="${i*70-22}" y2="230"/>`).join('')}</g>`;
+  const canopy=cluster(60,40,30,120,1.25,1)+cluster(200,30,34,150,1.3,7)+cluster(340,44,30,130,1.25,13)+cluster(20,140,16,70,1.1,19)+cluster(390,150,18,80,1.1,23)+cluster(130,110,14,70,1,29)+cluster(290,105,14,70,1,31);
+  const hang=[40,110,180,250,320,380].map((x,k)=>`<g class="fz-hang" style="--d:${(k*.4).toFixed(1)}s">${cluster(x,180+(k%2)*25,9,34,1,40+k)}</g>`).join('');
+  const branch=`<path d="M-20 70C60 52 120 64 190 54S310 40 360 50" stroke="#7A5232" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M-20 66C60 48 120 60 190 50S310 36 360 46" stroke="#A97A4E" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><path d="M250 47c18-12 30-26 34-42" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M80 60c-6 14-4 28 4 40" stroke="#7A5232" stroke-width="5" fill="none" stroke-linecap="round"/>${cluster(290,8,10,40,1,51)}${cluster(84,100,8,34,.95,57)}${cluster(355,48,8,36,1,61)}<ellipse cx="150" cy="44" rx="10" ry="4.5" transform="rotate(-20 150 44)" fill="#5BA864"/><ellipse cx="226" cy="40" rx="10" ry="4.5" transform="rotate(25 226 40)" fill="#3E8E4F"/>`;
+  const petals=[...Array(10)].map((_,i)=>`<i class="fz-pt" style="left:${(i*11+4)%96}%;--d:${(i*1.3).toFixed(1)}s;--t:${8+i%5}s"><svg viewBox="-10 -22 20 24"><path d="M0 0C-7-4-9-14-4-19 0-21 4-21 6-18 10-13 7-4 0 0z" fill="${PINK[i%5]}"/></svg></i>`).join('');
+  const pdots=[...Array(10)].map((_,i)=>`<i class="fz-p" style="left:${(i*61)%100}%;top:${30+(i*37)%45}%;--d:${(i*.6)%7}s;--t:${6+(i%5)}s"></i>`).join('');
+  el.innerHTML=`<div class="fz-sky fz-sky2"><span class="fz-sun"></span><span class="fz-ray r1"></span><span class="fz-ray r2"></span></div>
+    <svg class="fz-perg" viewBox="0 0 420 260" preserveAspectRatio="xMidYMin slice">${lattice}<g class="fz-can">${canopy}</g>${hang}</svg>
+    <div class="fz-dots">${pdots}${petals}</div>
+    <svg class="fz-branch" id="fz-branch" viewBox="0 0 340 120" preserveAspectRatio="none">${branch}</svg>
+    <div class="fz-wall"></div>
     <div class="fz-bird" id="fz-bird"><div class="fz-body"><svg class="fz-wings fz-back" viewBox="0 0 100 100"><defs><linearGradient id="fzwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${BIRD_PAL[BIRD].b2}"/><stop offset="1" stop-color="${BIRD_PAL[BIRD].acc}"/></linearGradient></defs><g class="fz-wr"><g transform="translate(100 0) scale(-1 1)"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></g></svg><span class="fz-f fz-n">${MASCOT('','flyN')}</span><span class="fz-f fz-t">${MASCOT('','flyNT')}</span><span class="fz-f fz-b">${MASCOT('','flyNB')}</span><span class="fz-f fz-o">${MASCOT('','flyNO')}</span><svg class="fz-wings fz-front" viewBox="0 0 100 100"><g class="fz-wl"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></svg></div></div>
     <div class="fz-say" id="fz-say"><span></span></div>
     <div class="fz-you" id="fz-you"><span></span></div>
     <div class="fz-notes" id="fz-notes"></div>
     <div class="fz-card"><span class="fz-brand"><span class="in-logo">${LOGO}</span><b>SáoVoxy</b></span>
-      <h2>Chào bạn, mình là <em>Sáo</em>!</h2><p>Chú sáo biết nói tiếng Anh. Mỗi ngày trò chuyện cùng mình vài phút là bạn tự tin hẳn lên.</p>
+      <h2>Chào bạn, mình là <em>Sáo</em>!</h2><p>Mỗi lần bạn ghé chơi, mình hót líu lo và trò chuyện cùng bạn bằng tiếng Anh. Mỗi ngày vài phút thôi nhé!</p>
       <button class="fz-go" id="fz-go"><span>Bắt đầu cùng Sáo</span>${I.arrow}</button>
       ${inClaude?'':'<button class="fz-login" id="fz-login">Đã có tài khoản? <b>Đăng nhập</b></button>'}</div>`;
   $('#screen').appendChild(el);
   const bird=$('#fz-bird',el), say=$('#fz-say',el), you=$('#fz-you',el), notes=$('#fz-notes',el);
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  /* agile flight: steer toward random waypoints with a little physics — darts, swoops, loops, hovers, glides */
-  let raf=0, face=1, faceS=1, tiltS=0, frS=.3, flipA=0, talking=false, last=performance.now(), mode='fly', modeUntil=0, loopA=0, blinkAt=performance.now()+2500;
-  const P={x:el.clientWidth*.5,y:el.clientHeight*.3,vx:0,vy:0}, T={x:0,y:0};
-  const pick=()=>{const W=el.clientWidth,H=el.clientHeight,r=Math.random();
-    if(talking){mode='hover';modeUntil=performance.now()+600}
-    else if(r<.32){mode='hover';modeUntil=performance.now()+1400+Math.random()*1200}
-    else if(r<.46){mode='flip';flipA=0;modeUntil=performance.now()+1100;T.dir=P.vx>=0?1:-1}
-    else{mode='fly';modeUntil=performance.now()+1600+Math.random()*1800}
-    T.x=W*(.22+Math.random()*.56); T.y=H*(.2+Math.random()*.24); T.ph=Math.random()*6.28};
-  pick();
+  /* perched on the branch: bob & look around, hop along it, flutter, somersault */
+  let raf=0, face=1, last=performance.now(), mode='perch', modeUntil=performance.now()+1500, flipA=0, talking=false, blinkAt=performance.now()+2000, frS=.3;
+  const P={x:0,y:0,vx:0,vy:0}, T={x:0,y:0,dir:1,h0:0,t:0,x0:0};
+  const brY=x=>{const W=el.clientWidth,H=el.clientHeight,top=H*.41,h=H*.11,u=x/W; return top+h*(.62-.16*u-.1*Math.sin(u*Math.PI))};
+  P.x=el.clientWidth*.42; P.y=brY(P.x);
+  const choose=()=>{const now=performance.now(),r=Math.random(),W=el.clientWidth;
+    if(talking){mode='perch';modeUntil=now+500;return}
+    if(r<.42){mode='perch';modeUntil=now+1600+Math.random()*1800}
+    else if(r<.72){mode='hop';T.x0=P.x;T.x=Math.max(W*.2,Math.min(W*.72,P.x+(Math.random()<.5?-1:1)*(40+Math.random()*70)));T.t=0;face=T.x>P.x?1:-1;modeUntil=now+700}
+    else{flip()}};
+  const flip=()=>{mode='flip';flipA=0;T.t=0;T.dir=face;modeUntil=performance.now()+1000};
   const lerp=(a,b,k)=>a+(b-a)*k;
-  const loop=now=>{const dt=Math.min(.04,(now-last)/1000); last=now; const W=el.clientWidth,H=el.clientHeight;
-    if(now>modeUntil)pick();
-    if(mode==='flip'){flipA=Math.min(360,flipA+dt*400); P.vx=lerp(P.vx,0,dt*3); P.vy=lerp(P.vy,-Math.cos(flipA*Math.PI/180)*70,dt*5)}
-    else if(mode==='hover'){P.vx=lerp(P.vx,Math.sin(now/900)*18,dt*2); P.vy=lerp(P.vy,Math.sin(now/420)*22,dt*2.5)}
-    else{const dx=T.x-P.x, dy=T.y-P.y, d=Math.hypot(dx,dy)||1, sp=Math.min(170,50+d*.7), wob=Math.sin(now/520+T.ph)*26;
-      const nx=dx/d, ny=dy/d; P.vx=lerp(P.vx,nx*sp-ny*wob,dt*1.15); P.vy=lerp(P.vy,ny*sp+nx*wob,dt*1.15)}
-    P.x+=P.vx*dt; P.y+=P.vy*dt;
-    if(P.x<70||P.x>W-70){P.vx*=-.4;P.x=Math.max(70,Math.min(W-70,P.x))} if(P.y<130||P.y>H*.52){P.vy*=-.4;P.y=Math.max(130,Math.min(H*.52,P.y))}
-    if(Math.abs(P.vx)>30)face=P.vx>0?1:-1;
-    faceS=lerp(faceS,face,Math.min(1,dt*9));
-    const speed=Math.hypot(P.vx,P.vy);
-    const tilt=Math.max(-12,Math.min(12,P.vy*.06))*face;
-    tiltS=lerp(tiltS,tilt,Math.min(1,dt*3));
-    const spin=mode==='flip'?flipA*T.dir:0; if(mode!=='flip')flipA=0;
-    const sc=1+Math.max(-.06,Math.min(.06,(P.y/H-.3)*.3)), sx=face*sc, squash=1;
-    bird.style.transform=`translate(${(P.x-70).toFixed(1)}px,${(P.y-70).toFixed(1)}px) rotate(${(tiltS+spin).toFixed(2)}deg) scale(${(sx*squash).toFixed(3)},${(sc/squash).toFixed(3)})`;
-    const glide=mode==='fly'&&P.vy>70&&speed>110, fr=glide?0:mode==='flip'?.16:mode==='hover'?.2:P.vy<-40?.22:.32;
-    if(!reduce){bird.classList.toggle('glide',glide); if(!glide){frS=lerp(frS,fr,dt*2.5); bird.style.setProperty('--fr',frS.toFixed(3)+'s')}}
-    if(now>blinkAt){bird.classList.add('blink'); setTimeout(()=>bird.classList.remove('blink'),140); blinkAt=now+2200+Math.random()*2600}
-    const bx=P.x+face*38, by=P.y-58; say.style.transform=`translate(${Math.max(12,Math.min(W-232,bx-(face>0?10:210)))}px,${Math.max(8,by-60)}px)`; say.dataset.side=face>0?'l':'r';
-    notes.style.transform=`translate(${P.x+face*30}px,${P.y-30}px)`;
+  const loop=now=>{const dt=Math.min(.04,(now-last)/1000); last=now; const W=el.clientWidth;
+    if(now>modeUntil&&mode!=='hop'&&mode!=='flip')choose();
+    let lift=0, spin=0, flap=false, tilt=0;
+    if(mode==='hop'){T.t=Math.min(1,T.t+dt*1.7); P.x=lerp(T.x0,T.x,T.t*T.t*(3-2*T.t)); lift=Math.sin(T.t*Math.PI)*46; flap=true; tilt=Math.sin(T.t*Math.PI)*-8*face; if(T.t>=1){mode='perch';modeUntil=now+900+Math.random()*1200}}
+    else if(mode==='flip'){T.t=Math.min(1,T.t+dt*1.05); const e=T.t<.5?2*T.t*T.t:1-Math.pow(-2*T.t+2,2)/2; spin=-e*360*T.dir; lift=Math.sin(T.t*Math.PI)*78; flap=T.t>.08&&T.t<.92; if(T.t>=1){mode='perch';modeUntil=now+1200; landed()}}
+    else{ if(!talking&&Math.random()<dt*.35)face=-face; tilt=Math.sin(now/700)*3+(talking?Math.sin(now/220)*4:0)}
+    P.y=brY(P.x)-lift;
+    bird.style.transform=`translate(${(P.x-75).toFixed(1)}px,${(P.y-128).toFixed(1)}px) rotate(${(tilt+spin).toFixed(2)}deg) scaleX(${face})`;
+    bird.classList.toggle('perched',!flap); bird.classList.toggle('flutter',flap);
+    if(now>blinkAt){bird.classList.add('blink'); setTimeout(()=>bird.classList.remove('blink'),140); blinkAt=now+2000+Math.random()*2500}
+    const bx=P.x+face*40, by=P.y-128; say.style.transform=`translate(${Math.max(12,Math.min(W-232,bx-(face>0?10:210)))}px,${Math.max(8,by-58)}px)`; say.dataset.side=face>0?'l':'r';
+    notes.style.transform=`translate(${P.x+face*28}px,${P.y-96}px)`;
     raf=requestAnimationFrame(loop)};
+  const landed=()=>{bird.classList.remove('land'); void bird.offsetWidth; bird.classList.add('land'); try{chirp(3)}catch(e){}};
   raf=requestAnimationFrame(loop);
   /* bird song: synthesized myna whistles & trills (WebAudio; starts after the first tap, as browsers require) */
   let AC=null, songOn=false, songTm=0;
@@ -7142,20 +7162,20 @@ function introSlides(done){
   const firstTap=()=>{el.removeEventListener('pointerdown',firstTap,true); if(wantSong&&!songOn)setSong(true)};
   el.addEventListener('pointerdown',firstTap,true);
   let mouthTm=0;
-  const talk=txt=>{clearInterval(mouthTm); talking=true; mode='hover'; modeUntil=performance.now()+400; bird.classList.add('talk'); const shapes=['m-open','m-o','','m-open','m-o','m-open','']; let k=0, n=Math.max(8,Math.round(txt.length*.9));
+  const talk=txt=>{clearInterval(mouthTm); talking=true; if(mode!=='flip'){mode='perch'; modeUntil=performance.now()+400} bird.classList.add('talk'); const shapes=['m-open','m-o','','m-open','m-o','m-open','']; let k=0, n=Math.max(8,Math.round(txt.length*.9));
     mouthTm=setInterval(()=>{bird.classList.remove('m-open','m-o'); const c=shapes[(k+Math.floor(Math.random()*2))%shapes.length]; if(c)bird.classList.add(c); if(++k>n){clearInterval(mouthTm); bird.classList.remove('m-open','m-o','talk'); talking=false}},110)};
   const SCRIPT=[['s','Hello! 👋'],['u','Hi Sáo!'],['s','Mình là Sáo, chim biết nói tiếng Anh 🎶'],['u','Dạy mình với nhé!'],['s','Let’s practice together!'],['u','Okay! 😄'],['s','Mỗi ngày 5 phút thôi nha ✨']];
   let si=0, tm=0;
   const show=(box,txt)=>{const sp=box.querySelector('span'); box.classList.remove('on'); void box.offsetWidth; sp.textContent=txt; box.classList.add('on')};
   const step=()=>{const [who,txt]=SCRIPT[si%SCRIPT.length]; si++;
     if(who==='s'){you.classList.remove('on'); show(say,txt); chirp(); talk(txt); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); 0}
-    else{say.classList.remove('on'); show(you,txt); setTimeout(()=>{if(!talking){mode='flip';flipA=0;T.dir=face;modeUntil=performance.now()+1100}},500)}
+    else{say.classList.remove('on'); show(you,txt); setTimeout(()=>{if(!talking&&mode!=='flip')flip()},450)}
     tm=setTimeout(step,who==='s'?2600:1700)};
   tm=setTimeout(step,700);
   const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{AC&&AC.close()}catch(e){} S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};
   $('#fz-go',el).onclick=()=>{sfx('tap'); finish()};
   $('#fz-login',el)&&($('#fz-login',el).onclick=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{AC&&AC.close()}catch(e){} S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
-  bird.onclick=()=>{clearTimeout(tm); if(!songOn)setSong(true); step(); P.vy-=240; P.vx+=face*90; mode='fly'; modeUntil=performance.now()+900};
+  bird.onclick=()=>{clearTimeout(tm); if(!songOn)setSong(true); if(mode!=='flip')flip(); setTimeout(step,900)};
 }
 function onboarding(placementOnly){
   const el=document.createElement('div'); el.className='ob'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); $('#screen').appendChild(el);
