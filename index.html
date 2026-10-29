@@ -4288,7 +4288,7 @@ html[data-palette="vivid"] .fz-go{background:linear-gradient(180deg,#FFD24D,#F2A
 .fz-hang{transform-box:fill-box;transform-origin:50% 0;animation:fzSway 4.5s ease-in-out infinite;animation-delay:var(--d)}
 .fz-branch{position:absolute;left:0;width:100%;top:41%;height:14%;pointer-events:none;z-index:2;filter:drop-shadow(0 8px 8px rgba(90,50,20,.25))}
 .fz-wall{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,transparent,rgba(232,200,170,.35) 40%,rgba(222,186,150,.5))}
-.fz-pt{position:absolute;top:-30px;width:11px;height:13px;animation:fzLf var(--t) linear var(--d) infinite}
+.fz-pt{position:absolute;top:-30px;width:9px;height:11px;animation:fzLf var(--t) linear var(--d) infinite}
 .fz-pt svg{width:100%;height:100%;display:block;animation:fzSpin 2.2s ease-in-out infinite}
 .fz-bird{width:150px!important;height:150px!important;z-index:3}
 .fz-bird.perched .fz-wl{animation:none;transform:rotate(0deg);transition:transform .25s}
@@ -6892,7 +6892,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v263';
+const APP_V='elocu-v264';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7087,26 +7087,25 @@ const INTRO=[
 ];
 function introSlides(done){
   const el=document.createElement('div'); el.className='fz'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
-  const BR='M0 0C-6.5-.6-12.4-5.2-12.6-11.4-12.8-17.6-7.4-21.2-2.6-20.4-1.4-20.2-.6-19.4 0-18.6.6-19.4 1.4-20.2 2.6-20.4 7.4-21.2 12.8-17.6 12.6-11.4 12.4-5.2 6.5-.6 0 0z';
-  const VN='M0-1V-17.6M0-5.5C-3-6.6-6.4-8.6-8.8-11.8M0-5.5C3-6.6 6.4-8.6 8.8-11.8M0-10.5C-2.2-11.8-4.8-14-6.2-16.6M0-10.5C2.2-11.8 4.8-14 6.2-16.6M-4.4-8.2C-6.6-8.4-9-8-10.8-7.2M4.4-8.2C6.6-8.4 9-8 10.8-7.2';
-  const PINK=['#D61F7C','#E5358C','#C2116C','#EB4E9C','#B30C62'];
-  const tube=(a,l)=>{const t=a*Math.PI/180,x=Math.cos(t)*l,y=Math.sin(t)*l;return `<path d="M0 0L${x.toFixed(1)} ${y.toFixed(1)}" stroke="#E9CFA6" stroke-width="1.4" stroke-linecap="round"/><g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(1.15)"><path d="M0-1.9L.5-.6 1.8-.6.8.3 1.2 1.6 0 .9-1.2 1.6-.8.3-1.8-.6-.5-.6z" fill="#FFFDF2"/><circle r=".45" fill="#F2C94C"/></g>`};
-  /* a bougainvillea "flower" = 3 papery bracts forming a cup: two behind (darker), one in front; seen from varying angles */
-  const bract=(x,y,r,s,c,k,side)=>{const one=(rot,sx,sy,dim)=>`<g transform="rotate(${rot}) scale(${sx} ${sy})"><path d="${BR}" fill="url(#bg${k})" ${dim?'filter="url(#dk)"':''}/><path d="${VN}" stroke="#6E0638" stroke-opacity=".3" stroke-width=".5" fill="none" stroke-linecap="round"/><path d="${BR}" fill="none" stroke="#FFC9E2" stroke-opacity=".6" stroke-width=".55"/></g>`;
-    return `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${side?one(-38,.9,1,1)+one(38,.9,1,1)+tube(-100,7)+one(180,1.05,.72,0):one(-62,.95,.95,1)+one(62,.95,.95,1)+tube(-90+(k*29)%40-20,6.5)+(k%2?tube(-45,5.5):'')+one(180,1.05,.8,0)}</g>`};
+  /* flat illustration bougainvillea (like the reference): teardrop bract, maroon twig with a white bud dot */
+  const BR='M0 0C-7.5 0-11.5-4.6-11.5-10.2-11.5-15.6-7-19.6 0-25.5 7-19.6 11.5-15.6 11.5-10.2 11.5-4.6 7.5 0 0 0z';
+  const VN='M0-2.5V-17';
+  const PINK=['#E3579B','#D84B90','#EB68A7','#CF4087','#E55FA0'];
+  const bract=(x,y,r,s,c,k,side)=>{const one=(rot,sc)=>`<g transform="rotate(${rot}) scale(${sc})"><path d="${BR}" transform="translate(0 0)" fill="${c}"/><path d="M0-3C-.6-8-1.6-12-3.8-15.6M-1.2-9.5C1.2-11.6 3-14 3.8-16.8" stroke="#7A1E3E" stroke-width="1.15" fill="none" stroke-linecap="round"/><circle cx="3.9" cy="-17.2" r="1.25" fill="#fff"/></g>`;
+    return `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${side?one(-24,.92)+one(24,.92):one(-40,.9)+one(40,.9)+one(180,.85)}</g>`};
   const grads=PINK.map((c,k)=>`<linearGradient id="bg${k}" x1="0" y1="0" x2="0" y2="-23" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8E0B4C"/><stop offset=".25" stop-color="${c}"/><stop offset=".8" stop-color="${c}" stop-opacity=".94"/><stop offset="1" stop-color="#F7A3CB" stop-opacity=".92"/></linearGradient>`).join('');
-  const lf=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C3-6 11-8 17-5 21-3 22 0 23 0 22 0 21 3 17 5 11 8 3 6 0 0z" fill="${c}"/><path d="M1 0H21" stroke="#1F5A2C" stroke-opacity=".35" stroke-width=".7"/></g>`;
+  const lf=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C3-6 11-8 17-5 21-3 22 0 23 0 22 0 21 3 17 5 11 8 3 6 0 0z" fill="${c}"/></g>`;
   const rnd=(i,k)=>{const v=Math.sin(i*12.9898+k*78.233)*43758.5453;return v-Math.floor(v)};
   const cluster=(cx,cy,n,sp,sc,seed)=>[...Array(n)].map((_,i)=>{const lx=cx+(rnd(i,seed)-.5)*sp,ly=cy+(rnd(i,seed+1)-.5)*sp*.6,back=i<n*.35;
-    const leaf=i%3===0?lf(lx+(rnd(i,seed+5)-.5)*16,ly+(rnd(i,seed+6)-.5)*12,rnd(i,seed+3)*360,.62+rnd(i,seed+7)*.3,i%2?'#3F8A4A':'#55A35E'):'';
-    const fl=bract(lx,ly,rnd(i,seed+2)*120,sc*(.7+rnd(i,seed+4)*.45),PINK[i%PINK.length],i%PINK.length,rnd(i,seed+8)<.45);
-    return back?`<g opacity=".88" filter="url(#dk)">${leaf}${fl}</g>`:leaf+fl}).join('');
+    const leaf=i%3===0?lf(lx+(rnd(i,seed+5)-.5)*16,ly+(rnd(i,seed+6)-.5)*12,rnd(i,seed+3)*360,.42+rnd(i,seed+7)*.2,i%2?'#4E9A57':'#68B36C'):'';
+    const fl=bract(lx,ly,rnd(i,seed+2)*120,sc*(.7+rnd(i,seed+4)*.45),PINK[i%PINK.length],i%PINK.length,rnd(i,seed+8)<.5);
+    return back?`<g opacity=".8">${leaf}${fl}</g>`:leaf+fl}).join('');
   const lattice=`<g stroke="#B98A5E" stroke-width="7" stroke-linecap="round" opacity=".85">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-20}" y1="0" x2="${i*70-20}" y2="230"/>`).join('')}<line x1="-10" y1="40" x2="430" y2="40"/><line x1="-10" y1="120" x2="430" y2="120"/></g><g stroke="#D3A97B" stroke-width="2" opacity=".6">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-22}" y1="0" x2="${i*70-22}" y2="230"/>`).join('')}</g>`;
   const vine=`<path d="M-10 18C60 30 120 8 200 22S330 34 430 16" stroke="#6B4A2E" stroke-width="3" fill="none"/><path d="M-10 92C80 100 150 80 230 96S360 104 430 88" stroke="#6B4A2E" stroke-width="2.5" fill="none"/>`;
-  const canopy=vine+cluster(50,24,30,105,.82,1)+cluster(175,20,34,120,.82,7)+cluster(305,26,32,120,.82,13)+cluster(405,22,14,60,.8,17)+cluster(22,118,14,56,.75,19)+cluster(398,138,14,58,.75,23)+cluster(122,92,14,62,.72,29)+cluster(272,90,14,62,.72,31)+cluster(200,60,12,56,.7,37);
-  const hang=[40,110,180,250,320,380].map((x,k)=>`<g class="fz-hang" style="--d:${(k*.4).toFixed(1)}s"><path d="M${x} 100C${x+4} 130 ${x-3} 160 ${x+2} ${178+(k%2)*24}" stroke="#6B4A2E" stroke-width="1.6" fill="none"/>${cluster(x,180+(k%2)*24,9,30,.72,40+k)}</g>`).join('');
-  const branch=`<path d="M-20 70C60 52 120 64 190 54S310 40 360 50" stroke="#7A5232" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M-20 66C60 48 120 60 190 50S310 36 360 46" stroke="#A97A4E" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><path d="M250 47c18-12 30-26 34-42" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M80 60c-6 14-4 28 4 40" stroke="#7A5232" stroke-width="5" fill="none" stroke-linecap="round"/>${cluster(290,8,10,36,.72,51)}${cluster(84,100,8,28,.68,57)}${cluster(355,48,9,32,.72,61)}<ellipse cx="150" cy="44" rx="10" ry="4.5" transform="rotate(-20 150 44)" fill="#5BA864"/><ellipse cx="226" cy="40" rx="10" ry="4.5" transform="rotate(25 226 40)" fill="#3E8E4F"/>`;
-  const petals=[...Array(10)].map((_,i)=>`<i class="fz-pt" style="left:${(i*11+4)%96}%;--d:${(i*1.3).toFixed(1)}s;--t:${8+i%5}s"><svg viewBox="-11 -24 22 25"><path d="${BR}" fill="${PINK[i%5]}" fill-opacity=".92"/><path d="${VN}" stroke="#7A0A3F" stroke-opacity=".3" stroke-width=".6" fill="none"/></svg></i>`).join('');
+  const canopy=vine+cluster(30,14,26,90,.42,1)+cluster(120,10,28,100,.42,7)+cluster(215,14,28,100,.42,13)+cluster(310,10,28,100,.42,17)+cluster(400,14,20,70,.42,19)+cluster(60,52,14,90,.4,23)+cluster(250,50,14,90,.4,29)+cluster(370,56,12,70,.4,31)+cluster(20,92,8,40,.4,37)+cluster(160,90,8,50,.38,41)+cluster(300,94,8,50,.38,43)+cluster(402,100,8,40,.4,47);
+  const hang=[40,110,180,250,320,380].map((x,k)=>`<g class="fz-hang" style="--d:${(k*.4).toFixed(1)}s"><path d="M${x} 100C${x+4} 130 ${x-3} 160 ${x+2} ${178+(k%2)*24}" stroke="#6B4A2E" stroke-width="1.6" fill="none"/>${cluster(x,170+(k%2)*24,6,20,.4,40+k)}${cluster(x+2,150+(k%2)*24,4,16,.38,60+k)}${cluster(x-2,128+(k%2)*24,3,14,.36,80+k)}</g>`).join('');
+  const branch=`<path d="M-20 70C60 52 120 64 190 54S310 40 360 50" stroke="#7A5232" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M-20 66C60 48 120 60 190 50S310 36 360 46" stroke="#A97A4E" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><path d="M250 47c18-12 30-26 34-42" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M80 60c-6 14-4 28 4 40" stroke="#7A5232" stroke-width="5" fill="none" stroke-linecap="round"/>${cluster(290,10,8,28,.42,51)}${cluster(84,100,6,22,.4,57)}${cluster(355,48,8,26,.42,61)}${cluster(150,48,5,22,.4,67)}<ellipse cx="150" cy="44" rx="10" ry="4.5" transform="rotate(-20 150 44)" fill="#5BA864"/><ellipse cx="226" cy="40" rx="10" ry="4.5" transform="rotate(25 226 40)" fill="#3E8E4F"/>`;
+  const petals=[...Array(10)].map((_,i)=>`<i class="fz-pt" style="left:${(i*11+4)%96}%;--d:${(i*1.3).toFixed(1)}s;--t:${8+i%5}s"><svg viewBox="-11 -24 22 25"><path d="${BR}" fill="${PINK[i%5]}"/></svg></i>`).join('');
   const pdots=[...Array(10)].map((_,i)=>`<i class="fz-p" style="left:${(i*61)%100}%;top:${30+(i*37)%45}%;--d:${(i*.6)%7}s;--t:${6+(i%5)}s"></i>`).join('');
   el.innerHTML=`<div class="fz-sky fz-sky2"><span class="fz-sun"></span><span class="fz-ray r1"></span><span class="fz-ray r2"></span></div>
     <svg class="fz-perg" viewBox="0 0 420 260" preserveAspectRatio="xMidYMin slice"><defs>${grads}<filter id="dk"><feColorMatrix type="matrix" values=".78 0 0 0 0 0 .78 0 0 0 0 0 .78 0 0 0 0 0 1 0"/></filter></defs>${lattice}<g class="fz-can">${canopy}</g>${hang}</svg>
