@@ -4313,6 +4313,30 @@ html body .fz .fz-card{background:none!important;border:0!important;box-shadow:n
 .fz .fz-wall{height:52%!important;background:linear-gradient(180deg,transparent,rgba(255,244,236,.7) 35%,rgba(250,236,226,.95))!important}
 .fz.need-tap .fz-snd::after{content:"Chạm để nghe Sáo hót"!important;position:absolute;right:52px;white-space:nowrap;font-size:12px;font-weight:700;padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.88);color:#1D2B22;animation:fzHint 2.4s ease-in-out infinite}
 .fz.need-tap .fz-snd{animation:fzGlow 1.6s ease-in-out infinite}
+
+/* egg intro: the required first tap hatches Sáo */
+.fz.egg .fz-bird,.fz.egg .fz-say,.fz.egg .fz-you,.fz.egg .fz-notes{opacity:0;pointer-events:none}
+.fz.egg .fz-card{opacity:0;transform:translateY(20px);pointer-events:none}
+.fz .fz-card{transition:opacity .6s .3s,transform .6s .3s}
+.fz.hatched .fz-bird .fz-f,.fz.hatched .fz-bird .fz-wings{animation:fzHatch .6s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes fzHatch{from{transform:scale(.3) translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.fz-egg{position:absolute;z-index:6;width:150px;height:150px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fz-egg svg{width:100%;height:100%;overflow:visible}
+.fz-egg .egg-shell{transform-origin:60px 100px;animation:eggWob 2.4s ease-in-out infinite}
+@keyframes eggWob{0%,60%,100%{transform:rotate(0)}66%{transform:rotate(-7deg)}72%{transform:rotate(6deg)}78%{transform:rotate(-4deg)}84%{transform:rotate(2deg)}}
+.fz-egg .egg-crack{opacity:0}
+.egg-hint{position:absolute;left:50%;top:160px;transform:translateX(-50%);white-space:nowrap;font-size:15px;font-weight:800;color:#7A2A55;padding:9px 16px;border-radius:99px;background:rgba(255,255,255,.82);border:1px solid #fff;box-shadow:0 10px 24px -12px rgba(150,40,90,.45);animation:fzHint 1.8s ease-in-out infinite}
+.fz.cracking .egg-shell{animation:eggShake .38s ease-in-out 2}
+@keyframes eggShake{25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+.fz.cracking .egg-crack{opacity:1;transition:opacity .1s .3s}
+.fz.cracking .egg-hint{opacity:0;transition:opacity .2s}
+.fz.hatched .egg-top{animation:eggTop .8s cubic-bezier(.2,.8,.3,1) forwards}
+.fz.hatched .egg-bot{animation:eggBot .9s ease-in forwards}
+.fz.hatched .egg-hint{display:none}
+@keyframes eggTop{to{transform:translate(-40px,-90px) rotate(-70deg);opacity:0}}
+@keyframes eggBot{60%{opacity:1}to{transform:translateY(20px);opacity:0}}
+.fz.hatched .fz-egg svg>path{animation:eggBot 1s ease-in .3s forwards}
+.fz.need-tap.egg .fz-snd::after{content:none!important}
 </style>
 
 <svg id="gdefs" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false"><defs><linearGradient id="tmsun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC94A"/><stop offset="1" stop-color="#F2A11F"/></linearGradient><linearGradient id="ttpink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F68DB2"/><stop offset="1" stop-color="#E0628F"/></linearGradient><linearGradient id="tlsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC2F4"/><stop offset="1" stop-color="#3E98DB"/></linearGradient><linearGradient id="twpeach" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFAA6B"/><stop offset="1" stop-color="#EE8238"/></linearGradient><linearGradient id="tblime" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED46A"/><stop offset="1" stop-color="#64AE33"/></linearGradient><linearGradient id="hm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEBD9"/><stop offset="1" stop-color="#FFDCC0"/></linearGradient><linearGradient id="hm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F993B1"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="hm3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="ls1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="ls2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6F3FF"/><stop offset="1" stop-color="#EFEAFF"/></linearGradient><linearGradient id="sp1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="sp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8775EA"/><stop offset="1" stop-color="#6E5BD9"/></linearGradient><linearGradient id="tk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3B6FF"/><stop offset="1" stop-color="#A897FF"/></linearGradient><linearGradient id="tk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="me1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD4BC"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="me2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#AE9FFB"/><stop offset="1" stop-color="#8E7CF6"/></linearGradient><linearGradient id="li1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9F8EF6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="li2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F89DB9"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="wd1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEA94"/><stop offset="1" stop-color="#FFDE6B"/></linearGradient><linearGradient id="wd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFEEB7"/><stop offset="1" stop-color="#B9E59A"/></linearGradient><linearGradient id="fl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFA363"/><stop offset="1" stop-color="#FF7A59"/></linearGradient><linearGradient id="fl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE68B"/><stop offset="1" stop-color="#FFD45E"/></linearGradient><linearGradient id="be1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDD7C"/><stop offset="1" stop-color="#FFC548"/></linearGradient><linearGradient id="tr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="gl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2DBFA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="co1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD8C2"/><stop offset="1" stop-color="#FFC3A3"/></linearGradient><linearGradient id="ho1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="br1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC395"/><stop offset="1" stop-color="#FFA86B"/></linearGradient><linearGradient id="ca1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7F5FF"/><stop offset="1" stop-color="#F1EDFF"/></linearGradient><linearGradient id="ca2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F99AB7"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="aw1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDA77"/><stop offset="1" stop-color="#FFBE3D"/></linearGradient><linearGradient id="lb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F2FF"/><stop offset="1" stop-color="#EDE8FF"/></linearGradient><linearGradient id="lb2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9A5BF"/><stop offset="1" stop-color="#F27BA2"/></linearGradient><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFDEC3"/><stop offset="1" stop-color="#FFCFA8"/></linearGradient><linearGradient id="ph1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A898F6"/><stop offset="1" stop-color="#7F6CEB"/></linearGradient><linearGradient id="pl1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEB0FB"/><stop offset="1" stop-color="#9C8AF7"/></linearGradient><linearGradient id="cr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAC87F"/><stop offset="1" stop-color="#F5A94F"/></linearGradient><linearGradient id="tn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BAE0FA"/><stop offset="1" stop-color="#8FC9F5"/></linearGradient><linearGradient id="lgbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F1FF"/><stop offset="1" stop-color="#E3DBFF"/></linearGradient>
@@ -6900,7 +6924,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v269';
+const APP_V='elocu-v270';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7094,7 +7118,7 @@ const INTRO=[
           <div class="ic ic-c ic-pack"><b>Gói B1</b><span class="ic-bar"><i></i></span></div>`},
 ];
 function introSlides(done){
-  const el=document.createElement('div'); el.className='fz'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
+  const el=document.createElement('div'); el.className='fz egg'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
   /* flat illustration bougainvillea (like the reference): teardrop bract, maroon twig with a white bud dot */
   const BR='M0 0C-7.5 0-11.5-4.6-11.5-10.2-11.5-15.6-7-19.6 0-25.5 7-19.6 11.5-15.6 11.5-10.2 11.5-4.6 7.5 0 0 0z';
   const VN='M0-2.5V-17';
@@ -7120,6 +7144,13 @@ function introSlides(done){
     <div class="fz-dots">${pdots}${petals}</div>
     <svg class="fz-branch" id="fz-branch" viewBox="0 0 340 120" preserveAspectRatio="none"><defs>${grads.replace(/id="bg/g,'id="bb')}<filter id="dk2"><feColorMatrix type="matrix" values=".78 0 0 0 0 0 .78 0 0 0 0 0 .78 0 0 0 0 0 1 0"/></filter></defs>${branch.replace(/url\(#bg/g,'url(#bb').replace(/url\(#dk\)/g,'url(#dk2)')}</svg>
     <div class="fz-wall"></div>
+    <div class="fz-egg" id="fz-egg" role="button" aria-label="Chạm để gặp Sáo"><svg viewBox="0 0 120 120"><defs><radialGradient id="eggg" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#FFFDF7"/><stop offset=".6" stop-color="#F5ECDD"/><stop offset="1" stop-color="#E4D3BC"/></radialGradient><clipPath id="eTop"><path d="M0 0H120V62L108 54 96 64 84 53 72 64 60 54 48 64 36 53 24 64 12 54 0 62Z"/></clipPath><clipPath id="eBot"><path d="M0 120H120V62L108 54 96 64 84 53 72 64 60 54 48 64 36 53 24 64 12 54 0 62Z"/></clipPath></defs>
+      <ellipse cx="60" cy="104" rx="34" ry="7" fill="rgba(120,60,40,.18)"/>
+      <g class="egg-shell"><g class="egg-top" clip-path="url(#eTop)"><path d="M60 10C38 10 24 42 24 66C24 88 40 104 60 104S96 88 96 66C96 42 82 10 60 10Z" fill="url(#eggg)"/><circle cx="48" cy="34" r="2.6" fill="#C9A98A" opacity=".6"/><circle cx="70" cy="28" r="1.8" fill="#C9A98A" opacity=".6"/><circle cx="74" cy="46" r="2.2" fill="#C9A98A" opacity=".5"/><circle cx="42" cy="52" r="1.6" fill="#C9A98A" opacity=".5"/></g>
+      <g class="egg-bot" clip-path="url(#eBot)"><path d="M60 10C38 10 24 42 24 66C24 88 40 104 60 104S96 88 96 66C96 42 82 10 60 10Z" fill="url(#eggg)"/><circle cx="66" cy="80" r="2.4" fill="#C9A98A" opacity=".55"/><circle cx="46" cy="88" r="1.7" fill="#C9A98A" opacity=".5"/></g>
+      <path class="egg-crack" d="M40 50L48 58 54 50 60 60 66 51" stroke="#B48B66" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+      <path d="M22 98C30 112 90 112 98 98" stroke="#8A5A36" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M18 96C34 106 86 106 102 96M26 102C40 110 80 110 94 102" stroke="#A9744A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <b class="egg-hint">Chạm để gặp Sáo 🐣</b></div>
     <div class="fz-bird" id="fz-bird"><div class="fz-body"><svg class="fz-wings fz-back" viewBox="0 0 100 100"><defs><linearGradient id="fzwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${BIRD_PAL[BIRD].b2}"/><stop offset="1" stop-color="${BIRD_PAL[BIRD].acc}"/></linearGradient></defs><g class="fz-wr"><g transform="translate(100 0) scale(-1 1)"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></g></svg><span class="fz-f fz-n">${MASCOT('','flyN')}</span><span class="fz-f fz-t">${MASCOT('','flyNT')}</span><span class="fz-f fz-b">${MASCOT('','flyNB')}</span><span class="fz-f fz-o">${MASCOT('','flyNO')}</span><svg class="fz-wings fz-front" viewBox="0 0 100 100"><g class="fz-wl"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></svg></div></div>
     <div class="fz-say" id="fz-say"><span></span></div>
     <div class="fz-you" id="fz-you"><span></span></div>
@@ -7135,11 +7166,13 @@ function introSlides(done){
   let raf=0, face=1, last=performance.now(), mode='perch', modeUntil=performance.now()+1500, flipA=0, talking=false, blinkAt=performance.now()+2000, frS=.3;
   const P={x:0,y:0,vx:0,vy:0}, T={x:0,y:0,dir:1,h0:0,t:0,x0:0};
   const brY=x=>{const W=el.clientWidth,H=el.clientHeight,top=H*.41,h=H*.11,u=x/W; return top+h*(.62-.16*u-.1*Math.sin(u*Math.PI))};
-  P.x=el.clientWidth*.42; P.y=brY(P.x);
+  let hatched=false;
+  P.x=el.clientWidth*.5; P.y=brY(P.x);
+  const eggEl=$('#fz-egg',el); const placeEgg=()=>{eggEl.style.left=(P.x-75)+'px'; eggEl.style.top=(P.y-130)+'px'}; placeEgg();
   const takeoff=()=>{mode='fly';F.n=2+Math.floor(Math.random()*3);F.vx=face*60;F.vy=-160;F.tgt();modeUntil=performance.now()+9000};
   const F={n:0,vx:0,vy:0,tx:0,ty:0,tgt(){const W=el.clientWidth,H=el.clientHeight;this.tx=W*(.15+Math.random()*.7);this.ty=H*(.1+Math.random()*.24)}};
   const choose=()=>{const now=performance.now(),r=Math.random(),W=el.clientWidth;
-    if(talking){mode='perch';modeUntil=now+500;return}
+    if(talking||!hatched){mode='perch';modeUntil=now+500;return}
     if(r<.34){mode='perch';modeUntil=now+1400+Math.random()*1600}
     else if(r<.62){takeoff()}
     else if(r<.8){mode='hop';T.x0=P.x;T.x=Math.max(W*.2,Math.min(W*.72,P.x+(Math.random()<.5?-1:1)*(40+Math.random()*70)));T.t=0;face=T.x>P.x?1:-1;modeUntil=now+700}
@@ -7202,11 +7235,15 @@ function introSlides(done){
     if(who==='s'){you.classList.remove('on'); show(say,txt); chirp(); talk(txt); for(let k=0;k<3;k++)setTimeout(()=>{const n=document.createElement('i'); n.textContent=['♪','♫','♩'][k]; n.style.setProperty('--dx',(Math.random()*40-20)+'px'); notes.appendChild(n); setTimeout(()=>n.remove(),1600)},k*260); 0}
     else{say.classList.remove('on'); show(you,txt); setTimeout(()=>{if(!talking&&mode==='perch')(Math.random()<.5?flip():takeoff())},450)}
     tm=setTimeout(step,who==='s'?2600:1700)};
-  tm=setTimeout(step,700);
+  const hatch=e=>{if(hatched)return; hatched=true; e&&e.stopPropagation(); try{audioMode&&audioMode('playback')}catch(_){} if(songOn)prime();
+    el.classList.add('cracking'); setTimeout(()=>{if(songOn){chirp(1)}},380);
+    setTimeout(()=>{el.classList.remove('egg','cracking'); el.classList.add('hatched'); el.classList.remove('need-tap'); mode='flip';flipA=0;T.t=0;T.dir=1;modeUntil=performance.now()+1000;
+      setTimeout(()=>{chirp(3); clearTimeout(songTm); songTm=setTimeout(songLoop,1800)},700); tm=setTimeout(step,1400); setTimeout(()=>eggEl.remove(),1400)},760)};
+  eggEl.addEventListener('click',hatch); el.addEventListener('click',e=>{if(!hatched&&!e.target.closest('.fz-snd,.fz-go,.fz-login'))hatch(e)});
   const finish=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{pool.forEach(x=>x.pause())}catch(e){} S.introSeen=true; save(); el.classList.add('out'); setTimeout(()=>{el.remove(); done&&done()},420)};
   $('#fz-go',el).onclick=()=>{sfx('tap'); finish()};
   $('#fz-login',el)&&($('#fz-login',el).onclick=()=>{cancelAnimationFrame(raf); clearTimeout(tm); clearTimeout(songTm); try{pool.forEach(x=>x.pause())}catch(e){} S.introSeen=true;S.onboarded=true;save();el.remove();refreshRail();go('home');loginSheet()});
-  bird.onclick=()=>{clearTimeout(tm); if(!songOn)setSong(true); if(mode==='perch')takeoff(); setTimeout(step,900)};
+  bird.onclick=()=>{if(!hatched)return; clearTimeout(tm); if(!songOn)setSong(true); if(mode==='perch')takeoff(); setTimeout(step,900)};
 }
 function onboarding(placementOnly){
   const el=document.createElement('div'); el.className='ob'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); $('#screen').appendChild(el);
