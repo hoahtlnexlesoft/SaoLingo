@@ -5828,7 +5828,7 @@ function audioFail(why){ttsOK=false; if(ttsWarned)return; ttsWarned=true; showAl
 /* natural AI voice (Gemini) with on-device fallback */
 const AIV={el:null,mem:new Map(),bad:0};
 function aiVoiceOn(){return S.aiVoice!==false&&!(typeof inClaude!=='undefined'&&inClaude)&&navigator.onLine&&AIV.bad<3&&/^https:|localhost/.test(location.origin)}
-function ttsURL(t){if(AIV.cute)return '/api/tts?n=2&s=cute&v=Leda&a=us&t='+encodeURIComponent(t.trim()); return '/api/tts?n=2&v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
+function ttsURL(t){if(AIV.cute)return '/api/tts?n=2&s=cute2&v=Leda&a=us&t='+encodeURIComponent(t.trim()); return '/api/tts?n=2&v='+encodeURIComponent(S.aiVoiceName||'Kore')+'&a='+(S.accent==='uk'?'uk':'us')+'&t='+encodeURIComponent(t.trim())}
 async function aiBlob(t){const u=ttsURL(t); if(AIV.mem.has(u))return AIV.mem.get(u);
   const p=(async()=>{let c; try{c=await caches.open('saovoxy-tts'); const hit=await c.match(u); if(hit)return URL.createObjectURL(await hit.blob())}catch(e){}
     const ctl=new AbortController(); const tm=setTimeout(()=>ctl.abort(),9000);
@@ -5845,7 +5845,7 @@ audioMode('playback');
 function aiStop(){try{if(AIV.el){AIV.el.pause(); AIV.el.onended=null}}catch(e){}}
 function sayAI(text,rate){const cute=AIV.cute; return new Promise(async(res,rej)=>{
   try{const src=await aiBlob(text); aiStop(); try{speechSynthesis.cancel()}catch(e){}
-    audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.src=src; a.preservesPitch=!cute; a.playbackRate=cute?1.07:Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
+    audioMode('playback'); const a=AIV.el||(AIV.el=new Audio()); a.volume=1; a.muted=false; a.src=src; a.preservesPitch=!cute; a.playbackRate=cute?1.07:Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
     a.onended=()=>res(); a.onerror=()=>rej(new Error('play')); await a.play(); ttsOK=true; AIV.bad=0}
   catch(e){AIV.bad++; setTimeout(()=>{AIV.bad=Math.max(0,AIV.bad-1)},60000); rej(e)}})}
 /* never make the learner wait: play the AI voice only if it is ready within ~0.9s,
@@ -5866,7 +5866,7 @@ function say(text,rate){
 function sayDevice(text,rate){return new Promise(res=>{
   audioMode('playback');
   if(!hasTTS){audioFail('unsupported');return res()}
-  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel(); try{speechSynthesis.resume()}catch(e){} const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate; if(AIV.cute){u.pitch=1.55; u.rate=Math.min(u.rate,.88)}
+  try{if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel(); try{speechSynthesis.resume()}catch(e){} const u=new SpeechSynthesisUtterance(text); const v=pickVoice(); if(v)u.voice=v; u.lang=v?.lang||(S.accent==='uk'?'en-GB':'en-US'); u.rate=rate??S.rate; if(AIV.cute){u.pitch=1.4; u.rate=Math.min(u.rate,.9); u.volume=1}
     let started=false; const guard=setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){} audioFail('silent'); res()}},3500);
     u.onstart=()=>{started=true; ttsOK=true};
     u.onend=()=>{clearTimeout(guard); res()};
@@ -7238,7 +7238,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v303';
+const APP_V='elocu-v304';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;

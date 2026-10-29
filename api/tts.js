@@ -14,6 +14,16 @@ function loud(pcm) {
   for (let i = 0; i + 1 < pcm.length; i += 2) out.writeInt16LE(Math.max(-32768, Math.min(32767, Math.round(pcm.readInt16LE(i) * g))), i);
   return out;
 }
+function louder(pcm) {
+  // soft voices have low average level: lift to a speech-like loudness (RMS ≈ -14 dBFS) with a gentle soft-clip limiter
+  const n = pcm.length >> 1; if (!n) return pcm;
+  let sum = 0; for (let i = 0; i < n; i++) { const v = pcm.readInt16LE(i * 2) / 32768; sum += v * v; }
+  const rms = Math.sqrt(sum / n) || 1e-4;
+  const g = Math.min(10, 0.2 / rms);
+  const out = Buffer.alloc(pcm.length);
+  for (let i = 0; i < n; i++) { const v = pcm.readInt16LE(i * 2) / 32768 * g; out.writeInt16LE(Math.round(Math.tanh(v * 1.1) / Math.tanh(1.1) * 0.97 * 32767), i * 2); }
+  return out;
+}
 function wav(pcm, rate = 24000) {
   const h = Buffer.alloc(44);
   h.write('RIFF', 0); h.writeUInt32LE(36 + pcm.length, 4); h.write('WAVE', 8); h.write('fmt ', 12);
@@ -30,9 +40,9 @@ export default async function handler(req, res) {
   const voice = VOICES.has(url.searchParams.get('v')) ? url.searchParams.get('v') : 'Kore';
   const uk = url.searchParams.get('a') === 'uk';
   if (!text) return res.status(400).json({ error: 'bad_request' });
-  const cute = url.searchParams.get('s') === 'cute';
+  const cute = /^cute/.test(url.searchParams.get('s') || '');
   const prompt = cute
-    ? `Say this in a soft, sweet, gentle and cute voice, like a cheerful little bird talking to a friend. Light, airy and smiling, a little slow and very clear, never loud:\n${text}`
+    ? `Say this in a sweet, cute and cheerful voice, like a friendly little bird chatting with a friend. Bright, smiling and gentle in tone, but speak out clearly at a normal, confident speaking volume (not whispering, not breathy), a little slow:\n${text}`
     : `Read this aloud clearly and naturally for an English learner, in a warm, friendly ${uk ? 'British' : 'American'} accent, at a natural pace:\n${text}`;
   let last = 0;
   for (const model of MODELS()) {
@@ -55,7 +65,7 @@ export default async function handler(req, res) {
         const part = (j.candidates?.[0]?.content?.parts || []).find(p => p.inlineData?.data);
         if (part) {
           const m = /rate=(\d+)/.exec(part.inlineData.mimeType || '');
-          const buf = wav(loud(Buffer.from(part.inlineData.data, 'base64')), m ? +m[1] : 24000);
+          const buf = wav((cute ? louder : loud)(Buffer.from(part.inlineData.data, 'base64')), m ? +m[1] : 24000);
           res.setHeader('content-type', 'audio/wav');
           res.setHeader('cache-control', 'public, max-age=31536000, s-maxage=31536000, immutable');
           console.log('tts ok', model, voice, text.length);
