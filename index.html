@@ -4288,7 +4288,7 @@ html[data-palette="vivid"] .fz-go{background:linear-gradient(180deg,#FFD24D,#F2A
 .fz-hang{transform-box:fill-box;transform-origin:50% 0;animation:fzSway 4.5s ease-in-out infinite;animation-delay:var(--d)}
 .fz-branch{position:absolute;left:0;width:100%;top:41%;height:14%;pointer-events:none;z-index:2;filter:drop-shadow(0 8px 8px rgba(90,50,20,.25))}
 .fz-wall{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,transparent,rgba(232,200,170,.35) 40%,rgba(222,186,150,.5))}
-.fz-pt{position:absolute;top:-30px;width:16px;height:18px;animation:fzLf var(--t) linear var(--d) infinite}
+.fz-pt{position:absolute;top:-30px;width:11px;height:13px;animation:fzLf var(--t) linear var(--d) infinite}
 .fz-pt svg{width:100%;height:100%;display:block;animation:fzSpin 2.2s ease-in-out infinite}
 .fz-bird{width:150px!important;height:150px!important;z-index:3}
 .fz-bird.perched .fz-wl{animation:none;transform:rotate(0deg);transition:transform .25s}
@@ -6892,7 +6892,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v260';
+const APP_V='elocu-v261';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7087,21 +7087,26 @@ const INTRO=[
 ];
 function introSlides(done){
   const el=document.createElement('div'); el.className='fz'; el.setAttribute('role','dialog'); el.setAttribute('aria-modal','true'); el.setAttribute('aria-label','Chào mừng đến SáoVoxy');
-  const bract=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${[0,120,240].map(a=>`<path transform="rotate(${a})" d="M0 0C-7-4-9-14-4-19 0-21 4-21 6-18 10-13 7-4 0 0z" fill="${c}"/>`).join('')}<circle r="1.8" fill="#FFF6D8"/></g>`;
-  const PINK=['#E8358F','#F0549F','#D6267E','#F577B4','#C91E74'];
+  const star=(x,y,r)=>`<path transform="translate(${x} ${y}) scale(${r})" d="M0-3L.9-1 3-.9 1.4.6 1.9 2.8 0 1.6-1.9 2.8-1.4.6-3-.9-.9-1z" fill="#FFFDF5"/><circle cx="${x}" cy="${y}" r="${r*.5}" fill="#F6D86B"/>`;
+  const BR='M0 0C-5-2-8.5-7.5-7.6-12.6-6.8-16.8-3.2-19.6 0-21.4 3.2-19.6 6.8-16.8 7.6-12.6 8.5-7.5 5-2 0 0z';
+  const bract=(x,y,r,s,c,k)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${[0,120,240].map(a=>`<g transform="rotate(${a})"><path d="${BR}" fill="url(#bg${k})" stroke="${c}" stroke-width=".6"/><path d="M0-1V-19M0-7L-4.5-12M0-7L4.5-12M0-12.5L-3.6-16.6M0-12.5L3.6-16.6" stroke="#fff" stroke-opacity=".33" stroke-width=".55" fill="none" stroke-linecap="round"/></g>`).join('')}${[0,120,240].map(a=>{const t=(a-90)*Math.PI/180;return star(Math.cos(t)*7,Math.sin(t)*7,.9)}).join('')}</g>`;
+  const PINK=['#E3328A','#EE4F9C','#D02378','#F36AAE','#C61D6E'];
+  const grads=PINK.map((c,k)=>`<radialGradient id="bg${k}" cx=".5" cy=".95" r="1"><stop offset="0" stop-color="${c}" stop-opacity=".98"/><stop offset=".75" stop-color="${c}" stop-opacity=".9"/><stop offset="1" stop-color="#FFD3E8" stop-opacity=".85"/></radialGradient>`).join('');
+  const lf=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C4-4 13-5 20 0 13 5 4 4 0 0z" fill="${c}"/><path d="M1 0H18" stroke="#fff" stroke-opacity=".25" stroke-width=".6"/></g>`;
   const rnd=(i,k)=>{const v=Math.sin(i*12.9898+k*78.233)*43758.5453;return v-Math.floor(v)};
   const cluster=(cx,cy,n,sp,sc,seed)=>[...Array(n)].map((_,i)=>{const lx=cx+(rnd(i,seed)-.5)*sp,ly=cy+(rnd(i,seed+1)-.5)*sp*.6;
-    return (i%3===0?`<ellipse cx="${lx+6}" cy="${ly+4}" rx="7" ry="3.6" transform="rotate(${rnd(i,seed+3)*180} ${lx+6} ${ly+4})" fill="${i%2?'#3E8E4F':'#5BA864'}"/>`:'')+bract(lx,ly,rnd(i,seed+2)*120,sc*(.8+rnd(i,seed+4)*.5),PINK[i%PINK.length])}).join('');
+    return (i%2===0?lf(lx+(rnd(i,seed+5)-.5)*14,ly+(rnd(i,seed+6)-.5)*10,rnd(i,seed+3)*360,.75+rnd(i,seed+7)*.35,i%4?'#4E9A55':'#3A8446'):'')+bract(lx,ly,rnd(i,seed+2)*120,sc*(.75+rnd(i,seed+4)*.4),PINK[i%PINK.length],i%PINK.length)}).join('');
   const lattice=`<g stroke="#B98A5E" stroke-width="7" stroke-linecap="round" opacity=".85">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-20}" y1="0" x2="${i*70-20}" y2="230"/>`).join('')}<line x1="-10" y1="40" x2="430" y2="40"/><line x1="-10" y1="120" x2="430" y2="120"/></g><g stroke="#D3A97B" stroke-width="2" opacity=".6">${[0,1,2,3,4,5,6].map(i=>`<line x1="${i*70-22}" y1="0" x2="${i*70-22}" y2="230"/>`).join('')}</g>`;
-  const canopy=cluster(60,40,30,120,1.25,1)+cluster(200,30,34,150,1.3,7)+cluster(340,44,30,130,1.25,13)+cluster(20,140,16,70,1.1,19)+cluster(390,150,18,80,1.1,23)+cluster(130,110,14,70,1,29)+cluster(290,105,14,70,1,31);
-  const hang=[40,110,180,250,320,380].map((x,k)=>`<g class="fz-hang" style="--d:${(k*.4).toFixed(1)}s">${cluster(x,180+(k%2)*25,9,34,1,40+k)}</g>`).join('');
-  const branch=`<path d="M-20 70C60 52 120 64 190 54S310 40 360 50" stroke="#7A5232" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M-20 66C60 48 120 60 190 50S310 36 360 46" stroke="#A97A4E" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><path d="M250 47c18-12 30-26 34-42" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M80 60c-6 14-4 28 4 40" stroke="#7A5232" stroke-width="5" fill="none" stroke-linecap="round"/>${cluster(290,8,10,40,1,51)}${cluster(84,100,8,34,.95,57)}${cluster(355,48,8,36,1,61)}<ellipse cx="150" cy="44" rx="10" ry="4.5" transform="rotate(-20 150 44)" fill="#5BA864"/><ellipse cx="226" cy="40" rx="10" ry="4.5" transform="rotate(25 226 40)" fill="#3E8E4F"/>`;
-  const petals=[...Array(10)].map((_,i)=>`<i class="fz-pt" style="left:${(i*11+4)%96}%;--d:${(i*1.3).toFixed(1)}s;--t:${8+i%5}s"><svg viewBox="-10 -22 20 24"><path d="M0 0C-7-4-9-14-4-19 0-21 4-21 6-18 10-13 7-4 0 0z" fill="${PINK[i%5]}"/></svg></i>`).join('');
+  const vine=`<path d="M-10 18C60 30 120 8 200 22S330 34 430 16" stroke="#6B4A2E" stroke-width="3" fill="none"/><path d="M-10 92C80 100 150 80 230 96S360 104 430 88" stroke="#6B4A2E" stroke-width="2.5" fill="none"/>`;
+  const canopy=vine+cluster(50,26,26,110,.62,1)+cluster(170,20,30,130,.6,7)+cluster(300,28,28,130,.62,13)+cluster(400,24,14,70,.6,17)+cluster(20,120,12,60,.55,19)+cluster(395,140,12,64,.55,23)+cluster(120,96,12,70,.55,29)+cluster(270,92,12,70,.55,31)+cluster(200,64,10,60,.5,37);
+  const hang=[40,110,180,250,320,380].map((x,k)=>`<g class="fz-hang" style="--d:${(k*.4).toFixed(1)}s"><path d="M${x} 100C${x+4} 130 ${x-3} 160 ${x+2} ${178+(k%2)*24}" stroke="#6B4A2E" stroke-width="1.6" fill="none"/>${cluster(x,180+(k%2)*24,7,30,.55,40+k)}</g>`).join('');
+  const branch=`<path d="M-20 70C60 52 120 64 190 54S310 40 360 50" stroke="#7A5232" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M-20 66C60 48 120 60 190 50S310 36 360 46" stroke="#A97A4E" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/><path d="M250 47c18-12 30-26 34-42" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M80 60c-6 14-4 28 4 40" stroke="#7A5232" stroke-width="5" fill="none" stroke-linecap="round"/>${cluster(290,8,9,38,.55,51)}${cluster(84,100,7,30,.52,57)}${cluster(355,48,8,34,.55,61)}<ellipse cx="150" cy="44" rx="10" ry="4.5" transform="rotate(-20 150 44)" fill="#5BA864"/><ellipse cx="226" cy="40" rx="10" ry="4.5" transform="rotate(25 226 40)" fill="#3E8E4F"/>`;
+  const petals=[...Array(10)].map((_,i)=>`<i class="fz-pt" style="left:${(i*11+4)%96}%;--d:${(i*1.3).toFixed(1)}s;--t:${8+i%5}s"><svg viewBox="-10 -23 20 25"><path d="${BR}" fill="${PINK[i%5]}" fill-opacity=".9"/><path d="M0-1V-19" stroke="#fff" stroke-opacity=".35" stroke-width=".7"/></svg></i>`).join('');
   const pdots=[...Array(10)].map((_,i)=>`<i class="fz-p" style="left:${(i*61)%100}%;top:${30+(i*37)%45}%;--d:${(i*.6)%7}s;--t:${6+(i%5)}s"></i>`).join('');
   el.innerHTML=`<div class="fz-sky fz-sky2"><span class="fz-sun"></span><span class="fz-ray r1"></span><span class="fz-ray r2"></span></div>
-    <svg class="fz-perg" viewBox="0 0 420 260" preserveAspectRatio="xMidYMin slice">${lattice}<g class="fz-can">${canopy}</g>${hang}</svg>
+    <svg class="fz-perg" viewBox="0 0 420 260" preserveAspectRatio="xMidYMin slice"><defs>${grads}</defs>${lattice}<g class="fz-can">${canopy}</g>${hang}</svg>
     <div class="fz-dots">${pdots}${petals}</div>
-    <svg class="fz-branch" id="fz-branch" viewBox="0 0 340 120" preserveAspectRatio="none">${branch}</svg>
+    <svg class="fz-branch" id="fz-branch" viewBox="0 0 340 120" preserveAspectRatio="none"><defs>${grads.replace(/id="bg/g,'id="bb')}</defs>${branch.replace(/url\(#bg/g,'url(#bb')}</svg>
     <div class="fz-wall"></div>
     <div class="fz-bird" id="fz-bird"><div class="fz-body"><svg class="fz-wings fz-back" viewBox="0 0 100 100"><defs><linearGradient id="fzwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${BIRD_PAL[BIRD].b2}"/><stop offset="1" stop-color="${BIRD_PAL[BIRD].acc}"/></linearGradient></defs><g class="fz-wr"><g transform="translate(100 0) scale(-1 1)"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></g></svg><span class="fz-f fz-n">${MASCOT('','flyN')}</span><span class="fz-f fz-t">${MASCOT('','flyNT')}</span><span class="fz-f fz-b">${MASCOT('','flyNB')}</span><span class="fz-f fz-o">${MASCOT('','flyNO')}</span><svg class="fz-wings fz-front" viewBox="0 0 100 100"><g class="fz-wl"><g transform="translate(24 58) scale(1.55) translate(-24 -58)"><path d="M20.5 56c-5.2 5.6-6 13.6-1.6 19.6 3.4-5 6.6-8.8 10.6-10.8-1.2-4-4.4-7.4-9-8.8z" fill="url(#fzwg)"/><path d="M19.6 64.6c.6 3.4 1.8 6.2 3.8 8.4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".9"/></g></g></svg></div></div>
     <div class="fz-say" id="fz-say"><span></span></div>
