@@ -6898,7 +6898,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v266';
+const APP_V='elocu-v267';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7185,11 +7185,18 @@ function introSlides(done){
   const snd=document.createElement('button'); snd.className='fz-snd'; snd.setAttribute('aria-label','Bật tiếng hót'); snd.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path class="w1" d="M16.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M19 6.5a7.5 7.5 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg>';
   el.appendChild(snd);
   const setSong=v=>{songOn=v; snd.classList.toggle('on',v); try{localStorage.setItem('fz.song',v?'1':'0')}catch(e){} clearTimeout(songTm); if(v){ac(); try{audioMode&&audioMode('playback')}catch(e){} chirp(3); songTm=setTimeout(songLoop,1400)}};
-  snd.onclick=e=>{e.stopPropagation(); setSong(!songOn)};
+  snd.onclick=e=>{e.stopPropagation(); if(!songOn||!AC||AC.state==='running')setSong(!songOn); else {AC.resume(); chirp(3)}};
   let wantSong=true; try{wantSong=localStorage.getItem('fz.song')!=='0'}catch(e){}
   if(wantSong)setSong(true);
-  const firstTap=()=>{['pointerdown','touchstart','keydown'].forEach(ev=>document.removeEventListener(ev,firstTap,true)); if(songOn){ac(); chirp(3)}};
-  ['pointerdown','touchstart','keydown'].forEach(ev=>document.addEventListener(ev,firstTap,true));
+  /* iOS/Safari only lets audio start inside a real tap (touchend/click). Unlock on the very first touch anywhere and keep trying until the context runs. */
+  const EV=['touchend','click','pointerup','keydown'];
+  const unlock=()=>{if(!songOn)return; const c=ac(); if(!c)return;
+    try{const b=c.createBuffer(1,1,22050), src=c.createBufferSource(); src.buffer=b; src.connect(c.destination); src.start(0)}catch(e){}
+    const p=c.resume?c.resume():null; const ok=()=>{if(c.state==='running'){EV.forEach(ev=>document.removeEventListener(ev,unlock,true)); chirp(3)}};
+    p&&p.then?p.then(ok,()=>{}):ok()};
+  EV.forEach(ev=>document.addEventListener(ev,unlock,true));
+  /* desktop browsers that already allow autoplay start singing right away */
+  setTimeout(()=>{try{if(songOn&&AC&&AC.state!=='running')AC.resume().then(()=>{if(AC.state==='running'){chirp(3)}},()=>{})}catch(e){}},300);
   let mouthTm=0;
   const talk=txt=>{clearInterval(mouthTm); talking=true; if(mode==='fly'){mode='home';F.hx=P.x<el.clientWidth*.2||P.x>el.clientWidth*.72?el.clientWidth*.45:P.x} else if(mode!=='flip'&&mode!=='home'){mode='perch'; modeUntil=performance.now()+400} bird.classList.add('talk'); const shapes=['m-open','m-o','','m-open','m-o','m-open','']; let k=0, n=Math.max(8,Math.round(txt.length*.9));
     mouthTm=setInterval(()=>{bird.classList.remove('m-open','m-o'); const c=shapes[(k+Math.floor(Math.random()*2))%shapes.length]; if(c)bird.classList.add(c); if(++k>n){clearInterval(mouthTm); bird.classList.remove('m-open','m-o','talk'); talking=false}},110)};
