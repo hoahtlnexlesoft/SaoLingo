@@ -6957,7 +6957,7 @@ function voaPlayer(it,onClose){
   el.querySelector('#vp-b').onclick=()=>{a.currentTime=Math.max(0,a.currentTime-10)};
   el.querySelector('#vp-f').onclick=()=>{a.currentTime=Math.min(a.duration||0,a.currentTime+10)};
   R.oninput=()=>{if(a.duration)a.currentTime=R.value/1000*a.duration};
-  $$('[data-r]',el).forEach(b=>b.onclick=()=>{a.playbackRate=+b.dataset.r; $$('[data-r]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
+  $$('[data-r]',el).forEach(b=>b.onclick=()=>{a.playbackRate=+b.dataset.r; $$('[data-r]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
   const close=()=>{a.pause(); a.src=''; capCtl.abort(); el.remove(); onClose&&onClose()};
   el.querySelector('.ts-back').onclick=close;
   /* AI subtitles: English line + Vietnamese translation, synced with playback */
@@ -7522,7 +7522,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v353';
+const APP_V='elocu-v354';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
@@ -7599,9 +7599,9 @@ function regroupMe(v){
     if(anim){if(id){const d=$(`.set-detail[data-tab="${id}"]`,v); pageIn(d,1)} else pageIn(v,-1)}};
   $$('.sm-row',menu).forEach(b=>b.onclick=()=>open(b.dataset.tab));
   $$('.sd-back',v).forEach(b=>b.onclick=()=>open(b.dataset.back==='profile'?null:'settings'));
-  $$('#rate-seg button',v).forEach(b=>b.onclick=()=>{S.rate=+b.dataset.v;save();$$('#rate-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)));say('This is my reading speed.')});
-  $$('#pal-seg button',v).forEach(b=>b.onclick=()=>{S.palette=b.dataset.v;save();applyPalette();$$('#pal-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
-  $$('#sfx-seg button',v).forEach(b=>b.onclick=()=>{S.sfx=b.dataset.v==='on';save();$$('#sfx-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)));if(S.sfx)sfx('right')});
+  $$('#rate-seg button',v).forEach(b=>b.onclick=()=>{S.rate=+b.dataset.v;save();$$('#rate-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));say('This is my reading speed.')});
+  $$('#pal-seg button',v).forEach(b=>b.onclick=()=>{S.palette=b.dataset.v;save();applyPalette();$$('#pal-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
+  $$('#sfx-seg button',v).forEach(b=>b.onclick=()=>{S.sfx=b.dataset.v==='on';save();$$('#sfx-seg button',v).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));if(S.sfx)sfx('right')});
   $$('#bird-seg button',v).forEach(b=>b.onclick=()=>{S.sao=b.dataset.v==='mynab'?'brown':'black';save();applyPalette();$$('#bird-seg button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.v===b.dataset.v)))});
   $$('#lang-seg button',v).forEach(b=>b.onclick=()=>{if((S.lang||'vi')===b.dataset.v)return; S.lang=b.dataset.v;save(); location.reload()});
   if(meOpen)open(meOpen,!v.classList.contains('pg-in'));
@@ -7655,7 +7655,7 @@ function viewMe(v){
     else if(await enableReminders()){b.setAttribute('aria-checked','true');toast('Sẽ nhắc bạn lúc '+S.remind.time)} };
   $('#remind-time').onchange=e=>{S.remind.time=e.target.value||'20:00';save();syncReminder();scheduleInPage();toast('Giờ nhắc: '+S.remind.time)};
   $('#remind-time-btn').onclick=()=>timeSheet(S.remind.time,t=>{const inp=$('#remind-time'); inp.value=t; inp.dispatchEvent(new Event('change')); $('#remind-time-btn b').textContent=t});
-  $$('#goal-seg button').forEach(b=>b.onclick=()=>{S.goal=+b.dataset.v;save();$$('#goal-seg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
+  $$('#goal-seg button').forEach(b=>b.onclick=()=>{S.goal=+b.dataset.v;save();$$('#goal-seg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
   $('#test-notif').onclick=async()=>{if(window.Notification?.permission!=='granted'){if(!await enableReminders())return}
     if(sbUser){await pushSync(); if(await pushTest()){toast('Đã gửi thông báo từ máy chủ');return}}
     try{await swReg.showNotification('SáoVoxy',{body:'Thông báo đã hoạt động. Hẹn gặp bạn lúc '+S.remind.time+'!',icon:'/icons/icon-192.png'})}catch(e){toast('Chưa gửi được thông báo trên thiết bị này')}};
@@ -7664,7 +7664,7 @@ function viewMe(v){
   $('#voice-sel').onchange=e=>{S.voiceName=e.target.value;save();fillVoiceSelect();say('Hi Sandra! This is how I sound. Let\'s practise English together.')};
   $('#voice-test').onclick=()=>say('Hi Sandra! This is how I sound. Let\'s practise English together.');
   $$('#track-choice [data-track]').forEach(b=>b.onclick=()=>{setTrack(b.dataset.track);go('me',true)});
-  $$('#theme-seg button').forEach(b=>b.onclick=()=>{S.theme=b.dataset.v;save();applyTheme();$$('#theme-seg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
+  $$('#theme-seg button').forEach(b=>b.onclick=()=>{S.theme=b.dataset.v;save();applyTheme();$$('#theme-seg button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
   $('#name-in').onchange=e=>{S.name=e.target.value.trim().slice(0,30);save()};
   $('#redo-place').onclick=()=>onboarding(true);
   $('#reset').onclick=()=>confirmSheet({title:'Xóa toàn bộ tiến độ?',body:'XP, chuỗi ngày, huy hiệu và từ vựng đã học trên máy này sẽ bị xóa. Không thể hoàn tác.',ok:'Xóa hết',danger:true,extra:progressSummaryHTML(true),onOk:()=>{try{localStorage.removeItem(KEY)}catch(e){} location.reload()}});
@@ -7875,14 +7875,14 @@ function onboarding(placementOnly){
       <span class="eyebrow">Bước 1/4</span><h2>Mục tiêu mỗi ngày của bạn?</h2>
       <div class="choice">${[[30,'Nhẹ nhàng','khoảng 5 phút'],[60,'Đều đặn','khoảng 10 phút'],[100,'Nghiêm túc','15–20 phút']].map(([g,t,s])=>`<button data-g="${g}" aria-pressed="${S.goal===g}"><span><b>${t}</b><br><span>${s}</span></span><span class="chip gold">${g} XP</span></button>`).join('')}</div>
       <button class="btn primary" id="ob-next">Tiếp tục ${I.arrow}</button></div>`;
-      $$('[data-g]',el).forEach(b=>b.onclick=()=>{S.goal=+b.dataset.g;$$('[data-g]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
+      $$('[data-g]',el).forEach(b=>b.onclick=()=>{S.goal=+b.dataset.g;$$('[data-g]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
       $('#ob-next',el).onclick=()=>{step=6;draw()};}
     else if(step===6){el.innerHTML=`<div class="ob-in">
       <span class="eyebrow">Bước 2/4</span><h2>Bạn học tiếng Anh cho ngành nào?</h2>
       <p class="lead">SáoVoxy sẽ thêm từ vựng chuyên ngành, bài nghe và tình huống với gia sư AI sát với công việc của bạn.</p>
       <div class="choice">${trackChoices('data-tk')}</div>
       <button class="btn primary" id="ob-next">Tiếp tục ${I.arrow}</button></div>`;
-      $$('[data-tk]',el).forEach(b=>b.onclick=()=>{S.track=b.dataset.tk;applyTrack(true);$$('[data-tk]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b||x.dataset.v===b.dataset.v)))});
+      $$('[data-tk]',el).forEach(b=>b.onclick=()=>{S.track=b.dataset.tk;applyTrack(true);$$('[data-tk]',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
       $('#ob-next',el).onclick=()=>{save();step=2;draw()};}
     else if(step===2){el.innerHTML=`<div class="ob-in">
       <span class="eyebrow">Bước 3/4 · Xếp lớp</span><h2>Kiểm tra nhanh trình độ</h2>
