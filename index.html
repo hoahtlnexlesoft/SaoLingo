@@ -4824,9 +4824,9 @@ html:not(#t1):not(#t2):not(#t3):not(#t4):not(#t5):not(#t6):not(#t7):not(#t8):not
 .focus-flash{animation:focusFlash 1.6s ease-out}
 @keyframes focusFlash{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 55%,transparent)}30%{box-shadow:0 0 0 6px color-mix(in srgb,var(--gold) 35%,transparent)}100%{box-shadow:0 0 0 14px transparent}}
 
-/* iPhone frame in Deep Purple (only where the frame is shown: wide screens, not phones / installed app) */
-@media (min-width:601px) and (pointer:fine) and (not (display-mode:standalone)){html body .stage .device{background:linear-gradient(150deg,#7a6c8e 0%,#3f3550 30%,#5a4d6c 60%,#2a2233 100%)!important;box-shadow:0 0 0 1.5px #8c7fa2 inset,0 0 0 5px #120e17 inset,0 50px 90px -30px rgba(60,30,110,.55),0 30px 50px -30px rgba(0,0,0,.6)!important}
-html body .stage .device .side{background:linear-gradient(90deg,#3a3047,#7e7096)!important}}
+/* iPhone frame in iPhone 14 Purple (light lavender aluminium) (only where the frame is shown: wide screens, not phones / installed app) */
+@media (min-width:601px) and (pointer:fine) and (not (display-mode:standalone)){html body .stage .device{background:linear-gradient(150deg,#f1ebf7 0%,#cfc2e0 28%,#e4daef 55%,#bfb0d3 80%,#d9cde8 100%)!important;box-shadow:0 0 0 1.5px #faf7fd inset,0 0 0 3px #b4a4c9 inset,0 0 0 7px #0d0c10 inset,0 50px 90px -30px rgba(90,60,140,.4),0 30px 50px -30px rgba(40,20,70,.35)!important}
+html body .stage .device .side{background:linear-gradient(90deg,#b7a8cb,#e8def2)!important}}
 
 /* ===== One bean per stage: đậu đỏ, đậu xanh, đậu ngự, đậu cô ve, đậu Hà Lan ===== */
 html:not(#b1):not(#b2):not(#b3):not(#b4):not(#b5):not(#b6):not(#b7):not(#b8):not(#b9):not(#b10):not(#b11):not(#b12):not(#b13):not(#b14):not(#b15):not(#b16):not(#b17):not(#b18):not(#b19):not(#b20):not(#b21):not(#b22):not(#b23):not(#b24):not(#b25):not(#b26):not(#b27):not(#b28):not(#b29):not(#b30):not(#b31):not(#b32):not(#b33):not(#b34):not(#b35):not(#b36):not(#b37):not(#b38):not(#b39):not(#b40):not(#b41):not(#b42):not(#b43):not(#b44):not(#b45):not(#b46):not(#b47):not(#b48):not(#b49):not(#b50):not(#b51) body :is(.mt-stage,.mt-soon-it).bn0 .pb{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 68'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.4' cy='.32' r='.85'%3E%3Cstop offset='0' stop-color='%23F6EFE6'/%3E%3Cstop offset='.55' stop-color='%23E7DBCB'/%3E%3Cstop offset='1' stop-color='%23CDBDA6'/%3E%3C/radialGradient%3E%3CradialGradient id='h' cx='.5' cy='.5' r='.5'%3E%3Cstop offset='0' stop-color='%23fff' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M7 37C6 22 19 13 34 14C41 14.5 45 18.5 51 18.5C57 18.5 61 13.5 69 15.5C79 18 81 34 75 44C67 56 47 59 30 57C16 55 7.5 49 7 37Z' fill='url%28%23g%29'/%3E%3Cellipse cx='26' cy='28' rx='12' ry='6' transform='rotate%28-22 26 28%29' fill='url%28%23h%29'/%3E%3Cellipse cx='51' cy='21.6' rx='6.2' ry='1.7' fill='%23FFFFFF'/%3E%3C/svg%3E") center/100% 100% no-repeat!important}
@@ -7526,7 +7526,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v357';
+const APP_V='elocu-v358';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
