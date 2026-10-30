@@ -6096,7 +6096,7 @@ function vLoad(){let ic=false; try{ic=inClaude}catch(e){} if(VLIB.set||VLIB.load
 setTimeout(vLoad,0);
 function sayLib(text,rate){const h=vHash(text); if(!VLIB.set||!VLIB.set.has(h)||VLIB.bad>2)return null;
   return new Promise(res=>{try{aiStop(); try{speechSynthesis.cancel()}catch(e){}
-    const a=AIV.el||(AIV.el=new Audio()); a.muted=false; a.volume=1; a.src='/v/'+h+'.m4a'; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
+    const a=AIV.el||(AIV.el=new Audio()); a.muted=false; a.volume=1; a.src='/v/'+h+'.m4a?r=2'; a.preservesPitch=true; a.playbackRate=Math.max(.5,Math.min(1.5,(rate??S.rate??1)));
     let ok=false; a.onplaying=()=>{ok=true; ttsOK=true}; a.onended=()=>res(); a.onerror=()=>{VLIB.bad++; res(sayDevice(text,rate))};
     const p=a.play(); p&&p.catch&&p.catch(()=>{if(!ok)res(sayDevice(text,rate))})}catch(e){res(sayDevice(text,rate))}})}
 /* decide synchronously so playback starts inside the tap (iOS drops audio started after an await) */
@@ -7522,7 +7522,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v355';
+const APP_V='elocu-v356';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
