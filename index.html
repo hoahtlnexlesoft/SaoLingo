@@ -5141,13 +5141,15 @@ html:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not
 @keyframes flIdle{0%,100%{transform:rotate(0)}30%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}}
 @keyframes flLook{0%,18%,100%{transform:rotate(0)}26%,40%{transform:rotate(-12deg)}50%,62%{transform:rotate(7deg)}72%{transform:rotate(0)}}
 .pb-flyer .sao-slim .ss-wing2{display:none}
-.pb-flyer.fly .sao-slim .ss-wing2{display:block;transform-box:view-box;transform-origin:56px 55px;animation:flFlap2 .18s ease-in-out infinite alternate}
-.pb-flyer.fly .sao-slim .ss-wing{transform-box:view-box;transform-origin:52px 58px;animation:flFlap .18s ease-in-out infinite alternate}
-.pb-flyer.fly .sao-slim .ss-body{animation:none;transform:rotate(-8deg)}
+.pb-flyer.fly .sao-slim .ss-wing2{display:block;transform-box:view-box;transform-origin:56px 55px;animation:flFlap2 .16s ease-in-out infinite alternate;scale:1.5}
+.pb-flyer.fly .sao-slim .ss-wing{transform-box:view-box;transform-origin:52px 58px;animation:flFlap .16s ease-in-out infinite alternate;scale:1.55}
+.pb-flyer.fly.glide .sao-slim .ss-wing{animation:none;transform:rotate(-38deg)}
+.pb-flyer.fly.glide .sao-slim .ss-wing2{animation:none;transform:rotate(-52deg)}
+.pb-flyer.fly .sao-slim .ss-body{animation:none;transform:rotate(-14deg)}
 .pb-flyer.fly .sao-slim .ss-head{animation:none}
 .pb-flyer.fly .sao-slim > path:first-of-type{transform-box:view-box;transform-origin:50px 76px;transform:scaleY(.35) translateX(4px)}
-@keyframes flFlap{from{transform:rotate(-80deg)}to{transform:rotate(24deg)}}
-@keyframes flFlap2{from{transform:rotate(-96deg)}to{transform:rotate(10deg)}}
+@keyframes flFlap{from{transform:rotate(-110deg)}to{transform:rotate(30deg)}}
+@keyframes flFlap2{from{transform:rotate(-125deg)}to{transform:rotate(14deg)}}
 .pb-flyer.land .sao-slim{animation:flLand .38s ease-out}
 @keyframes flLand{40%{transform:translateY(3px) scale(1.06,.9)}}
 @media (prefers-reduced-motion:reduce){.pb-twig svg,.pb-flyer *{animation:none!important}}
@@ -7552,13 +7554,17 @@ function pbFlyer(v){const map=$('.mt-map',v); if(!map)return; const twigs=$$('.p
   put(p.x,p.y,face);
   const loop=now=>{if(!b.isConnected)return cancelAnimationFrame(raf);
     if(mode==='perch'){p=spot(cur); put(p.x,p.y,face);
-      if(now>until&&!still){const opts=twigs.filter(t=>t!==cur&&vis(t)); const near=opts.length?opts:twigs.filter(t=>t!==cur).sort((a,c)=>Math.abs(spot(a).y-p.y)-Math.abs(spot(c).y-p.y)).slice(0,2);
-        const nx=near[Math.floor(Math.random()*near.length)]; if(nx){F={from:cur,to:nx,t:0,dur:1300+Math.random()*500}; mode='fly'; b.classList.add('fly'); b.classList.remove('land')}}}
+      if(now>until&&!still){const opts=twigs.filter(t=>t!==cur&&vis(t)); const other=opts.filter(t=>t.classList.contains('tr')!==cur.classList.contains('tr')); const near=other.length?other:opts;
+        const nx=near[Math.floor(Math.random()*near.length)]; if(!nx)until=now+1200; else{F={from:cur,to:nx,t:0,dur:2600+Math.random()*900,sw:(Math.random()<.5?-1:1)}; mode='fly'; b.classList.add('fly'); b.classList.remove('land')}}}
     else{const a=spot(F.from), z=spot(F.to); F.t=Math.min(1,F.t+16.7/F.dur); const t=F.t, e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-      const lift=Math.max(70,Math.abs(z.y-a.y)*.25+60), mx=(a.x+z.x)/2, my=Math.min(a.y,z.y)-lift;
-      const x=(1-e)*(1-e)*a.x+2*(1-e)*e*mx+e*e*z.x, y=(1-e)*(1-e)*a.y+2*(1-e)*e*my+e*e*z.y + Math.sin(t*Math.PI*6)*3;
-      face=z.x>a.x?1:-1; put(x,y,face,(t<.5?-10:8)*face);
-      if(t>=1){cur=F.to; face=spot(cur).face; mode='perch'; until=now+2600+Math.random()*2200; b.classList.remove('fly'); b.classList.add('land')}}
+      const W2=map.clientWidth, vTop=-map.getBoundingClientRect().top+70, my=Math.max(vTop,Math.min(a.y,z.y)-Math.max(110,Math.abs(z.y-a.y)*.3+90));
+      /* take off upward, sweep out over the path in a wide loop with a gentle wave, then glide down onto the twig */
+      const mx=W2*(.5+.12*F.sw), x0=(1-e)*(1-e)*(1-e)*a.x+3*(1-e)*(1-e)*e*(a.x+(mx-a.x)*.9)+3*(1-e)*e*e*(z.x+(mx-z.x)*.9)+e*e*e*z.x;
+      const y0=(1-e)*(1-e)*(1-e)*a.y+3*(1-e)*(1-e)*e*my+3*(1-e)*e*e*my+e*e*e*z.y, wave=Math.sin(t*Math.PI*4)*10*Math.sin(t*Math.PI);
+      const x=x0, y=y0+wave, dx=x-(F.px??x); F.px=x; if(Math.abs(dx)>.4)face=dx>0?1:-1;
+      const flapOn=t<.25||(t>.42&&t<.62)||t>.86; b.classList.toggle('glide',!flapOn);
+      put(x,y,face,(t<.2?-18:t>.85?6:-6)*face);
+      if(t>=1){cur=F.to; face=spot(cur).face; mode='perch'; b.classList.remove('glide'); until=now+2600+Math.random()*2200; b.classList.remove('fly'); b.classList.add('land')}}
     raf=requestAnimationFrame(loop)};
   raf=requestAnimationFrame(loop)}
 function viewLessons(v){
@@ -7993,7 +7999,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v402';
+const APP_V='elocu-v403';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
