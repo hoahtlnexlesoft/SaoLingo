@@ -5114,8 +5114,8 @@ html:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not
  52%{transform:rotate(-16deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
  56%{transform:rotate(-12deg) translateY(.8px);animation-timing-function:cubic-bezier(.45,0,.55,1)}
  62%{transform:rotate(-6deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
- 70%,76%{transform:rotate(4deg) scaleX(-1);animation-timing-function:cubic-bezier(.45,0,.55,1)}
- 82%{transform:rotate(-8deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+ 70%,76%{transform:rotate(5deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+ 82%{transform:rotate(-5deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
  90%,94%{transform:rotate(-2deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}
  100%{transform:rotate(0)}}
 @keyframes slTail{0%{transform:rotate(0)}12%,32%{transform:rotate(-14deg)}44%{transform:rotate(8deg)}49%{transform:rotate(-4deg)}54%,100%{transform:rotate(0)}}
@@ -7941,7 +7941,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v400';
+const APP_V='elocu-v401';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
