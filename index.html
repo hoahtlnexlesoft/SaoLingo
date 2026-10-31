@@ -5152,6 +5152,20 @@ html:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not
 @keyframes flFlap2{from{transform:rotate(-125deg)}to{transform:rotate(14deg)}}
 .pb-flyer.land .sao-slim{animation:flLand .38s ease-out}
 @keyframes flLand{40%{transform:translateY(3px) scale(1.06,.9)}}
+
+.pb-flyer .fy-art{position:absolute;left:-30px;top:-26px;width:116px;height:97px;opacity:0;transition:opacity .12s}
+.pb-flyer .fy-art svg{width:100%;height:100%;overflow:visible}
+.pb-flyer.fly .fy-art{opacity:1}
+.pb-flyer.fly .sao-slim{opacity:0}
+.pb-flyer .sao-slim{transition:opacity .12s}
+.pb-flyer .fy-near{transform-box:view-box;animation:fyFlap .3s ease-in-out infinite alternate}
+.pb-flyer .fy-far{transform-box:view-box;animation:fyFlapF .3s ease-in-out infinite alternate}
+@keyframes fyFlap{from{transform:rotate(12deg)}to{transform:rotate(-72deg) scaleY(.9)}}
+@keyframes fyFlapF{from{transform:rotate(18deg)}to{transform:rotate(-58deg)}}
+.pb-flyer.glide .fy-near{animation:none;transform:rotate(-30deg)}
+.pb-flyer.glide .fy-far{animation:none;transform:rotate(-22deg)}
+.pb-flyer .fy-lines{animation:fyLines .3s ease-in-out infinite alternate}
+@keyframes fyLines{to{opacity:.25;transform:translateX(-3px)}}
 @media (prefers-reduced-motion:reduce){.pb-twig svg,.pb-flyer *{animation:none!important}}
 
 /* ===== One bean per stage: đậu đỏ, đậu xanh, đậu ngự, đậu cô ve, đậu Hà Lan ===== */
@@ -7450,6 +7464,23 @@ function PB_TWIG(side,k){const lv=(x,y,r,s)=>`<g transform="translate(${x} ${y})
   const br=(x,y,r,s,c)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})">${[-40,40,0].map(a=>`<path transform="rotate(${a})" d="M0 0C-6.4-1.6-13.4-6.6-14-13.6-14.4-18.4-10.6-22.6-6.6-26-4.2-28-1.8-30.6 0-34 1.8-30.6 4.2-28 6.6-26 10.6-22.6 14.4-18.4 14-13.6 13.4-6.6 6.4-1.6 0 0z" fill="${c}"/>`).join('')}<circle cy="-12" r="2.2" fill="#FFF6E0"/></g>`;
   const C=['#B98AF0','#A974E8','#C69CF4','#E35FB4'][k%4];
   return `<span class="pb-twig ${side}" aria-hidden="true"><svg viewBox="0 0 150 70"><path d="M-6 44C30 38 66 34 112 30c8-1 14-3 18-6" stroke="#7A5232" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M-6 41C30 35 66 31 112 27" stroke="#A97A4E" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/><path d="M58 35c6 8 8 16 6 24M92 32c4-9 10-14 18-16" stroke="#7A5232" stroke-width="3" fill="none" stroke-linecap="round"/>${lv(20,42,150,.5)}${lv(46,37,-30,.55)}${lv(64,58,110,.45)}${lv(110,16,-60,.42)}${lv(126,26,20,.5)}${lv(80,34,160,.45)}${br(64,62,170,.38,C)}${br(112,16,-30,.36,C)}${br(30,44,-160,.32,'#C69CF4')}</svg></span>`}
+/* chubby side-view Sáo in full flight: wings up, eyes squeezed happy, beak open, tail fanned, feet tucked */
+function SAO_FLY(){const P=BIRD_PAL[BIRD]||BIRD_PAL.violet, ink=P.ink||'#2B1F5E', id='fy'+(SAO_FLY.n=(SAO_FLY.n||0)+1);
+  const W='M62 54C54 46 44 40 34 36c-6-2-10-7-7-11 2-3 6-3 9-1-4-4-3-9 1-10 3-1 6 0 8 3-2-5 0-9 4-10 4 0 6 3 6 6 0-5 3-8 7-7 4 1 5 5 4 9 3-3 7-2 8 1 2 4 0 8-4 10 3 0 6 3 5 6-1 4-4 6-8 6 4 2 4 6 2 9z';
+  return `<svg class="sao-fly" viewBox="0 0 120 100" aria-hidden="true"><defs><radialGradient id="${id}" cx=".55" cy=".35" r=".8"><stop offset="0" stop-color="${P.b1}"/><stop offset=".6" stop-color="${P.b2}"/><stop offset="1" stop-color="${P.b3}"/></radialGradient><linearGradient id="${id}w" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${P.b2}"/><stop offset="1" stop-color="${P.b1}"/></linearGradient></defs>
+  <g class="fy-lines" fill="none" stroke="${P.b1}" stroke-width="2" stroke-linecap="round" opacity=".7"><path d="M14 56q-6 0-10 3M18 66q-7 1-11 5M22 46q-5-1-9 1"/></g>
+  <g class="fy-far" style="transform-origin:62px 50px"><path d="${W}" transform="translate(8 -2) scale(.86)" fill="${P.b3}"/></g>
+  <path d="M34 58 12 50c-2 0-3 2-1 3l10 8-12 2c-2 1-1 3 1 3l14 1-8 8c-1 2 0 3 2 2l20-12z" fill="${P.b3}"/>
+  <ellipse cx="62" cy="60" rx="30" ry="24" transform="rotate(-12 62 60)" fill="url(#${id})"/>
+  <ellipse cx="72" cy="66" rx="15" ry="11" transform="rotate(-18 72 66)" fill="${P.belly1}"/>
+  <g fill="${P.feet}"><ellipse cx="58" cy="82" rx="5" ry="3.2" transform="rotate(20 58 82)"/><ellipse cx="66" cy="83" rx="5" ry="3.2" transform="rotate(20 66 83)"/></g>
+  <path d="M76 26c-1-6 2-10 7-11-1 3 0 6 3 7 1-5 5-8 10-8-3 3-3 7-2 11" fill="${P.crest}"/>
+  <circle cx="84" cy="42" r="17" fill="url(#${id})"/>
+  <circle cx="88" cy="39" r="7.5" fill="${P.ring}"/><path d="M83.5 40.5q4.5-5 9 0" fill="none" stroke="${ink}" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M98 40c6-1 12 1 15 4-4 1-10 1-15 0z" fill="${P.beak1}"/><path d="M98 46c5 1 10 3 12 6-4 1-9 0-12-3z" fill="${P.beak2}"/><path d="M98 44l9 2-9 2z" fill="#C8463C"/>
+  <ellipse cx="85" cy="51" rx="4.6" ry="2.8" fill="${P.blush}" opacity=".75"/>
+  <g class="fy-near" style="transform-origin:58px 54px"><path d="${W}" fill="url(#${id}w)"/><path d="M58 50C52 40 46 32 40 24M54 52C48 46 42 42 34 40" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".45"/></g>
+  </svg>`}
 /* Sáo doing little things beside the lesson path (mirror, book, gem, music, globe, potion, flap, sly) */
 const SCENES=['speak','book','mirror','write','snack','read','study','gem','music','eat','globe','potion','flap','sly'];
 function SAO_SCENE(kind){const P=BIRD_PAL[BIRD]||BIRD_PAL.violet, ink=P.ink||'#2B1F5E', id='sc'+(SAO_SCENE.n=(SAO_SCENE.n||0)+1), B=`url(#${id})`;
@@ -7545,7 +7576,7 @@ const ROUND_IC=['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const PB_LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10.6V8.2a4 4 0 0 1 8 0v2.4"/><path fill-rule="evenodd" d="M7.6 10.4h8.8a3.2 3.2 0 0 1 3.2 3.2v4.4a3.2 3.2 0 0 1-3.2 3.2H7.6A3.2 3.2 0 0 1 4.4 18v-4.4a3.2 3.2 0 0 1 3.2-3.2zM12 14.1a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 1 0 0-3.2z" fill="currentColor" stroke="none"/></svg>';
 /* one Sáo hops between the edge twigs on the lesson path: perches, looks around, then flies to another visible twig */
 function pbFlyer(v){const map=$('.mt-map',v); if(!map)return; const twigs=$$('.pb-twig',map); if(twigs.length<2)return;
-  const b=document.createElement('div'); b.className='pb-flyer'; b.innerHTML=SAO_SLIM(); map.appendChild(b);
+  const b=document.createElement('div'); b.className='pb-flyer'; b.innerHTML=SAO_SLIM()+`<span class="fy-art">${SAO_FLY()}</span>`; map.appendChild(b);
   const W=56,H=56, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const spot=t=>{const mr=map.getBoundingClientRect(), r=t.getBoundingClientRect(), right=t.classList.contains('tr'); return {x:(right?r.right-r.width*.58:r.left+r.width*.58)-mr.left, y:r.top-mr.top+r.height*.47, face:right?-1:1}};
   const vis=t=>{const r=t.getBoundingClientRect(), vh=innerHeight; return r.bottom>60&&r.top<vh-90};
@@ -7999,7 +8030,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v403';
+const APP_V='elocu-v404';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
