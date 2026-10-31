@@ -1165,6 +1165,8 @@ svg.ph.flame{color:#FF7A2F}
 .pitch li span svg.ph,.ob .feat svg.ph{width:22px;height:22px}
 .wotd2 .wart{display:none}
 .coach svg{flex:none}
+html body .coach{grid-template-columns:60px minmax(0,1fr)!important}
+html body .coach > svg.mascot{width:60px!important;height:60px!important;max-width:60px;align-self:end}
 .screen .topbar{position:relative!important;background:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 svg.ph.flame,.actions svg.ph.flame,.streak-pill svg.ph.flame{color:#FF7A2F!important}
 .bento2 .tile .tart svg.ph{width:30px!important;height:30px!important;margin:auto}
@@ -8041,7 +8043,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v406';
+const APP_V='elocu-v407';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
