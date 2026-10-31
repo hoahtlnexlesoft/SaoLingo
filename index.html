@@ -4938,7 +4938,7 @@ html body .fz-bird .fz-f:not(.fz-n){z-index:1!important}
 /* onboarding hero is the Flow clip: Sáo flies down to the rattan basket; the card sits on the empty cream lower part */
 .fz-clip{display:none}
 .fz.has-clip{background:#F3E8D7!important}
-.fz.has-clip .fz-clip{display:block;position:absolute;left:0;top:-7%;width:100%;aspect-ratio:9/16;height:auto;object-fit:cover;object-position:50% 0;z-index:1;pointer-events:none}
+.fz.has-clip .fz-clip{display:block;position:absolute;left:0;top:0;width:100%;aspect-ratio:9/16;height:auto;object-fit:cover;object-position:50% 0;z-index:1;pointer-events:none}
 .fz.has-clip :is(.fz-sky,.fz-perg,.fz-dots,.fz-branch,.fz-wall,.fz-gsh,.fz-bird,.fz-bowl,.fz-crumbs,.fz-bowlf,.fz-say,.fz-you,.fz-notes){display:none!important}
 /* eating, front view: Sáo stands right behind the bowl and bobs down into it — no turning round */
 html body .fz-bird.eating .fz-body{animation:fzBow 2.4s cubic-bezier(.45,0,.35,1) infinite!important;transform-origin:50% 96%}
@@ -7888,7 +7888,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v396';
+const APP_V='elocu-v397';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
