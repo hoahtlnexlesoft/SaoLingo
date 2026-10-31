@@ -5134,22 +5134,22 @@ html:not(#k1):not(#k2):not(#k3):not(#k4):not(#k5):not(#k6):not(#k7):not(#k8):not
 .pb-twig svg{transform-origin:0 60%;animation:twSway 5s ease-in-out infinite}
 .pb-twig.tr svg{animation-delay:-2.2s}
 @keyframes twSway{0%,100%{transform:rotate(0)}50%{transform:rotate(-1.6deg)}}
-.pb-flyer{position:absolute;left:0;top:0;width:80px;height:67px;z-index:8;pointer-events:none;will-change:transform;transform-origin:42px 62px}
+.pb-flyer{position:absolute;left:0;top:0;width:62px;height:62px;z-index:8;pointer-events:none;will-change:transform;transform-origin:31px 55px}
 .pb-flyer .sao-slim{width:100%;height:100%;overflow:visible}
 .pb-flyer .sao-slim .ss-body{transform-box:view-box;transform-origin:50px 88px;animation:flIdle 3.6s ease-in-out infinite}
 .pb-flyer .sao-slim .ss-head{transform-box:view-box;transform-origin:60px 54px;animation:flLook 4.2s ease-in-out infinite}
 @keyframes flIdle{0%,100%{transform:rotate(0)}30%{transform:rotate(-3deg)}60%{transform:rotate(2deg)}}
 @keyframes flLook{0%,18%,100%{transform:rotate(0)}26%,40%{transform:rotate(-12deg)}50%,62%{transform:rotate(7deg)}72%{transform:rotate(0)}}
 .pb-flyer .sao-slim .ss-wing2{display:none}
-.pb-flyer.fly .sao-slim .ss-wing2{display:block;transform-box:view-box;transform-origin:56px 55px;animation:flFlap2 .16s ease-in-out infinite alternate;scale:1.5}
-.pb-flyer.fly .sao-slim .ss-wing{transform-box:view-box;transform-origin:52px 58px;animation:flFlap .16s ease-in-out infinite alternate;scale:1.55}
-.pb-flyer.fly.glide .sao-slim .ss-wing{animation:none;transform:rotate(-38deg)}
-.pb-flyer.fly.glide .sao-slim .ss-wing2{animation:none;transform:rotate(-52deg)}
-.pb-flyer.fly .sao-slim .ss-body{animation:none;transform:rotate(-14deg)}
+.pb-flyer.fly .sao-slim .ss-wing2{display:block;transform-box:view-box;transform-origin:54px 56px;animation:flFlap2 .22s ease-in-out infinite alternate;scale:1.75}
+.pb-flyer.fly .sao-slim .ss-wing{transform-box:view-box;transform-origin:52px 58px;animation:flFlap .22s ease-in-out infinite alternate;scale:1.85}
+.pb-flyer.fly.glide .sao-slim .ss-wing{animation:none;transform:rotate(28deg)}
+.pb-flyer.fly.glide .sao-slim .ss-wing2{animation:none;transform:rotate(40deg)}
+.pb-flyer.fly .sao-slim .ss-body{animation:none;transform:rotate(-6deg)}
 .pb-flyer.fly .sao-slim .ss-head{animation:none}
-.pb-flyer.fly .sao-slim > path:first-of-type{transform-box:view-box;transform-origin:50px 76px;transform:scaleY(.35) translateX(4px)}
-@keyframes flFlap{from{transform:rotate(-110deg)}to{transform:rotate(30deg)}}
-@keyframes flFlap2{from{transform:rotate(-125deg)}to{transform:rotate(14deg)}}
+.pb-flyer.fly .sao-slim > path:first-of-type{opacity:0}
+@keyframes flFlap{from{transform:rotate(78deg)}to{transform:rotate(-22deg)}}
+@keyframes flFlap2{from{transform:rotate(92deg)}to{transform:rotate(-6deg)}}
 .pb-flyer.land .sao-slim{animation:flLand .38s ease-out}
 @keyframes flLand{40%{transform:translateY(3px) scale(1.06,.9)}}
 
@@ -7587,8 +7587,8 @@ const ROUND_IC=['<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const PB_LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10.6V8.2a4 4 0 0 1 8 0v2.4"/><path fill-rule="evenodd" d="M7.6 10.4h8.8a3.2 3.2 0 0 1 3.2 3.2v4.4a3.2 3.2 0 0 1-3.2 3.2H7.6A3.2 3.2 0 0 1 4.4 18v-4.4a3.2 3.2 0 0 1 3.2-3.2zM12 14.1a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 1 0 0-3.2z" fill="currentColor" stroke="none"/></svg>';
 /* one Sáo hops between the edge twigs on the lesson path: perches, looks around, then flies to another visible twig */
 function pbFlyer(v){const map=$('.mt-map',v); if(!map)return; const twigs=$$('.pb-twig',map); if(twigs.length<2)return;
-  const b=document.createElement('div'); b.className='pb-flyer'; b.innerHTML=`<span class="fy-art">${SAO_FLY()}</span>`; map.appendChild(b);
-  const AX=42,AY=62, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const b=document.createElement('div'); b.className='pb-flyer'; b.innerHTML=SAO_SLIM(); map.appendChild(b);
+  const AX=31,AY=55, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const spot=t=>{const mr=map.getBoundingClientRect(), r=t.getBoundingClientRect(), right=t.classList.contains('tr'); return {x:(right?r.right-r.width*.58:r.left+r.width*.58)-mr.left, y:r.top-mr.top+r.height*.47, face:right?-1:1}};
   const vis=t=>{const r=t.getBoundingClientRect(), vh=innerHeight; return r.bottom>60&&r.top<vh-90};
   let cur=twigs.find(vis)||twigs[0], p=spot(cur), face=p.face, mode='perch', until=performance.now()+1500, F=null, raf;
@@ -7604,7 +7604,7 @@ function pbFlyer(v){const map=$('.mt-map',v); if(!map)return; const twigs=$$('.p
       const mx=W2*(.5+.12*F.sw), x0=(1-e)*(1-e)*(1-e)*a.x+3*(1-e)*(1-e)*e*(a.x+(mx-a.x)*.9)+3*(1-e)*e*e*(z.x+(mx-z.x)*.9)+e*e*e*z.x;
       const y0=(1-e)*(1-e)*(1-e)*a.y+3*(1-e)*(1-e)*e*my+3*(1-e)*e*e*my+e*e*e*z.y, wave=Math.sin(t*Math.PI*4)*10*Math.sin(t*Math.PI);
       const x=x0, y=y0+wave, dx=x-(F.px??x); F.px=x; if(Math.abs(dx)>.4)face=dx>0?1:-1;
-      const flapOn=t<.25||(t>.42&&t<.62)||t>.86; b.classList.toggle('glide',!flapOn);
+      const flapOn=!(t>.5&&t<.62)&&t<.9; b.classList.toggle('glide',!flapOn);
       put(x,y,face,(t<.2?-18:t>.85?6:-6)*face);
       if(t>=1){cur=F.to; face=spot(cur).face; mode='perch'; b.classList.remove('glide'); until=now+2600+Math.random()*2200; b.classList.remove('fly'); b.classList.add('land')}}
     raf=requestAnimationFrame(loop)};
@@ -8041,7 +8041,7 @@ async function enableReminders(){
     if(!st||st.state==='granted')await swReg.periodicSync.register('daily-reminder',{minInterval:3*3600e3})}}catch(e){}
   syncReminder(); scheduleInPage(); return true;
 }
-const APP_V='elocu-v405';
+const APP_V='elocu-v406';
 let _upBusy=0;
 async function checkUpdate(){
   if(_upBusy||!navigator.onLine)return; _upBusy=1;
